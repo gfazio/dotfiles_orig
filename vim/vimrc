@@ -16,6 +16,8 @@ filetype plugin indent on
 " General Settings ------ {{{
 "
 syntax on
+syntax enable
+
 
 let mapleader=","
 
@@ -98,16 +100,20 @@ set statusline+=%L    "Total lines
     " GVIM- (here instead of .gvimrc)
     if has('gui_running')
 	    set lines=40
+	    set background=light
             "colorscheme eclipse 
             "colorscheme  desert
             "colorscheme twilight
-            colorscheme zenburn
+            "colorscheme zenburn
+            colorscheme solarized
 
             "set guifont=Inconsolata-dz:h18
             set guifont=Monospace\ 15
             set guicursor=n-v-c:block-Cursor
             highlight Cursor guifg=yellow guibg=blue
     else
+	    set background=dark
+            colorscheme solarized
 	    if &term =~ "xterm"
              if has("terminfo")
 		         set t_Co=8
