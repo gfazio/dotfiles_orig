@@ -1,0 +1,8 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =6
+let g:netrw_dirhist_1='/home/vggraff/.vim/bundles-available/c-support/c-support/templates'
+let g:netrw_dirhist_2='/home/vggraff/.vim/bundles-available/c-support/plugin'
+let g:netrw_dirhist_3='/home/vggraff/Development/Sandbox/emp5/src/awe'
+let g:netrw_dirhist_4='/home/vggraff/Development/Sandbox/emp4.0/src/awe'
+let g:netrw_dirhist_5='/home/vggraff/Development/Sandbox/emp4.0/src'
+let g:netrw_dirhist_6='/home/vggraff/Development/Sandbox/emp4.0/src/awe'

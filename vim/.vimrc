@@ -1,0 +1,550 @@
+" =A-S-L================================
+"
+"
+" Plugin setup --- via Pathogen ----- {{{
+set nocompatible
+filetype off
+execute pathogen#infect() 
+execute pathogen#helptags() 
+filetype on
+filetype plugin on
+filetype plugin indent on
+"
+" }}}
+"
+" =================================
+"
+" GUI Settings ---------------------- {{{
+"
+    " GVIM- (here instead of .gvimrc)
+    if has('gui_running')
+	    set lines=40
+            "colorscheme eclipse 
+            "colorscheme  desert
+            "colorscheme twilight
+            colorscheme zenburn
+
+	    if has("gui_gtk2")
+               set guifont=Inconsolata\ 15
+	    elseif has("gui_macvim")
+                set guifont=Inconsolata-dz:h14
+		"set guifont=Menlo\ Regular:h14
+	    endif
+            set guicursor=n-v-c:block-Cursor
+            "highlight Cursor guifg=yellow guibg=blue
+    else
+	    if &term =~ "xterm"
+             if has("terminfo")
+		set t_Co=8
+	        set t_Sf=3%p1%dm
+		set t_Sb=4%p1%dm
+	     else
+		set t_Co=8
+		set t_Sf=3%dm
+		set t_Sb=4%dm
+             endif
+            endif
+    endif
+"
+" }}}
+"
+" =================================
+"
+" General Settings ------ {{{
+"
+syntax on
+
+let mapleader=","
+
+set autoindent "set autoindenting for programming
+set autoread
+set autowrite
+set columns=100
+set dictionary+=/usr/share/dict/words
+set directory=.,$TEMP:
+set foldlevel=0   "0=all folds closed; 99=all folds open
+set foldmethod=indent
+set hidden
+set history=1000
+set hlsearch   "set highligh searching
+set incsearch  "set incremental searching
+set lines=40
+set nobackup
+set nowritebackup
+set number
+set omnifunc=syntaxcomplete#Complete
+set shiftwidth=4
+set showmatch
+set showmode
+set title
+set visualbell
+set wildmenu
+set wildmode=list,longest,full
+"
+" }}}
+"
+" =================================
+"
+" General Key Bindings ----- {{{
+"
+noremap <C-S-F12> :call g:VGGCTagsGenerate()<CR>
+noremap <D-F11> :NERDTreeToggle <CR>
+noremap <C-M> :make %<CR>
+noremap <C-F5> :setlocal spell! spelllang = en_gb<CR>
+noremap <D-F3> <ESC>:set guifont=*<CR>
+noremap <D-\> : tab split <CR>exec("tag ".expand("<cword>"))<CR>
+noremap <A-]> :vsp        <CR>exec("tag ".expand("<cword>"))<CR>
+nnoremap <leader>[ :tabprevious<CR> 
+nnoremap <leader>] :tabnext<CR> 
+
+nnoremap <leader>a <Esc>:Ack!
+nnoremap <leader>f :set guifont=Monospace\ 12<CR>
+nnoremap <leader>F :set guifont=Monospace\ 15<CR>
+
+" clears highlighted search results
+nnoremap <Esc> :nohlsearch <CR><Esc>
+
+"cd to current working directory
+nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
+
+" edit vimrc file
+nnoremap <leader>v :edit $MYVIMRC<CR>
+"
+"If you forget to sudo before calling vim use the following to be
+"able to write the file.
+cnoremap w!! %!sudo tee > /dev/null %
+
+"
+"Manage multiple windows
+"nnoremap <leader>W :call g:VGGToggleWindowFixedWidth()<CR>
+"nnoremap <leader>H :call g:VGGToggleWindowFixedHeight()<CR>
+nnoremap <leader>W :call g:VGGAutoWindowResize()<CR>
+" }}}
+"
+
+"
+" =================================
+"
+" GoldenView ----- {{{
+
+"let g:goldenview__enable_default_mapping=1
+"Split the tiled window
+nnoremap <C-L> <Plug>GoldenViewSplit
+"nnoremap <silent><C-L> <Plug>GoldenViewSplit
+
+"Quickly switch current window with main pane and toggle between the two
+nnoremap <F8>    <Plug>GoldenViewSwitchMain
+nnoremap <S-F8>  <Plug>GoldenViewSwitchToggle
+"nnoremap <silent><F8>    <Plug>GoldenViewSwitchMain
+"nnoremap <silent><S-F8>  <Plug>GoldenViewSwitchToggle
+
+"Jump to next/previous window
+nnoremap <C-N> <Plug>GoldenViewNext
+nnoremap <C-P> <Plug>GoldenViewPrevious
+"nnoremap <silent><C-N> <Plug>GoldenViewNext
+"nnoremap <silent><C-P> <Plug>GoldenViewPrevious
+" }}}
+"
+"
+" =================================
+"
+" Eclim Settings ------ {{{
+"
+" =================================
+"
+
+" Status line setting
+let g:EclimProjectStatusLine = 'eclim(p=${name}, n=${natures})'
+
+let g:EclimProjectTreeAutoOpen=1
+"
+" }}}
+"
+" =================================
+"
+" Status Line ----- {{{
+"
+set laststatus=2     "Always display status line
+set statusline=%F    "Full path to the file
+set statusline+=\ -\        "Separator 
+set statusline+=%-4{fugitive#statusline()}  "If using git, show 
+                                            "branch being used 
+					    "in status line.
+set statusline+=%-4{eclim#project#util#ProjectStatusLine()} " If using
+                                                            " eclim, show project 
+							    " status line
+set statusline+=%=    "Switch to the right side
+set statusline+=%l    "Current line
+set statusline+=/    " Separator
+set statusline+=%L    "Total lines
+
+"
+" }}}
+"
+" =================================
+"
+" Vimscript file settings ------------ {{{
+"
+augroup filetype_vim
+	autocmd!
+	autocmd FileType vim setlocal foldmethod=marker 
+	" Source the vimrc file after saving it 
+	if has("autocmd") 
+		autocmd bufwritepost .vimrc source $MYVIMRC 
+	endif
+	function! g:VGGToggleWindowFixedWidth()
+		:set winfixwidth!
+		if &l:winfixwidth
+			echo "Fixed Window Width ON"
+		else
+			echo "Fixed Window Width OFF"
+		endif
+	endfunction
+	function! g:VGGToggleWindowFixedHeight()
+		:set winfixheight!
+		if &l:winfixheight
+			echo "Fixed Window Height ON"
+		else
+			echo "Fixed Window Height OFF"
+		endif
+	endfunction
+	function! g:VGGAutoWindowResize()
+		if winwidth == 100 || winheight == 40
+			set nowinfixwidth nowinfixheight
+			set noequalalways eadirection=both
+			set winminwidth=1 winminheight=1
+			set winwidth=9999 winheight=999
+			set helpheight=999 cmdwinheight=999 previewheight=999
+			echo "Window Defaults ON"
+		else
+			set nowinfixwidth nowinfixheight
+			set equalalways eadirection=both
+			set winminwidth=1 winminheight=0
+			set winwidth=100 winheight=40
+			set helpheight=20 cmdwinheight=7 previewheight=12
+			echo "Window Defaults OFF"
+		endif
+	endfunction
+augroup END
+"
+" }}}
+"
+" =================================
+"
+" Omnicompletion and SuperTab settings ------- {{{
+"
+inoremap <expr> <Esc>   pumvisible() ? "\<C-e>" : "\<Esc>"
+inoremap <expr> <CR>    pumvisible() ? "\<C-y>" : "\<CR>"
+inoremap <expr> <Down>  pumvisible() ? "\<C-n>" : "\<Down>"
+inoremap <expr> <Up>    pumvisible() ? "\<C-p>" : "\<Up>"
+inoremap <expr> <PageDown>  pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<PageDown>"
+inoremap <expr> <PageUp>  pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
+
+let g:SuperTabDefaultCompletionType="context"
+
+"
+" OmniCppComplete
+"
+let OmniCpp_NamespaceSearch=1
+let OmniCpp_GlobalScopeSearch=1
+let OmniCpp_ShowAccess=1
+let OmniCpp_ShowPrototypeInAbbr= 1 " show function parameters
+let OmniCpp_MayCompleteDot=1 " autocomplete after .
+let OmniCpp_MayCompleteArrow=1 " autocomplete after ->
+let OmniCpp_MayCompleteScope=1 " autocomplete after ::
+let OmniCpp_DefaultNamespaces=["std"] "same as inserting using namespace std 
+
+"
+" Automatically open and close the popup menu / preview window
+"
+
+au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
+set completeopt=menuone,menu,longest,preview
+
+"
+" }}}
+"
+" =================================
+"
+"Gundo Settings --- {{{
+"
+noremap <leader>g :GundoToggle<CR>
+"
+" }}}
+"
+" =================================
+"
+" MiniBufExplorer Settings ----- {{{
+"
+"Ctrl+vi direction keys[hjkl] for window movement
+"
+let g:miniBufExplMapWindowNavVim=1
+"
+"Ctrl+ arrow keys for window movement
+"
+let g:miniBufExplMapWindowNavArrows=1
+"
+"<C-Tab> and <C-S-Tab> to move between buffers
+"
+let g:miniBufExplMapCTabSwitchBufs=1
+"Allows MBE to close when you select a buffer, plus buffer
+"should not show up in a window hosting an explorer.
+let g:miniBufExplCloseOnSelect = 1
+
+let g:miniBufExplMapModSelTarget=1
+let g:miniBufExplBRSplit=0
+let g:miniBufExplVSplit=15
+let g:miniBufExplAutoStart=0
+
+"Open miniBufExpl
+noremap <leader>mbe :MBEOpen<CR>
+"close miniBufExpl
+noremap <leader>mbc :MBEClose<CR>
+"update miniBufExpl
+noremap <leader>mbt :MBEToggle<CR>
+
+"
+" }}}
+"
+" =================================
+"
+" Taglist Settings ---- {{{
+"
+" Taglist variables
+"
+set tags+=./tags;/    
+set tags+=~/Sandbox/TagsDir/cpp 
+set tags+=~/Sandbox/TagsDir/tags 
+"can verify taglist is correct via 
+": set verbose tags?" command
+
+"
+" Display function name in status bar:
+"
+let g:ctags_statusline=1
+"
+" Automatically start script
+"
+let generate_tags=1
+"
+" Displays taglist results in a vertical window:
+"
+let Tlist_Use_Horiz_Window=0
+"
+" Shorter commands to toggle Taglist display
+"
+nnoremap TT :TlistToggle<CR>
+nnoremap <C-S-F11> :TlistToggle<CR>
+
+function! g:VGGCTagsGenerate()
+		:!ctags -R --c++-kinds=+pl --fields=+iaS --extra=+q . 
+		:!ctags -R --c-kinds=+pl --fields=+iaS --extra=+q . 
+		:!ctags -R --Fortran-kinds=+iL --fields=+iaS --extra=+q . 
+	         echo "cTags generated..."
+endfunction
+"
+" Various Taglist diplay config:
+"
+let Tlist_Use_Left_Window=1
+let Tlist_Compact_Format=1
+let Tlist_Exit_OnlyWindow=1
+let Tlist_GainFocus_On_ToggleOpen=1
+let Tlist_File_Fold_Auto_Close=1
+let Tlist_WinWidth=20
+
+"
+" }}}
+"
+" =================================
+"
+"Tagbar Settings ---- {{{
+"
+"Toggle Tagbar window 
+let g:tagbar_width=20
+let g:tagbar_zoomwidth=0
+nnoremap <F7> :TagbarToggle<CR>
+"
+" }}}
+"
+" =================================
+"
+"Some Python settings:------------------- {{{
+
+augroup filetype_py
+	" Clears the group each time vimrc is sourced 
+	" to prevent multiple definitions of the same autocmd
+	"
+	autocmd!
+	" 
+	autocmd FileType python set omnifunc=pythoncomplete#Complete 
+	autocmd BufRead *.py set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class 
+
+	" 
+	" This will allow you to check the syntax of your entire file 
+	" by typing :make. You can the get a list of errors with :clist 
+	" and move between the errors with :cn and :cp.  
+	" 
+	autocmd BufRead *.py set makeprg=python\ -c\ \"import\ py_compile,sys;\ sys.stderr=sys.stdout;\ py_compile.compile(r'%')\" 
+	autocmd Bufwrite *.(py) : call Pyflakes() 
+	autocmd BufRead *.py set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m 
+	" Execute pydoc on the current word in the file being edited
+	autocmd FileType python noremap <buffer> K : execute "!xterm -e 'pydoc " . expand("<cword>") . "'"<CR> 
+	" Execute file being edited with <Command> + e: 
+	noremap <buffer> <C-e> :w\|!/usr/bin/env python % <CR>
+
+let g:pydiction_location="~/.vim/bundle/pydiction/complete-dict" 
+"let g:pyflakes_use_quickfix=0 
+let g:pep8_map="<leader>8"
+
+" Add the virtualenv's site-packages to vim path
+"
+"python << EOF
+"
+"import os.path
+"import sys
+"import vim
+"if 'VIRTUAL_ENV' in os.environ:
+"	project_base_dir = os.environ['VIRTUAL_ENV']
+"	sys.path.insert(0,project_base_dir)
+"	activate_this = os.path.join(project_base_dir,'bin/activate_this.py')
+"	execfile(activate_this, dict(__file__=activate_this))
+"EOF
+"
+"
+"
+" Refactoring using ropevim
+"
+"nnoremap <leader>rj :RopeGotoDefinition<CR>
+"nnoremap <leader>rr :RopeRename<CR>
+"
+"
+"
+" Execute py tests
+"
+nnoremap <silent><leader>ptf <Esc>:Pytest file<CR>
+nnoremap <silent><leader>ptc <Esc>:Pytest class<CR>
+nnoremap <silent><leader>ptm <Esc>:Pytest method<CR>
+"
+"
+" Cycle through test errors
+"
+"
+nnoremap <silent><leader>ptn <Esc>:Pytest next<CR>
+nnoremap <silent><leader>ptp <Esc>:Pytest previous<CR>
+nnoremap <silent><leader>pte <Esc>:Pytest error<CR>
+augroup END
+
+"
+" }}}
+"
+" =================================
+"
+" Latex Settings ----- {{{ 
+"
+" IMPORTANT: grep will sometimes skip displaying the file name if you
+" search in a singe file. This will confuse Latex-Suite. Set your grep
+" program to always generate a file-name.
+set grepprg=grep\ -nH\ $*
+
+" OPTIONAL: Starting with Vim 7, the filetype of empty .tex files 
+" defaults to 'plaintex' instead of 'tex', which results in vim-latex 
+" not being loaded. The following changes the default filetype back 
+" to 'tex':
+
+let g:tex_flavor='latex'
+"
+" }}}
+"
+"
+"### GNU Screen
+"
+"By default, GNU Screen is assumed, you don't have to do anything. If you want
+"to be explicit, you can add this line to your .vimrc:
+"
+"    let g:slime_target = 'screen'
+"
+"Because Screen doesn't accept input from STDIN, a file is used to pipe data
+"between Vim and Screen. By default this file is set to `$HOME/.slime_paste`.
+"The name of the file used can be configured through a variable:
+"
+"    let g:slime_paste_file = '$HOME/.slime_paste'
+"
+"This file is not erased by the plugin and will always contain the last thing
+"you sent over. If this is a problem, I recommend you switch to tmux.
+"
+"When you invoke vim-slime for the first time (see below), you will be prompted for more configuration.
+"
+"screen session name
+"
+"    This is what you put in the -S flag, or one of the line of "screen -ls".
+"
+"screen window name
+"
+"    This is the window number or name, zero-based.
+"
+"### tmux
+"
+"Tmux is *not* the default, to use it you will have to add this line to your .vimrc:
+"
+"    let g:slime_target = 'tmux'
+"
+"When you invoke vim-slime for the first time (see below), you will be prompted for more configuration.
+"
+"tmux socket name
+"
+"    This is what you put in the -L flag, it will be 'default' if you didn't put anything.
+"
+"tmux target pane
+"
+"    ':' means current window, current pane (a reasonable default)
+"    ':i' means the ith window, current pane
+"    ':i.j' means the ith window, jth pane
+"    'h:i.j' means the tmux session where h is the session identifier (either session name or number), the ith window and the jth pane
+"
+"By default `STDIN` is used to pass the text to tmux.
+"If you experience issues with this you may be able to work around them
+"by configuring slime to use a file instead:
+"
+"    let g:slime_paste_file = '$HOME/.slime_paste'
+"
+"This file is not erased by the plugin and will always contain the last thing
+"you sent over.  If this behavior is undesired, one alternative is to use a temporary file:
+"
+"    let g:slime_paste_file = tempname()
+"
+"If you want vim-slime to prefill the prompt answers, you can set a default configuration
+"
+"    let g:slime_default_config = {"socket_name": 'default', 'target_pane': '1'}
+"
+"If this default config is not appropriate for a given buffer, you can call `:SlimeConfig`
+"to reset it.
+"
+"
+"Key Bindings
+"------------
+"
+"By default, the current paragraph will be sent. This is equivalent to typing `vip`. If you (visually) select text, that will be sent over:
+"
+"    C-c, C-c  --- the same as slime
+"
+"_You can just hold `Ctrl` and double-tap `c`._
+"
+"There will be a few questions, as to where you want to send your text, but the answers will be remembered. If you need to reconfigure:
+"
+"    C-c, v    --- mnemonic: 'variables'
+" =================================
+"
+" Slime Settings ----- {{{ 
+"
+
+let g:slime_target="screen"
+"let g:slime_target="tmux"
+let g:slime_paste_file = "$HOME/.slime_paste"
+let g:slime_python_ipython = 1
+"
+" }}}
+"
+" =================================
+"  Set up the reading of manpages from within vim (use :Man whatever)
+
+runtime ftplugin/man.vim

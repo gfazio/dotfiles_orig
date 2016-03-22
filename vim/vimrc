@@ -1,0 +1,380 @@
+" =================================
+"
+" Plugin setup --- via Pathogen ----- {{{
+set nocompatible
+filetype off
+execute pathogen#infect() 
+execute pathogen#helptags() 
+filetype on
+filetype plugin on
+filetype plugin indent on
+"
+" }}}
+"
+" =================================
+"
+" General Settings ------ {{{
+"
+syntax on
+
+let mapleader=","
+
+set number
+set title
+set history=1000
+set hidden
+set columns=100
+set lines=40
+set omnifunc=syntaxcomplete#Complete
+set wildmenu
+set wildmode=list,longest,full
+set autoread
+set autowrite
+set nobackup
+set nowritebackup
+set directory=.,$TEMP:
+set showmatch
+set showmode
+set autoindent "set autoindenting for programming
+set incsearch  "set incremental searching
+set hlsearch   "set highligh searching
+set foldmethod=indent
+set foldlevel=0   "0=all folds closed; 99=all folds open
+set visualbell
+set dictionary+=/usr/share/dict/words
+"
+" }}}
+"
+" =================================
+"
+" General Key Bindings ----- {{{
+"
+noremap <C-S-F12> :!ctags -R --c++-kinds=+pl --fields=+iaS --extra=+q . <CR>
+noremap <C-F11> :NERDTreeToggle <CR>
+noremap <C-P> :make %<CR>
+noremap <C-F3> <ESC>:set guifont=*<CR>
+noremap <C-\> : tab split <CR>exec("tag ".expand("<cword>"))<CR>
+noremap <A-]> :vsp        <CR>exec("tag ".expand("<cword>"))<CR>
+
+nnoremap <leader>a <Esc>:Ack!
+
+"cd to current working directory
+nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
+
+" edit vimrc file
+nnoremap <leader>v :edit $MYVIMRC<CR>
+"
+"If you forget to sudo before calling vim use the following to be
+"able to write the file.
+cnoremap w!! %!sudo tee > /dev/null %
+"
+"Manage multiple windows
+nnoremap <leader>W :call g:vggToggleWindowFixedWidth()<CR>
+nnoremap <leader>H :call g:vggToggleWindowFixedHeight()<CR>
+" }}}
+"
+" =================================
+"
+" Status Line ----- {{{
+"
+set laststatus=2     "Always display status line
+set statusline=%F    "Full path to the file
+set statusline+=\ -\        "Separator 
+set statusline+=%-4{fugitive#statusline()}  "If using git, show 
+                                            "branch being used 
+					    "in status line.
+set statusline+=%=    "Switch to the right side
+set statusline+=%l    "Current line
+set statusline+=/    " Separator
+set statusline+=%L    "Total lines
+
+"
+" }}}
+"
+" =================================
+"
+" GUI Settings ---------------------- {{{
+"
+    " GVIM- (here instead of .gvimrc)
+    if has('gui_running')
+	    set lines=40
+            "colorscheme eclipse 
+            "colorscheme  desert
+            "colorscheme twilight
+            colorscheme zenburn
+
+            "set guifont=Inconsolata-dz:h18
+            set guifont=Monospace\ 15
+            set guicursor=n-v-c:block-Cursor
+            highlight Cursor guifg=yellow guibg=blue
+    else
+	    if &term =~ "xterm"
+             if has("terminfo")
+		         set t_Co=8
+	         set t_Sf=3%p1%dm
+		         set t_Sb=4%p1%dm
+	          else
+		         set t_Co=8
+		         set t_Sf=3%dm
+		         set t_Sb=4%dm
+              endif
+        endif
+    endif
+"
+" }}}
+"
+" =================================
+"
+" Vimscript file settings ------------ {{{
+"
+augroup filetype_vim
+	autocmd!
+	autocmd FileType vim setlocal foldmethod=marker 
+	" Source the vimrc file after saving it 
+	if has("autocmd") 
+		autocmd bufwritepost .vimrc source $MYVIMRC 
+	endif
+	function! g:vggToggleWindowFixedWidth()
+		:set winfixwidth!
+		if &l:winfixwidth
+			echo "Fixed Window Width ON"
+		else
+			echo "Fixed Window Width OFF"
+		endif
+	endfunction
+	function! g:vggToggleWindowFixedHeight()
+		:set winfixheight!
+		if &l:winfixheight
+			echo "Fixed Window Height ON"
+		else
+			echo "Fixed Window Height OFF"
+		endif
+	endfunction
+augroup END
+"
+" }}}
+"
+" =================================
+"
+" Omnicompletion and SuperTab settings ------- {{{
+"
+inoremap <expr> <Esc>   pumvisible() ? "\<C-e>" : "\<Esc>"
+inoremap <expr> <CR>    pumvisible() ? "\<C-y>" : "\<CR>"
+inoremap <expr> <Down>  pumvisible() ? "\<C-n>" : "\<Down>"
+inoremap <expr> <Up>    pumvisible() ? "\<C-p>" : "\<Up>"
+inoremap <expr> <PageDown>  pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<PageDown>"
+inoremap <expr> <PageUp>  pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
+
+let g:SuperTabDefaultCompletionType="context"
+
+"
+" OmniCppComplete
+"
+let OmniCpp_NamespaceSearch=1
+let OmniCpp_GlobalScopeSearch=1
+let OmniCpp_ShowAccess=1
+let OmniCpp_ShowPrototypeInAbbr= 1 " show function parameters
+let OmniCpp_MayCompleteDot=1 " autocomplete after .
+let OmniCpp_MayCompleteArrow=1 " autocomplete after ->
+let OmniCpp_MayCompleteScope=1 " autocomplete after ::
+let OmniCpp_DefaultNamespaces=["std"] "same as inserting using namespace std 
+
+"
+" Automatically open and close the popup menu / preview window
+"
+
+au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
+set completeopt=menuone,menu,longest,preview
+
+"
+" }}}
+"
+" =================================
+"
+"Gundo Settings --- {{{
+"
+noremap <leader>g :GundoToggle<CR>
+"
+" }}}
+"
+" =================================
+"
+" MiniBufExplorer Settings ----- {{{
+"
+"Ctrl+vi direction keys[hjkl] for window movement
+"
+let g:miniBufExplMapWindowNavVim=1
+"
+"Ctrl+ arrow keys for window movement
+"
+let g:miniBufExplMapWindowNavArrows=1
+"
+"<C-Tab> and <C-S-Tab> to move between buffers
+"
+let g:miniBufExplMapCTabSwitchBufs=1
+"Allows MBE to close when you select a buffer, plus buffer
+"should not show up in a window hosting an explorer.
+let g:miniBufExplCloseOnSelect = 1
+
+let g:miniBufExplMapModSelTarget=1
+let g:miniBufExplBRSplit=0
+let g:miniBufExplVSplit=15
+let g:miniBufExplAutoStart=0
+
+"Open miniBufExpl
+noremap <leader>mbe :MBEOpen<CR>
+"close miniBufExpl
+noremap <leader>mbc :MBEClose<CR>
+"update miniBufExpl
+noremap <leader>mbt :MBEToggle<CR>
+
+"
+" }}}
+"
+" =================================
+"
+" Taglist Settings ---- {{{
+"
+" Taglist variables
+"
+set tags+=./tags    "~/Sandbox/TagDir/tags 
+set tags+=~/Sandbox/TagDir/tags 
+"set tags+=~/Sandbox/TagDir/emp5cpp_tags 
+"set tags+=~/Sandbox/TagDir/emp5for_tags 
+"exec expand("set tags+=$GIT_EMP_WD/emp5cpp_tags")
+"exec expand("set tags+=$GIT_EMP_WD/emp5for_tags")
+"exec expand("set tags+=$GIT_EMP_WD/emp5c_tags")
+"can verify taglist is correct via 
+": set verbose tags?" command
+
+"
+" Display function name in status bar:
+"
+let g:ctags_statusline=1
+"
+" Automatically start script
+"
+let generate_tags=1
+"
+" Displays taglist results in a vertical window:
+"
+let Tlist_Use_Horiz_Window=0
+"
+" Shorter commands to toggle Taglist display
+"
+nnoremap TT :TlistToggle<CR>
+nnoremap <C-S-F11> :TlistToggle<CR>
+"
+" Various Taglist diplay config:
+"
+let Tlist_Use_Left_Window=1
+let Tlist_Compact_Format=1
+let Tlist_Exit_OnlyWindow=1
+let Tlist_GainFocus_On_ToggleOpen=1
+let Tlist_File_Fold_Auto_Close=1
+let Tlist_WinWidth=20
+
+"
+" }}}
+"
+" =================================
+"
+"Tagbar Settings ---- {{{
+"
+"Toggle Tagbar window 
+let g:tagbar_width=20
+let g:tagbar_zoomwidth=0
+nnoremap <F8> :TagbarToggle<CR>
+"
+" }}}
+"
+" =================================
+"
+"Some Python settings:------------------- {{{
+
+augroup filetype_py
+	" Clears the group each time vimrc is sourced 
+	" to prevent multiple definitions of the same autocmd
+	"
+	autocmd!
+	" 
+	autocmd FileType python set omnifunc=pythoncomplete#Complete 
+	autocmd BufRead *.py set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class 
+	autocmd FileType python set complete+=k~/.vim/bundle/syntastic/syntax_checkers/python/python.vim isk+=.,( 
+	" 
+	" This will allow you to check the syntax of your entire file 
+	" by typing :make. You can the get a list of errors with :clist 
+	" and move between the errors with :cn and :cp.  
+	" 
+	autocmd BufRead *.py set makeprg=python\ -c\ \"import\ py_compile,sys;\ sys.stderr=sys.stdout;\ py_compile.compile(r'%')\" 
+	autocmd Bufwrite *.(py) : call Pyflakes() 
+	autocmd BufRead *.py set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m 
+	" Execute pydoc on the current word in the file being edited
+	autocmd FileType python noremap <buffer> K : execute "!xterm -e 'pydoc " . expand("<cword>") . "'"<CR> 
+	" Execute file being edited with <Command> + e: 
+	noremap <buffer> <C-e> :w\|!/usr/bin/env python % <CR>
+
+let g:pydiction_location="~/.vim/bundle/pydiction/complete-dict" 
+"let g:pyflakes_use_quickfix=0 
+let g:pep8_map="<leader>8"
+
+" Add the virtualenv's site-packages to vim path
+"
+"python << EOF
+"
+"import os.path
+"import sys
+"import vim
+"if 'VIRTUAL_ENV' in os.environ:
+"	project_base_dir = os.environ['VIRTUAL_ENV']
+"	sys.path.insert(0,project_base_dir)
+"	activate_this = os.path.join(project_base_dir,'bin/activate_this.py')
+"	execfile(activate_this, dict(__file__=activate_this))
+"EOF
+"
+"
+"
+" Refactoring using ropevim
+"
+"nnoremap <leader>rj :RopeGotoDefinition<CR>
+"nnoremap <leader>rr :RopeRename<CR>
+"
+"
+"
+" Execute py tests
+"
+nnoremap <silent><leader>ptf <Esc>:Pytest file<CR>
+nnoremap <silent><leader>ptc <Esc>:Pytest class<CR>
+nnoremap <silent><leader>ptm <Esc>:Pytest method<CR>
+"
+"
+" Cycle through test errors
+"
+"
+nnoremap <silent><leader>ptn <Esc>:Pytest next<CR>
+nnoremap <silent><leader>ptp <Esc>:Pytest previous<CR>
+nnoremap <silent><leader>pte <Esc>:Pytest error<CR>
+augroup END
+
+"
+" }}}
+"
+" =================================
+"
+" Latex Settings ----- {{{ 
+"
+" IMPORTANT: grep will sometimes skip displaying the file name if you
+" search in a singe file. This will confuse Latex-Suite. Set your grep
+" program to always generate a file-name.
+set grepprg=grep\ -nH\ $*
+
+" OPTIONAL: Starting with Vim 7, the filetype of empty .tex files 
+" defaults to 'plaintex' instead of 'tex', which results in vim-latex 
+" not being loaded. The following changes the default filetype back 
+" to 'tex':
+
+let g:tex_flavor='latex'
+"
+" }}}
+"
+" =================================
