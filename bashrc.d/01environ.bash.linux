@@ -1,0 +1,131 @@
+##############################################################################
+#
+#                ENVIRONMENT VARIABLES
+#
+###############################################################################
+###############################################################################
+#
+# Astro
+#
+###############################################################################
+
+OS="$(uname -s)"
+
+if test "$OS" = "Darwin" ; then 
+
+    export VMD="/Volumes/MacOSX-Data"
+    export BASE_DIR="${VMD}" 
+    
+    export HEADAS_VRSN="heasoft-6.17"
+    export HEADAS_ARCH="x86_64-apple-darwin13.4.0"
+    export SAS_VRSN="xmmsas_20131209_1901"
+
+    export ASTRO="${BASE_DIR}/Astro"
+    export ASTROSW="${ASTRO}/sw"
+    export ASTROPY="${ASTROSW}/AstroPy"
+    export ASTROX="${ASTRO}/X-Ray"
+    export AWD="${ASTROX}/WorkingDir"
+    export HEADAS="${ASTROSW}/${HEADAS_VRSN}/${HEADAS_ARCH}"
+    export SASDIR="${ASTROSW}/SAS/${SAS_VRSN}"
+
+    export PATH="${VMD}/Computing/anaconda/bin:$PATH"
+    export PATH="${PATH}:/Users/vgg/bin/"
+    export PATH="${PATH}:/opt/local/bin:/opt/local/sbin"
+    export PATH="${PATH}:/opt/PalmSDK/Current/bin:/opt/PalmPDK/bin/"
+    export PATH="${PATH}:$ASTRO:$ASTROX:$ASTROX/DS9"
+    export PATH="${PATH}:/Applications/calibre.app/Contents/MacOS/"
+    export PYTHONPATH="${PYTHONPATH}:${ASTROPY}/astrolib/astrolib_installed/lib/python"
+    export VLC_PLUGIN_PATH="/Applications/VLC.app/Contents/MacOS/plugins"
+
+else if test "$OS" = "Linux" ; then
+
+    export VMD="/MacOSX-Data"
+    export BASE_DIR="/home/vgg" 
+    
+    export HEADAS_VRSN="heasoft-6.15"
+    export HEADAS_ARCH="x86_64-unknown-linux-gnu-libc2.18"
+    export SAS_VRSN="xmmsas_20131209_1901"
+
+    export ASTRO="${BASE_DIR}/Astro"
+    export ASTROM="${VMD}/Astro"
+    export ASTROSW="${ASTROM}/sw"
+    export ASTROPY="${ASTROSW}/AstroPy"
+    export ASTROX="${ASTRO}/X-Ray"
+    export ASTROXM="${ASTROM}/X-Ray"
+    export AWD="${ASTROX}/WorkingDir"
+    export HEADAS="${ASTROX}/${HEADAS_VRSN}/${HEADAS_ARCH}"
+    export SASDIR="${ASTROX}/XMM-SAS/SAS/${SAS_VRSN}"
+    export SAS_IMAGEVIEWER="$ASTROX/ds9/ds9"
+
+    export PATH="${BASE_DIR}/anaconda2/bin:$PATH"
+    export PATH="${PATH}:${BASE_DIR}/bin"
+    export PATH="${PATH}:/opt/local/bin:/usr/local/bin:/usr/bin/:/bin:/usr/x86_64-suse-linux/bin"
+    export PATH="${PATH}:/opt/Palm/novacom/:/opt/PalmPDK/bin/"
+    export PATH="${PATH}:${ASTRO}:${ASTROX}:${ASTROX}/ds9:${ASTROX}/XPA"
+fi
+
+#export SAS_ODF="/home/vgg/Astro/X-Ray/ODF"
+# After odfingest has been run SAS_ODF needs to be set to the 
+# /full/path/to/ODF/file*SUM.SAS file that has been created.  
+
+export SAS_ODF="$AWD/CU_Vir/2125_0677980501_SCX00000SUM.SAS"  
+
+export SAS_CCF="$AWD/ccf.cif"
+export SAS_CCFPATH="$ASTROSW/ccf"
+export SAS_VERBOSITY=3
+export SAS_SUPPRESS_WARNING=3
+
+###############################################################################
+#
+# Comp
+#
+###############################################################################
+
+export COMP="$BASE_DIR/Computing"
+export COMPD="$COMP/Development"
+export COMPB="$COMPD/BASH"
+export COMPC="$COMPD/C++"
+export COMPL="$COMPD/LinuxProgramming"
+export COMPP="$COMPD/Perl"
+export COMPY="$COMPD/Python"
+export PalmOS="$COMPD/PalmOS"
+export ECLIPSE_HOME="/Applications/eclipse"
+export webOS="$COMPD/WebOS"
+
+export WEBOS_TOOLS=$COMP/Palm/webos/Homebrew/Tools
+
+###############################################################################
+#
+# General
+#
+###############################################################################
+
+export EDITOR=vim
+###############################################################################
+#
+# History control
+#
+###############################################################################
+
+export HISTCONTROL=erasedups
+export HISTSIZE=10000
+export HISTIGNORE="ls:exit:df:w:h:ll:apollo:top"
+
+###############################################################################
+#
+# Colours
+#
+###############################################################################
+
+export CLICOLOR=true
+export LSCOLORS='cxfxcxdxbxegedabagacad'
+
+###############################################################################
+#
+# SSH / ftp / rdesktop
+#
+###############################################################################
+
+export GPUServer="128.243.70.77"
+
+###############################################################################
