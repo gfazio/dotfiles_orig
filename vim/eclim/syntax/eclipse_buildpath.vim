@@ -1,8 +1,11 @@
 " Author:  Eric Van Dewoestine
 "
-" License: {{{
+" Description: {{{
+"  Syntax file for eclipse .projectOptions files.
 "
-" Copyright (C) 2013  Eric Van Dewoestine
+" License:
+"
+" Copyright (C) 2005 - 2009  Eric Van Dewoestine
 "
 " This program is free software: you can redistribute it and/or modify
 " it under the terms of the GNU General Public License as published by
@@ -19,14 +22,6 @@
 "
 " }}}
 
-" Script Varables {{{
-  let s:complete_command =
-    \ '-command python_complete -p "<project>" -f "<file>" ' .
-    \ '-o <offset> -e <encoding>'
-" }}}
-
-function! eclim#python#complete#CodeComplete(findstart, base) " {{{
-  return eclim#lang#CodeComplete(s:complete_command, a:findstart, a:base)
-endfunction " }}}
+runtime! syntax/xml.vim
 
 " vim:ft=vim:fdm=marker

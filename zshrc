@@ -1,8 +1,9 @@
 # Path to your oh-my-zsh installation.
-export ZSH=/Users/vgg/.oh-my-zsh
+  export ZSH="/home/vgg/.oh-my-zsh"
 
 #Path to aliases and environment variables used in bash
-export BASH_DIR=/Users/vgg/.bashrc.d
+export BASH_DIR="/home/vgg/.bashrc.d"
+
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
@@ -52,29 +53,35 @@ ZSH_THEME="agnoster"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git python sudo macports osx common-aliases)
+plugins=(git python sudo common-aliases z)
 
 # User configuration
 
-#export PATH="/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/X11/bin:/usr/local/MacGPG2/bin:/opt/PalmPDK/bin:/opt/PalmSDK/0.1/bin/:/usr/texbin:/opt/local/bin:/opt/local/sbin:/opt/PalmSDK/Current/bin:/opt/PalmPDK/bin/:/Volumes/MacOSX-Data/Astro:/Volumes/MacOSX-Data/Astro/X-Ray:/Volumes/MacOSX-Data/Astro/X-Ray/DS9:/Applications/calibre.app/Contents/MacOS/"
+#  export PATH="/home/vgg/bin:/usr/local/bin:/usr/bin:/bin:/usr/bin/X11:/usr/games:/opt/kde3/bin:/usr/lib/mit/bin:/usr/lib/mit/sbin"
 # export MANPATH="/usr/local/man:$MANPATH"
 
-source $BASH_DIR/01environ.bash
+OS_VAR="$(uname -s)"
+if [[ "${OS_VAR}" == "Darwin" ]] ; then
+    source $BASH_DIR/01environ.bash.osx
+    source $BASH_DIR/02aliases.bash.osx
+    source $BASH_DIR/04options.bash.osx
+elif [[ "${OS_VAR}" == "Linux" ]] ; then
+    source $BASH_DIR/01environ.bash.linux
+    source $BASH_DIR/02aliases.bash.linux
+    source $BASH_DIR/04options.bash.linux 
+fi
 source $ZSH/oh-my-zsh.sh
-
-#Use z
-
-. /opt/local/etc/profile.d/z.sh
+source /home/vgg/dotfiles/z/z.sh
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
- if [[ -n $SSH_CONNECTION ]]; then
-   export EDITOR='vim'
- else
-   export EDITOR='mvim'
- fi
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='mvim'
+# fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -90,5 +97,3 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
  alias zshconfig="vim ~/.zshrc"
  alias ohmyzsh="vim ~/.oh-my-zsh"
-source $BASH_DIR/02aliases.bash
-source /Users/vgg/.bashrc.d/04options.bash 

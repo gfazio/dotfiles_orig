@@ -71,8 +71,8 @@ nnoremap <leader>v :edit $MYVIMRC<CR>
 cnoremap w!! %!sudo tee > /dev/null %
 "
 "Manage multiple windows
-nnoremap <leader>W :call g:vggToggleWindowFixedWidth()<CR>
-nnoremap <leader>H :call g:vggToggleWindowFixedHeight()<CR>
+nnoremap <leader>W :call g:VGGToggleWindowFixedWidth()<CR>
+nnoremap <leader>H :call g:VGGToggleWindowFixedHeight()<CR>
 " }}}
 "
 " =================================
@@ -100,7 +100,7 @@ set statusline+=%L    "Total lines
     " GVIM- (here instead of .gvimrc)
     if has('gui_running')
 	    set lines=40
-	    set background=light
+	    set background=dark
             "colorscheme eclipse 
             "colorscheme  desert
             "colorscheme twilight
@@ -108,23 +108,23 @@ set statusline+=%L    "Total lines
             colorscheme solarized
 
             "set guifont=Inconsolata-dz:h18
-            set guifont=Monospace\ 15
+            set guifont=Monospace\ 12
             set guicursor=n-v-c:block-Cursor
             highlight Cursor guifg=yellow guibg=blue
     else
 	    set background=dark
-            colorscheme solarized
+            colorscheme zenburn
 	    if &term =~ "xterm"
              if has("terminfo")
-		         set t_Co=8
+		 set t_Co=8
 	         set t_Sf=3%p1%dm
-		         set t_Sb=4%p1%dm
-	          else
-		         set t_Co=8
-		         set t_Sf=3%dm
-		         set t_Sb=4%dm
+		 set t_Sb=4%p1%dm
+	       else
+		 set t_Co=8
+		 set t_Sf=3%dm
+		 set t_Sb=4%dm
               endif
-        endif
+           endif
     endif
 "
 " }}}
@@ -140,7 +140,7 @@ augroup filetype_vim
 	if has("autocmd") 
 		autocmd bufwritepost .vimrc source $MYVIMRC 
 	endif
-	function! g:vggToggleWindowFixedWidth()
+	function! g:VGGToggleWindowFixedWidth()
 		:set winfixwidth!
 		if &l:winfixwidth
 			echo "Fixed Window Width ON"
@@ -148,7 +148,7 @@ augroup filetype_vim
 			echo "Fixed Window Width OFF"
 		endif
 	endfunction
-	function! g:vggToggleWindowFixedHeight()
+	function! g:VGGToggleWindowFixedHeight()
 		:set winfixheight!
 		if &l:winfixheight
 			echo "Fixed Window Height ON"

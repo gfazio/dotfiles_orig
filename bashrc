@@ -75,9 +75,17 @@ esac
 # Load Supplementary Scripts. This replaces the alias definitions section
 # above.
 
-for config in "$HOME"/.bashrc.d/*.bash ; do
-    . "$config"
-done
+OS="$(uname -s)"
+
+if test "$OS" = "Darwin" ; then  
+    for config in "$HOME"/.bashrc.d/*.bash.osx ; do
+        . "$config"
+    done
+else if test "$OS" = "Linux" ; then  
+    for config in "$HOME"/.bashrc.d/*.bash.linux ; do
+        . "$config"
+    done
+fi
 unset -v config
 
 
