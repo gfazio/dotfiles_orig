@@ -1,39 +1,15 @@
 # Path to your oh-my-zsh installation.
-export ZSH="/home/vgg/.oh-my-zsh"
-
+export ZSH=/Users/vgg/.oh-my-zsh
 
 #Path to aliases and environment variables used in bash
-export BASH_DIR="/home/vgg/.bashrc.d"
-
+export BASH_DIR=/Users/vgg/.bashrc.d
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
 #ZSH_THEME="robbyrussell"
 ZSH_THEME="agnoster"
-#ZSH_THEME="nanotech"
-#ZSH_THEME="Honukai"
-#ZSH_THEME="kardan"
-#ZSH_THEME="wezm"
-#ZSH_THEME="terminalparty"
-#ZSH_THEME="bureau"
-#ZSH_THEME="sunrise"
 
-# 
-# Alternative prompts can be had using prompt:
-#
-#
-# # list
-# prompt -l
-#
-# #preview
-# prompt -p
-#
-#
-#
-# autoload -U promptinit && promptinit
-# prompt fade 'red'
-#
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
 
@@ -76,60 +52,29 @@ ZSH_THEME="agnoster"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git python sudo common-aliases z)
+plugins=(git python sudo macports osx common-aliases)
 
 # User configuration
 
-#  export PATH="/home/vgg/bin:/usr/local/bin:/usr/bin:/bin:/usr/bin/X11:/usr/games:/opt/kde3/bin:/usr/lib/mit/bin:/usr/lib/mit/sbin"
+#export PATH="/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/X11/bin:/usr/local/MacGPG2/bin:/opt/PalmPDK/bin:/opt/PalmSDK/0.1/bin/:/usr/texbin:/opt/local/bin:/opt/local/sbin:/opt/PalmSDK/Current/bin:/opt/PalmPDK/bin/:/Volumes/MacOSX-Data/Astro:/Volumes/MacOSX-Data/Astro/X-Ray:/Volumes/MacOSX-Data/Astro/X-Ray/DS9:/Applications/calibre.app/Contents/MacOS/"
 # export MANPATH="/usr/local/man:$MANPATH"
 
-OS_VAR="$(uname -s)"
-if [[ "${OS_VAR}" == "Darwin" ]] ; then
-    source $BASH_DIR/01environ.bash.osx
-    source $BASH_DIR/02aliases.bash.osx
-    source $BASH_DIR/03functions.bash.osx 
-    source $BASH_DIR/04options.bash.osx
-elif [[ "${OS_VAR}" == "Linux" ]] ; then
-    source $BASH_DIR/01environ.bash.linux
-    source $BASH_DIR/02aliases.bash.linux
-    source $BASH_DIR/03functions.bash.linux 
-    source $BASH_DIR/04options.bash.linux 
-fi
-
+source $BASH_DIR/01environ.bash
 source $ZSH/oh-my-zsh.sh
-#-------- Suffix Alias {{{
-#------------------------------------------------------
-# open file with default program base on extension
-# Ex: 'alias -s avi=mplayer' makes 'file.avi' execute 'mplayer file.avi'
 
-alias -s {avi,flv,mkv,mp4,mpeg,mpg,ogv,wmv}=$PLAYER
-alias -s {flac,mp3,ogg,wav}=$MUSICER
-alias -s {gif,GIF,jpeg,JPEG,jpg,JPG,png,PNG}="background $IMAGEVIEWER"
-alias -s {djvu,pdf,ps}="background $READER"
-alias -s txt=$EDITOR
-alias -s epub="background $EBOOKER"
-alias -s {cbr,cbz}="background $COMICER"
-# might conflict with emacs org mode
-alias -s {at,ch,com,de,net,org}="background $BROWSER"
+#Use z
 
-# archive extractor
-alias -s ace="unace l"
-alias -s rar="unrar l"
-alias -s {tar,bz2,gz,xz}="tar tvf"	#tar.bz2,tar.gz,tar.xz
-alias -s zip="unzip -l"
-
-#}}}
-source /home/vgg/dotfiles/z/z.sh
+. /opt/local/etc/profile.d/z.sh
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+ if [[ -n $SSH_CONNECTION ]]; then
+   export EDITOR='vim'
+ else
+   export EDITOR='mvim'
+ fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -145,43 +90,5 @@ source /home/vgg/dotfiles/z/z.sh
 # Example aliases
  alias zshconfig="vim ~/.zshrc"
  alias ohmyzsh="vim ~/.oh-my-zsh"
-
-#-------- ZMV {{{
-#------------------------------------------------------
-# http://onethingwell.org/post/24608988305/zmv
-autoload zmv
-
-# }}}
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-#-------- Fuzzy Finder {{{
-#------------------------------------------------------
-#
-
-# function bind to a hotkey
-fzf_history() { zle -I; eval $(history | fzf +s | sed 's/ *[0-9]* *//') ; }; zle -N fzf_history; bindkey '^F' fzf_history
-
-fzf_killps() { zle -I; ps -ef | sed 1d | fzf -m | awk '{print $2}' | xargs kill -${1:-9} ; }; zle -N fzf_killps; bindkey '^Q' fzf_killps
-
-fzf_cd() { zle -I; DIR=$(find ${1:-*} -path '*/\.*' -prune -o -type d -print 2> /dev/null | fzf) && cd "$DIR" ; }; zle -N fzf_cd; bindkey '^E' fzf_cd
-# }}}
-#-------- Autocomplete Custom {{{
-#------------------------------------------------------
-# autocomplete surfraw bookmarks
-# usage: srb <bookmark_name>
-_cmpl_surfraw() {
-	reply=($(awk 'NF != 0 && !/^#/ {print $1}' ~/.config/surfraw/bookmarks | sort -n))
-}
-compctl -K _cmpl_surfraw srb
-
-
-# cheat
-_cmpl_cheat() {
-	reply=($(cheat -l | cut -d' ' -f1))
-}
-compctl -K _cmpl_cheat cheat
-
-
-# fzf_surfraw() { zle -I; surfraw $(cat ~/.config/surfraw/bookmarks | fzf | awk 'NF != 0 && !/^#/ {print $1}' ) ; }; zle -N fzf_surfraw; bindkey '^W' fzf_surfraw
-
-
-# }}}
+source $BASH_DIR/02aliases.bash
+source /Users/vgg/.bashrc.d/04options.bash 
