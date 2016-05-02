@@ -1,5 +1,4 @@
-" =A-S-L================================
-"
+" =================================
 "
 " Plugin setup --- via Pathogen ----- {{{
 set nocompatible
@@ -14,45 +13,11 @@ filetype plugin indent on
 "
 " =================================
 "
-" GUI Settings ---------------------- {{{
-"
-    " GVIM- (here instead of .gvimrc)
-    if has('gui_running')
-	    set lines=40
-            "colorscheme eclipse 
-            "colorscheme  desert
-            "colorscheme twilight
-            colorscheme zenburn
-
-	    if has("gui_gtk2")
-               set guifont=Inconsolata\ 15
-	    elseif has("gui_macvim")
-                set guifont=Inconsolata-dz:h14
-		"set guifont=Menlo\ Regular:h14
-	    endif
-            set guicursor=n-v-c:block-Cursor
-            "highlight Cursor guifg=yellow guibg=blue
-    else
-	    if &term =~ "xterm"
-             if has("terminfo")
-		set t_Co=8
-	        set t_Sf=3%p1%dm
-		set t_Sb=4%p1%dm
-	     else
-		set t_Co=8
-		set t_Sf=3%dm
-		set t_Sb=4%dm
-             endif
-            endif
-    endif
-"
-" }}}
-"
-" =================================
-"
 " General Settings ------ {{{
 "
 syntax on
+syntax enable
+
 
 let mapleader=","
 
@@ -62,8 +27,10 @@ set autowrite
 set columns=100
 set dictionary+=/usr/share/dict/words
 set directory=.,$TEMP:
+set rtp+=~/.fzf
+setlocal foldmethod=syntax
+"set foldmethod=indent
 set foldlevel=0   "0=all folds closed; 99=all folds open
-set foldmethod=indent
 set hidden
 set history=1000
 set hlsearch   "set highligh searching
@@ -77,7 +44,6 @@ set shiftwidth=4
 set showmatch
 set showmode
 set title
-set t_RV=       "surpress terminal version query from vim
 set visualbell
 set wildmenu
 set wildmode=list,longest,full
@@ -114,51 +80,10 @@ nnoremap <leader>v :edit $MYVIMRC<CR>
 "If you forget to sudo before calling vim use the following to be
 "able to write the file.
 cnoremap w!! %!sudo tee > /dev/null %
-
 "
 "Manage multiple windows
-"nnoremap <leader>W :call g:VGGToggleWindowFixedWidth()<CR>
-"nnoremap <leader>H :call g:VGGToggleWindowFixedHeight()<CR>
-nnoremap <leader>W :call g:VGGAutoWindowResize()<CR>
-" }}}
-"
-
-"
-" =================================
-"
-" GoldenView ----- {{{
-
-"let g:goldenview__enable_default_mapping=1
-"Split the tiled window
-nnoremap <C-L> <Plug>GoldenViewSplit
-"nnoremap <silent><C-L> <Plug>GoldenViewSplit
-
-"Quickly switch current window with main pane and toggle between the two
-nnoremap <F8>    <Plug>GoldenViewSwitchMain
-nnoremap <S-F8>  <Plug>GoldenViewSwitchToggle
-"nnoremap <silent><F8>    <Plug>GoldenViewSwitchMain
-"nnoremap <silent><S-F8>  <Plug>GoldenViewSwitchToggle
-
-"Jump to next/previous window
-nnoremap <C-N> <Plug>GoldenViewNext
-nnoremap <C-P> <Plug>GoldenViewPrevious
-"nnoremap <silent><C-N> <Plug>GoldenViewNext
-"nnoremap <silent><C-P> <Plug>GoldenViewPrevious
-" }}}
-"
-"
-" =================================
-"
-" Eclim Settings ------ {{{
-"
-" =================================
-"
-
-" Status line setting
-let g:EclimProjectStatusLine = 'eclim(p=${name}, n=${natures})'
-
-let g:EclimProjectTreeAutoOpen=1
-"
+nnoremap <leader>W :call g:VGGToggleWindowFixedWidth()<CR>
+nnoremap <leader>H :call g:VGGToggleWindowFixedHeight()<CR>
 " }}}
 "
 " =================================
@@ -173,7 +98,7 @@ set statusline+=%-4{fugitive#statusline()}  "If using git, show
 					    "in status line.
 set statusline+=%-4{eclim#project#util#ProjectStatusLine()} " If using
                                                             " eclim, show project 
-							    " status line
+
 set statusline+=%=    "Switch to the right side
 set statusline+=%l    "Current line
 set statusline+=/    " Separator
@@ -184,8 +109,52 @@ set statusline+=%L    "Total lines
 "
 " =================================
 "
+" GUI Settings ---------------------- {{{
+"
+    " GVIM- (here instead of .gvimrc)
+    if has('gui_running')
+	    set lines=40
+	    set background=dark
+            "colorscheme eclipse 
+            "colorscheme  desert
+            "colorscheme twilight
+            "colorscheme zenburn
+            colorscheme solarized
+
+            "set guifont=Inconsolata-dz:h18
+            set guifont=Monospace\ 12
+            set guicursor=n-v-c:block-Cursor
+            highlight Cursor guifg=yellow guibg=blue
+    else
+	    set background=dark
+            "colorscheme solarized
+	    colorscheme zenburn
+	    "if &term =~ "xterm"
+             "if has("terminfo")
+		 "set t_Co=8
+	         "set t_Sf=3%p1%dm
+		 "set t_Sb=4%p1%dm
+	       "else
+		 "set t_Co=8
+		 "set t_Sf=3%dm
+		 "set t_Sb=4%dm
+              "endif
+           "endif
+    endif
+"
+" }}}
+"
+" =================================
+"
 " Vimscript file settings ------------ {{{
 "
+
+autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+
+augroup vimrc
+      au BufReadPre * setlocal foldmethod=indent
+      au BufWinEnter * if &fdm == 'indent' | setlocal foldmethod=marker | endif
+augroup END
 augroup filetype_vim
 	autocmd!
 	autocmd FileType vim setlocal foldmethod=marker 
@@ -313,9 +282,13 @@ noremap <leader>mbt :MBEToggle<CR>
 "
 " Taglist variables
 "
-set tags+=./tags;/    
-set tags+=~/Sandbox/TagsDir/cpp 
-set tags+=~/Sandbox/TagsDir/tags 
+set tags+=./tags    "~/Sandbox/TagDir/tags 
+set tags+=~/Sandbox/TagDir/tags 
+"set tags+=~/Sandbox/TagDir/emp5cpp_tags 
+"set tags+=~/Sandbox/TagDir/emp5for_tags 
+"exec expand("set tags+=$GIT_EMP_WD/emp5cpp_tags")
+"exec expand("set tags+=$GIT_EMP_WD/emp5for_tags")
+"exec expand("set tags+=$GIT_EMP_WD/emp5c_tags")
 "can verify taglist is correct via 
 ": set verbose tags?" command
 
@@ -363,7 +336,7 @@ let Tlist_WinWidth=20
 "Toggle Tagbar window 
 let g:tagbar_width=20
 let g:tagbar_zoomwidth=0
-nnoremap <F7> :TagbarToggle<CR>
+nnoremap <F8> :TagbarToggle<CR>
 "
 " }}}
 "
@@ -379,7 +352,7 @@ augroup filetype_py
 	" 
 	autocmd FileType python set omnifunc=pythoncomplete#Complete 
 	autocmd BufRead *.py set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class 
-
+	autocmd FileType python set complete+=k~/.vim/bundle/syntastic/syntax_checkers/python/python.vim isk+=.,( 
 	" 
 	" This will allow you to check the syntax of your entire file 
 	" by typing :make. You can the get a list of errors with :clist 
@@ -456,96 +429,4 @@ let g:tex_flavor='latex'
 "
 " }}}
 "
-"
-"### GNU Screen
-"
-"By default, GNU Screen is assumed, you don't have to do anything. If you want
-"to be explicit, you can add this line to your .vimrc:
-"
-"    let g:slime_target = 'screen'
-"
-"Because Screen doesn't accept input from STDIN, a file is used to pipe data
-"between Vim and Screen. By default this file is set to `$HOME/.slime_paste`.
-"The name of the file used can be configured through a variable:
-"
-"    let g:slime_paste_file = '$HOME/.slime_paste'
-"
-"This file is not erased by the plugin and will always contain the last thing
-"you sent over. If this is a problem, I recommend you switch to tmux.
-"
-"When you invoke vim-slime for the first time (see below), you will be prompted for more configuration.
-"
-"screen session name
-"
-"    This is what you put in the -S flag, or one of the line of "screen -ls".
-"
-"screen window name
-"
-"    This is the window number or name, zero-based.
-"
-"### tmux
-"
-"Tmux is *not* the default, to use it you will have to add this line to your .vimrc:
-"
-"    let g:slime_target = 'tmux'
-"
-"When you invoke vim-slime for the first time (see below), you will be prompted for more configuration.
-"
-"tmux socket name
-"
-"    This is what you put in the -L flag, it will be 'default' if you didn't put anything.
-"
-"tmux target pane
-"
-"    ':' means current window, current pane (a reasonable default)
-"    ':i' means the ith window, current pane
-"    ':i.j' means the ith window, jth pane
-"    'h:i.j' means the tmux session where h is the session identifier (either session name or number), the ith window and the jth pane
-"
-"By default `STDIN` is used to pass the text to tmux.
-"If you experience issues with this you may be able to work around them
-"by configuring slime to use a file instead:
-"
-"    let g:slime_paste_file = '$HOME/.slime_paste'
-"
-"This file is not erased by the plugin and will always contain the last thing
-"you sent over.  If this behavior is undesired, one alternative is to use a temporary file:
-"
-"    let g:slime_paste_file = tempname()
-"
-"If you want vim-slime to prefill the prompt answers, you can set a default configuration
-"
-"    let g:slime_default_config = {"socket_name": 'default', 'target_pane': '1'}
-"
-"If this default config is not appropriate for a given buffer, you can call `:SlimeConfig`
-"to reset it.
-"
-"
-"Key Bindings
-"------------
-"
-"By default, the current paragraph will be sent. This is equivalent to typing `vip`. If you (visually) select text, that will be sent over:
-"
-"    C-c, C-c  --- the same as slime
-"
-"_You can just hold `Ctrl` and double-tap `c`._
-"
-"There will be a few questions, as to where you want to send your text, but the answers will be remembered. If you need to reconfigure:
-"
-"    C-c, v    --- mnemonic: 'variables'
 " =================================
-"
-" Slime Settings ----- {{{ 
-"
-
-let g:slime_target="screen"
-"let g:slime_target="tmux"
-let g:slime_paste_file = "$HOME/.slime_paste"
-let g:slime_python_ipython = 1
-"
-" }}}
-"
-" =================================
-"  Set up the reading of manpages from within vim (use :Man whatever)
-
-runtime ftplugin/man.vim

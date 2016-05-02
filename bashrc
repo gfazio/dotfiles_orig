@@ -78,16 +78,19 @@ esac
 OS="$(uname -s)"
 
 if test "$OS" = "Darwin" ; then  
+    echo "Darwin"
     for config in "$HOME"/.bashrc.d/*.bash.osx ; do
         . "$config"
     done
-else if test "$OS" = "Linux" ; then  
+elif test "$OS" = "Linux" ; then  
+    echo "Linux"
     for config in "$HOME"/.bashrc.d/*.bash.linux ; do
         . "$config"
     done
 fi
-unset -v config
+#unset -v config
 
+export CURL_CA_BUNDLE="/etc/ssl/ca-bundle.pem"
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
@@ -95,3 +98,9 @@ unset -v config
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
+
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+# added by Anaconda3 4.0.0 installer
+export PATH="/home/vgg/anaconda3/bin:$PATH"

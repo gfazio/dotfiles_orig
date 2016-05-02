@@ -43,8 +43,10 @@ if test "$OS" = "Darwin"; then
 
 else if test "$OS" = "Linux"; then
 
-    export PATH="/home/vgg/anaconda2/bin:$PATH"
+    export PATH="/home/vgg/anaconda3/bin:$PATH"
 
 fi
 
+#Enables H/W acceleration in Firefox
+export MOZ_USE_OMTC=1
 source ~/.bashrc

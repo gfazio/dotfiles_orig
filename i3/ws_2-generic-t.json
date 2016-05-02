@@ -12,7 +12,7 @@
             "border": "normal",
             "floating": "auto_off",
             "layout": "stacked",
-            "percent": 0.5,
+            "percent": 0.68,
             "type": "con",
             "nodes": [
                 {
@@ -25,15 +25,17 @@
                        "x": 0,
                        "y": 0
                     },
-                    "name": "MidnightCommander",
+                    "name": "Vifm",
                     "percent": 0.5,
                     "swallows": [
                        {
-                        "class": "^Gnome\\-terminal$",
+                        "class": "^Terminator$",
+                        //"class": "^Gnome\\-terminal$",
                        // "instance": "^gnome\\-terminal\\-server$",
                        // "title": "^vgg\\@linux\\-gauw\\:\\ \\~$",
                        // "transient_for": "^$",
-                        "window_role": "^mc$"
+                        //"window_role": "^ranger$"
+                        "window_role": "^vifm$"
                        }
                     ],
                     "type": "con"
@@ -74,7 +76,7 @@
                "y": 0
             },
             "name": "zypper",
-            "percent": 0.5,
+            "percent": 0.32,
             "swallows": [
                {
                 "class": "^Gnome\\-terminal$",

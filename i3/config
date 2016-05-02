@@ -14,7 +14,7 @@ set $mod Mod4
 
 #####################################################
 #
-# Constants
+# Constants           
 #
 #####################################################
 
@@ -44,6 +44,8 @@ set $workspace6 "6:Sys "
 set $workspace7 "7:Dev "
 set $workspace8 "8:Tuts "
 set $workspace9 "9:Media "
+set $workspace10 "10:"
+
 
 #####################################################
 #
@@ -70,15 +72,22 @@ floating_modifier $mod
 
 hide_edge_borders none
 
+# window decorations
+
+new_window pixel 2
+bindsym $mod+u border none
+bindsym $mod+y border pixel 2
+bindsym $mod+n border normal
 
 # start a terminal
-bindsym $mod+Return exec gnome-terminal
+bindsym $mod+Return exec --no-startup-id gnome-terminal
+bindsym $mod+Shift+Return exec --no-startup-id terminator 
 
 # kill focused window
 bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec dmenu_run
+bindsym $mod+d exec --no-startup-id dmenu_run
 
 # start rofi (alternative program launcher)
 bindsym $mod++Shift+d exec --no-startup-id rofi -show run -lines 3 -eh 2 -width 100 -padding 400 -opacity "85" -bw 0 -bc "$base02" -bg "$base02" -fg "$base03" -hlbg "$base02" -hlfg "#9575cd" -font "System San Francisco Display 18"  
@@ -134,6 +143,9 @@ bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
+# split and stack in vertical orientation
+bindsym $mod+z split v, layout stacking
+
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
 
@@ -146,6 +158,9 @@ bindsym $mod+a focus parent
 # focus tfhe child container
 #bindsym $mod+d focus child
 
+# Toggle the sticky modifier (allows floating windows to 
+# follow to each workspace). TODO (this doesnt work -check syntax)
+#bindsym $mod+Shift+w exec i3-msg 'toggle sticky ' 
 
 # switch to workspace
 bindsym $mod+1 workspace $workspace1
@@ -181,7 +196,7 @@ bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+Shift+e exec --no-startup-id "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -215,23 +230,22 @@ bindsym $mod+r mode "resize"
 
 # Volume Control
 
-bindsym $mod+F11 exec amixer set Master 5%-
-bindsym $mod+F12 exec  amixer set Master 5%+
+bindsym $mod+F11 exec --no-startup-id amixer set Master 5%-
+bindsym $mod+F12 exec  --no-startup-id amixer set Master 5%+
 
 # Brightness Control
 
-bindsym $mod+F1 exec xbacklight -dec 5 
-bindsym $mod+F2 exec xbacklight -inc 5 
+bindsym $mod+F1 exec --no-startup-id xbacklight -dec 5 
+bindsym $mod+F2 exec --no-startup-id xbacklight -inc 5 
 
 #
 # Screen Lock/ Logout / Suspend / Reboot
 #
-set $Locker ". $HOME/.i3/lock.sh $HOME/Pictures/Icons/lock.png" 
+set $Locker ". /home/vgg/.i3/scripts/lock.sh $HOME/Pictures/Icons/lock.png" 
 set $LockerSuspend "i3lock && sleep 1"
 
 set $mode_system System (l) lock, (e) logout, (s) suspend, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
-#    bindsym l exec --no-startup-id $Locker, mode "default"
     bindsym l exec --no-startup-id $Locker, mode "default"       
     bindsym e exec --no-startup-id i3-msg exit, mode "default"
     bindsym s exec --no-startup-id i3lock --color="$base02" && sleep1 && systemctl suspend, mode "default"
@@ -248,6 +262,12 @@ bindsym $mod+F4 mode "$mode_system"
 # Floating
 
  for_window [class="Lxappearance"] floating enable
+ for_window [class="Mplayer"] floating enable
+ for_window [class="Mpv"] floating enable #move absolute 10 100
+ for_window [class="Vlc"] floating enable
+ for_window [class="YaST2"] floating enable
+ for_window [class="Pavucontrol"] floating enable
+ for_window [class="Blueman-manager"] floating enable
 
 # Widow Colours
 #                           border  background text    indicator
@@ -257,11 +277,14 @@ bindsym $mod+F4 mode "$mode_system"
     client.urgent           $base02 $base08    $base00 $base0F
 
 
+
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-        font pango: System San Francisco Display, FontAwesome 11 
-        status_command i3status
+        font pango: System San Francisco Display, FontAwesome 10 
+        status_command $HOME/bin/conky-i3bar.sh
+#        status_command i3status
+#        status_command i3blocks -c /home/vgg/.i3/i3blocks.conf
        # strip_workspace_numbers yes
         colors {
 	      separator $base03
@@ -285,11 +308,57 @@ assign [class="jetbrains-pycharm-ce"] $workspace7
 # Assign media applications to workspace 9
 
 assign [class="^vlc$"] $workspace9
+assign [class="^Rhythmbox$"] $workspace9
+
+
+
+#
+# Launch Specific Apps
+#
+bindsym $mod+Shift+g exec --no-startup-id /usr/local/bin/eclipse/eclipse 
+bindsym $mod+Shift+f exec --no-startup-id /usr/bin/firefox 
+bindsym $mod+Shift+m exec --no-startup-id /usr/bin/mplayer 
+bindsym $mod+Shift+n exec --no-startup-id /usr/bin/nixnote2
+bindsym $mod+Shift+t exec --no-startup-id /usr/bin/terminator --role="ncmpcpp" -e ncmpcpp
+bindsym $mod+Shift+v exec --no-startup-id /usr/bin/vlc 
+
+#
+# Refresh layouts if one of the windows is killed
+#
+
+bindsym $mod+Shift+x exec --no-startup-id workspace $2; focus parent; focus parent; focus parent; focus parent; focus parent; kill; append_layout /home/vgg/.i3/ws_2-generic-t.json; exec --no-startup-id gnome-terminal --role="vim"; exec --no-startup-id gnome-terminal --role="zypper"; exec --no-startup-id terminator --role="ranger" -T "RANGER" -b -e ranger ; exec --no-startup-id terminator --role="ncmpcpp" --layout="NCMPCPP" -T "NCMPCPP" -b 
+
+#bindsym $mod+Shift+x exec --no-startup-id workspace $2; focus parent; focus parent; focus parent; focus parent; focus parent; kill; append_layout /home/vgg/.i3/ws_2-generic.json; exec gnome-terminal --role="vim"; exec gnome-terminal --role="zypper"; exec gnome-terminal --role="mc" -e mc ; exec terminator --role="ncmpcpp" -e tmux
+
+#bindsym $mod+Shift+x exec --no-startup-id workspace $2; focus parent; focus parent; focus parent; focus parent; focus parent; kill; append_layout /home/vgg/.i3/ws_2-generic.json; exec gnome-terminal --role="vim"; exec gnome-terminal --role="zypper"; exec gnome-terminal --role="mc" -e mc ; exec terminator --role="ncmpcpp" -e ncmpcpp
+
 #
 # Startup Apps
-
+#
+# Set the background
 exec --no-startup-id feh --bg-scale /home/vgg/Pictures/space-wallpaper-7-610x343.jpg 
+#
+#start  mpd so that ncmpcpp can access it when launched
+#
+# 
+# start the network applet
+#
 exec --no-startup-id /usr/bin/nm-applet
-exec_always compton -f
-exec --no-startup-id i3-msg 'workspace $workspace5  ;  exec /usr/bin/firefox ; workspace $workspace1'
-exec --no-startup-id i3-msg 'workspace $workspace2; append_layout /home/vgg/.i3/ws_2-generic.json; exec gnome-terminal --role="Terminal1"; exec gnome-terminal --role="mc" -e mc ; exec gnome-terminal --role="vim"; workspace $workspace1'
+# 
+# start the bluetooth applet
+#
+#exec --no-startup-id /usr/bin/blueman-applet
+#
+#start window effects
+#
+exec compton -f
+#
+# start up some applications in their respective workspaces
+#
+exec --no-startup-id i3-msg 'workspace $workspace5  ;  exec --no-startup-id /usr/bin/firefox '
+#
+#exec --no-startup-id i3-msg 'workspace $workspace2; append_layout /home/vgg/.i3/ws_2-generic.json; exec gnome-terminal --role="vim"; exec gnome-terminal --role="zypper"; exec gnome-terminal --role="mc" -e mc ; exec terminator --role="ncmpcpp" -e ncmpcpp; workspace $workspace1' 
+#exec --no-startup-id i3-msg 'workspace $workspace2; append_layout /home/vgg/.i3/ws_2-generic-t.json; exec --no-startup-id gnome-terminal --role="vim"; exec --no-startup-id gnome-terminal --role="zypper"; exec --no-startup-id terminator --role="ranger" -T "RANGER" -b -e ranger ; exec --no-startup-id terminator --role="ncmpcpp" -e tmux -T "NCMPCPP" -b ; workspace $workspace1' 
+exec --no-startup-id i3-msg ' exec --no-startup-id /usr/bin/mpd /home/vgg/.mpd/mpd.conf; workspace $workspace2; append_layout /home/vgg/.i3/ws_2-generic-t.json; exec --no-startup-id gnome-terminal --role="vim"; exec --no-startup-id gnome-terminal --role="zypper"; exec --no-startup-id terminator --role="vifm" -T "VIFM" -b -e vifm ; exec --no-startup-id terminator --role="ncmpcpp" --layout="NCMPCPP" -T "NCMPCPP" -b ; workspace $workspace1' 
+#
+

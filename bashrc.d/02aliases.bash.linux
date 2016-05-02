@@ -6,27 +6,6 @@
 
 
 ###############################################################################
-# IPlayer 
-#
-###############################################################################
-
-alias bbccbbc='get_iplayer --stream --type=livetv "CBBC" --player="vlc -"&'
-alias bbccbbs='get_iplayer --stream --type=livetv "CBeebies" --player="vlc -"&'
-alias bbcn='get_iplayer --stream --type=livetv "BBC News" --player="vlc -"&'
-alias bbc1='get_iplayer --stream --type=livetv "BBC One" --player="vlc -"&'
-alias bbc2='get_iplayer --stream --type=livetv "BBC Two" --player="vlc -"&'
-alias bbc3='get_iplayer --stream --type=livetv "BBC Three" --player="vlc -"&'
-alias bbc4='get_iplayer --stream --type=livetv "BBC Four" --player="vlc -"&'
-alias bbcr1x='get_iplayer --stream --type=liveradio "BBC 1xtra" --player="vlc -"&'
-alias bbcr1='get_iplayer --stream --type=liveradio "BBC Radio 1" --player="vlc -"&'
-alias bbcr2='get_iplayer --stream --type=liveradio "BBC Radio 2" --player="vlc -"&'
-alias bbcr3='get_iplayer --stream --type=liveradio "BBC Radio 3" --player="vlc -"&'
-alias bbcr4='get_iplayer --stream --type=liveradio "BBC Radio 4 FM" --player="vlc -"&'
-alias bbcr4x='get_iplayer --stream --type=liveradio "BBC Radio 4 Extra" --player="vlc -"&'
-alias bbcr5='get_iplayer --stream --type=liveradio "BBC Radio 5 live" --player="vlc -"&'
-alias bbcr5x='get_iplayer --stream --type=liveradio "BBC 5 live Sports Extra" --player="vlc -"&'
-
-###############################################################################
 #
 # General
 #
@@ -39,7 +18,7 @@ alias df="df -h"
 alias drpre3att="java -jar $COMP/Palm/webos/Homebrew/Tools/04-webosdoctorp224mantaatt.jar"
 alias drive="/home/vgg/bin/gdrive-osx-x64"
 alias du="du -h"
-alias eclipse="/usr/local/bin/eclipse/eclipse &"
+#alias eclipse="/usr/local/bin/eclipse/eclipse 2> /dev/null &"
 alias eclm="$ECLIPSE_HOME/eclimd &"
 alias eclmoff="$ECLIPSE_HOME/eclim -command shutdown &"
 alias fixeclipse="rm -f /home/vgg/Computing/Development/Workspace/.metadata/.plugins/org.eclipse.e4.workbench/workbench.xmi"
@@ -61,17 +40,24 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias less_alias="less /home/vgg/dotfiles/bashrc.d/02aliases.bash.linux"
 alias more_alias="more /home/vgg/dotfiles/bashrc.d/02aliases.bash.linux"
+alias osxrw="sudo mount -o remount,rw,force /MacOSX"
+alias osxro="sudo mount -o remount,ro,force /MacOSX"
+alias osxdrw="sudo mount -o remount,rw,force /MacOSX-Data"
+alias osdxro="sudo mount -o remount,ro,force /MacOSX-Data"
+alias osxd2rw="sudo mount -o remount,rw,force /MacOSX-Data2"
+alias osd2xro="sudo mount -o remount,ro,force /MacOSX-Data2"
 alias less_env="less /home/vgg/dotfiles/bashrc.d/01environ.bash.linux"
 alias prot="chmod og-rx"
 alias pre2="novacom -d roadrunner-linux -t open tty://"
 alias pre3="novacom -d mantaray-linux -t open tty://"
 alias pycharm="/usr/local/bin/pycharm &"
 alias touchpad="novacom -d topaz-linux -t open tty://"
-alias ralias=". /home/vgg/dotfiles/bashrc.d/01environ.bash.linux ; . /home/vgg/dotfiles/bashrc.d/02aliases.bash.linux"
+alias ralias=". /home/vgg/dotfiles/bashrc.d/01environ.bash.linux ; . /home/vgg/dotfiles/bashrc.d/02aliases.bash.linux; . /home/vgg/dotfiles/bashrc.d/03functions.bash.linux"
 alias rm="rm -f"    
 alias ukali="sudo umount /Kali"
 alias wanip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias wh="echo $cwd"
+alias zork1="xzip -geometry 300x300 -statgeometry 30x30 /home/vgg/bin/zork/DATA/ZORK1.DAT &"
 
 ###############################################################################
 ##
@@ -84,5 +70,5 @@ alias ciao="heainit;. $Astro/sw/CIAO/ciao-4.5/bin/ciao.bash"
 alias goaips=". ${ASTRO}/Radio/AIPS/LOGIN.SH"
 alias sasinit="heainit; . $SASDIR/setsas.sh"
 alias setodf="export SAS_ODF=${PWD}"
-
+alias updateccf="rsync -v -a --delete --delete-after --force --include='*.CCF' --exclude='*/' xmm.esac.esa.int::XMM_VALID_CCF /home/vgg/Astro/X-Ray/CCF/"
 ###############################################################################
