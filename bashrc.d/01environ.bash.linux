@@ -12,7 +12,7 @@
 
 
 export VMD="/MacOSX-Data"
-export BASE_DIR="/home/vgg" 
+export BASE_DIR="$HOME" 
 
 export HEADAS_VRSN="heasoft-6.18"
 export HEADAS_ARCH="x86_64-unknown-linux-gnu-libc2.19"
@@ -35,7 +35,7 @@ export PATH="${PATH}:/opt/local/bin:/usr/local/bin:/usr/bin/:/bin:/usr/local/sbi
 export PATH="${PATH}:/opt/Palm/novacom/:/opt/PalmPDK/bin/"
 export PATH="${PATH}:${ASTRO}:${ASTROX}:${ASTROX}/ds9:${ASTROX}/XPA"
 
-#export SAS_ODF="/home/vgg/Astro/X-Ray/ODF"
+#export SAS_ODF="$HOME/Astro/X-Ray/ODF"
 # After odfingest has been run SAS_ODF needs to be set to the 
 # /full/path/to/ODF/file*SUM.SAS file that has been created.  
 

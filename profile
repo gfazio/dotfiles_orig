@@ -43,7 +43,7 @@ if test "$OS" = "Darwin"; then
 
 else if test "$OS" = "Linux"; then
 
-    export PATH="/home/vgg/anaconda3/bin:$PATH"
+    export PATH="$HOME/anaconda3/bin:$PATH"
 
 fi
 

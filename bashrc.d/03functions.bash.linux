@@ -102,11 +102,11 @@ tsm-ncurse() { transmission-remote-cli ;}
 ###########################################################
 #-------- Configurations {{{
 #------------------------------------------------------
-cfg-bashrc() { $EDITOR /home/vgg/.bashrc ;}
-cfg-dotalias() { $EDITOR /home/vgg/.bashrc.d/02aliases.bash.linux ;}
-cfg-dotenvs() { $EDITOR /home/vgg/.bashrc.d/01environ.bash.linux ;}
-cfg-dotfuncs() { $EDITOR /home/vgg/.bashrc.d/03functions.bash.linux ;}
-cfg-dotopts() { $EDITOR /home/vgg/.bashrc.d/04options.bash.linux ;}
+cfg-bashrc() { $EDITOR $HOME/.bashrc ;}
+cfg-dotalias() { $EDITOR $HOME/.bashrc.d/02aliases.bash.linux ;}
+cfg-dotenvs() { $EDITOR $HOME/.bashrc.d/01environ.bash.linux ;}
+cfg-dotfuncs() { $EDITOR $HOME/.bashrc.d/03functions.bash.linux ;}
+cfg-dotopts() { $EDITOR $HOME/.bashrc.d/04options.bash.linux ;}
 cfg-fstab() { sudo $EDITOR /etc/fstab ;}
 cfg-group() { sudo $EDITOR /etc/group ;}
 cfg-grub() { sudo $EDITOR /etc/default/grub ;}
@@ -134,10 +134,10 @@ cfg-ssh-client() { sudo $EDITOR /etc/ssh/ssh_config ;}
 cfg-ssh-daemon() { sudo $EDITOR /etc/ssh/sshd_config ;}
 cfg-sudoers() { sudo $EDITOR /etc/sudoers ;}
 cfg-tmuxrc() { $EDITOR ~/.tmux.conf ;}
-cfg-tpb() { $EDITOR /home/vgg/bin/scripts/torrshellscripts-master/thepiratebay_se/tpb.sh ;}
+cfg-tpb() { $EDITOR $HOME/bin/scripts/torrshellscripts-master/thepiratebay_se/tpb.sh ;}
 cfg-transmission-daemon() { $EDITOR ~/.config/transmission-daemon/settings.json ;}
 cfg-transmission-ncurse() { $EDITOR ~/.config/transmission-remote-cli/settings.cfg ;}
-cfg-trz() { $EDITOR /home/vgg/bin/scripts/torrshellscripts-master/torrentz_eu/torrentz_eu.sh ;}
+cfg-trz() { $EDITOR $HOME/bin/scripts/torrshellscripts-master/torrentz_eu/torrentz_eu.sh ;}
 cfg-urlview() { $EDITOR ~/.urlview ;}
 cfg-updatedb() { sudo $EDITOR /etc/updatedb.conf ;}	
 cfg-vimrc() { $EDITOR ~/.vimrc ;}
@@ -1225,7 +1225,7 @@ fzf-multisnippet() {
 # DESC: auto download torrent similar to how a DVR works
 # URL:  http://flexget.com/
 
-alias flexget='/home/vgg/anaconda2/bin/flexget'
+alias flexget='$HOME/anaconda2/bin/flexget'
 flexget-list() { flexget series list && flexget movie_list list waiting && flexget movie_list list downloaded ;}
 flexget-check() { flexget check ;}			# check if config file has any errors
 flexget-test() { flexget --test execute ;}		# dry run

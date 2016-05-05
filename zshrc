@@ -1,8 +1,9 @@
 # Path to your oh-my-zsh installation.
-export ZSH=/Users/vgg/.oh-my-zsh
+export ZSH=$HOME/.oh-my-zsh
 
 #Path to aliases and environment variables used in bash
-export BASH_DIR=/Users/vgg/.bashrc.d
+export BASH_DIR=$HOME/.bashrc.d
+export Z_DIR=$HOME/dotfiles/z
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
@@ -52,19 +53,23 @@ ZSH_THEME="agnoster"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git python sudo macports osx common-aliases)
+plugins=(git python sudo common-aliases)
 
 # User configuration
 
 #export PATH="/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/X11/bin:/usr/local/MacGPG2/bin:/opt/PalmPDK/bin:/opt/PalmSDK/0.1/bin/:/usr/texbin:/opt/local/bin:/opt/local/sbin:/opt/PalmSDK/Current/bin:/opt/PalmPDK/bin/:/Volumes/MacOSX-Data/Astro:/Volumes/MacOSX-Data/Astro/X-Ray:/Volumes/MacOSX-Data/Astro/X-Ray/DS9:/Applications/calibre.app/Contents/MacOS/"
 # export MANPATH="/usr/local/man:$MANPATH"
 
-source $BASH_DIR/01environ.bash
+source $BASH_DIR/01environ.bash.linux
+source $BASH_DIR/02aliases.bash.linux
+source $BASH_DIR/03functions.bash.linux
+source $BASH_DIR/04options.bash.linux 
 source $ZSH/oh-my-zsh.sh
 
 #Use z
 
-. /opt/local/etc/profile.d/z.sh
+#. /opt/local/etc/profile.d/z.sh
+. $Z_DIR/z.sh
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -73,7 +78,7 @@ source $ZSH/oh-my-zsh.sh
  if [[ -n $SSH_CONNECTION ]]; then
    export EDITOR='vim'
  else
-   export EDITOR='mvim'
+   export EDITOR='vim'
  fi
 
 # Compilation flags
@@ -90,5 +95,3 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
  alias zshconfig="vim ~/.zshrc"
  alias ohmyzsh="vim ~/.oh-my-zsh"
-source $BASH_DIR/02aliases.bash
-source /Users/vgg/.bashrc.d/04options.bash 
