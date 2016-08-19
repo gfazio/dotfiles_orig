@@ -262,8 +262,8 @@ bindsym $mod+F4 mode "$mode_system"
 # Floating
 
  for_window [class="Lxappearance"] floating enable
- for_window [class="Mplayer"] floating enable
- for_window [class="Mpv"] floating enable #move absolute 10 100
+ for_window [class="Mplayer" ] floating enable
+ for_window [class="Mpv" ] floating enable #move absolute 10 100
  for_window [class="Vlc"] floating enable
  for_window [class="YaST2"] floating enable
  for_window [class="Pavucontrol"] floating enable
