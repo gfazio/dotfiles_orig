@@ -32,7 +32,7 @@ export SAS_IMAGEVIEWER="$ASTROX/ds9/ds9"
 export PATH="${BASE_DIR}/anaconda3/bin:$PATH"
 export PATH="${PATH}:${BASE_DIR}/bin"
 export PATH="${PATH}:/opt/local/bin:/usr/local/bin:/usr/bin/:/bin:/usr/local/sbin/:/usr/x86_64-suse-linux/bin:/usr/local/bin/eclipse"
-export PATH="${PATH}:/opt/Palm/novacom/:/opt/PalmPDK/bin/"
+export PATH="${PATH}:/opt/Palm/novacom/:/opt/PalmPDK/bin/:/opt/PalmSDK/Current/bin"
 export PATH="${PATH}:${ASTRO}:${ASTROX}:${ASTROX}/ds9:${ASTROX}/XPA"
 export PATH="${PATH}:${ASTROX}/wcstools-3.9.2/bin" 
 export PATH="${PATH}:${ASTROX}/nxsa-cl-aioclient-8.4" 
@@ -91,7 +91,7 @@ export BROWSERCLI=$(find_alt w3m links lynx $OPENER )
 export COMICER=$(find_alt mcomix comix $OPENER )
 export EBOOKER=$(find_alt calibre-ebook-viewer $OPENER )
 export EDITOR=$(find_alt vim emacs nano leafpad gedit $OPENER )
-export FILEMANAGER=$(find_alt thunar nautilus mc vifm $OPENER )
+export FILEMANAGER=$(find_alt thunar vifm nautilus mc $OPENER )
 export MUSICER=$(find_alt mplayer mpv cvlc rhythmbox ncmpcmpp $OPENER )
 export PAGER=$(find_alt less more )
 export PLAYER=$(find_alt mplayer cvlc mpv $OPENER )
@@ -125,6 +125,7 @@ export HISTIGNORE="ls:exit:df:w:h:ll"
 #
 ###########################################################
 
+export CHEATCOLOR=true
 export CLICOLOR=true
 export LSCOLORS='cxfxcxdxbxegedabagacad'
 

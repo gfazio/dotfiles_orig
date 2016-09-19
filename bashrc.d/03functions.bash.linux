@@ -158,6 +158,34 @@ rld-xmodmap() { xmodmap ~/.Xmodmap ;}
 rld-xresources() { xrdb -load ~/.Xresources ;}
 rld-zshrc() { source ~/.zshrc ;}
 # }}}
+#------- IPlayer {{{
+#
+get_iplayer-list(){cls;for FILE in `cat ToDownloadList`; do URI=$FILE; echo "Downloading $URI"; /home/vgg/bin/get_iplayer  --modes=flashhigh,hlshigh --url $URI; done}
+bbccbbc(){/home/vgg/bin/get_iplayer --stream --type=livetv "CBBC" --player="/usr/bin/mplayer -"&}
+bbccbbs(){/home/vgg/bin/get_iplayer --stream --type=livetv "CBeebies" --player="/usr/bin/mplayer -"&}
+bbcn(){/home/vgg/bin/get_iplayer --stream --type=livetv "BBC News" --player="/usr/bin/mplayer -"&}
+bbc1(){/home/vgg/bin/get_iplayer --stream --type=livetv "BBC One" --player="/usr/bin/mplayer -"&}
+bbc2(){/home/vgg/bin/get_iplayer --stream --type=livetv "BBC Two" --player="/usr/bin/mplayer -"&}
+bbc3(){/home/vgg/bin/get_iplayer --stream --type=livetv "BBC Three" --player="/usr/bin/mplayer -"&}
+bbc4(){/home/vgg/bin/get_iplayer --stream --type=livetv "BBC Four" --player="/usr/bin/mplayer -"&}
+bbcr1x(){/home/vgg/bin/get_iplayer --stream --type=liveradio "BBC 1xtra" --player="/usr/bin/mplayer -"&}
+bbcr1(){/home/vgg/bin/get_iplayer --stream --type=liveradio "BBC Radio 1" --player="/usr/bin/mplayer -"&}
+bbcr2(){/home/vgg/bin/get_iplayer --stream --type=liveradio "BBC Radio 2" --player="/usr/bin/mplayer -"&}
+bbcr3(){/home/vgg/bin/get_iplayer --stream --type=liveradio "BBC Radio 3" --player="/usr/bin/mplayer -"&}
+bbcr4(){/home/vgg/bin/get_iplayer --stream --type=liveradio "BBC Radio 4 FM" --player="/usr/bin/mplayer -"&}
+bbcr4x(){/home/vgg/bin/get_iplayer --stream --type=liveradio "BBC Radio 4 Extra" --player="/usr/bin/mplayer -"&}
+bbcr5(){/home/vgg/bin/get_iplayer --stream --type=liveradio "BBC Radio 5 live" --player="/usr/bin/mplayer -"&}
+bbcr5x(){/home/vgg/bin/get_iplayer --stream --type=liveradio "BBC 5 live Sports Extra" --player="/usr/bin/mplayer -"&}
+
+# }}}
+#------- Novacom {{{
+nova-up(){ echo "nova-up:...:"; sudo -E novacomd -d; }
+nova-down(){sudo -E kill -9 $(echo `ps aux | grep novacomd | awk '/root/{print $2}'`); echo "nova-down:...completed:"; }
+pre2(){ novacom -d roadrunner-linux -t open tty://; }
+pre3(){ novacom -d mantaray-linux -t open tty:// ;}
+touchpad(){ novacom -d topaz-linux -t open tty:// ;}
+veer(){ novacom -d broadway-linux -t open tty:// ;}
+# }}}
 #-------- System Information {{{
 #------------------------------------------------------
 m-sound() { arecord -L && arecord -l && cat /proc/asound/pcm ;} #List audio capture card/mic

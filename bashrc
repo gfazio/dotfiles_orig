@@ -104,3 +104,6 @@ fi
 
 # added by Anaconda3 4.0.0 installer
 export PATH="$HOME/anaconda3/bin:$PATH"
+
+#start the fan in linux
+if [ -

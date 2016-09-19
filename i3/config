@@ -336,7 +336,8 @@ bindsym $mod+Shift+x exec --no-startup-id workspace $2; focus parent; focus pare
 # Startup Apps
 #
 # Set the background
-exec --no-startup-id feh --bg-scale /home/vgg/Pictures/space-wallpaper-7-610x343.jpg 
+exec --no-startup-id feh --bg-scale /home/vgg/Pictures/MeteorM31_hemmerich_960.jpg
+#exec --no-startup-id feh --bg-scale /home/vgg/Pictures/space-wallpaper-7-610x343.jpg 
 #
 #start  mpd so that ncmpcpp can access it when launched
 #
