@@ -81,7 +81,8 @@ bindsym $mod+n border normal
 
 # start a terminal
 bindsym $mod+Return exec --no-startup-id gnome-terminal
-bindsym $mod+Shift+Return exec --no-startup-id terminator 
+bindsym $mod+Shift+Return exec --no-startup-id guake
+#bindsym $mod+Shift+Return exec --no-startup-id terminator 
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -336,7 +337,8 @@ bindsym $mod+Shift+x exec --no-startup-id workspace $2; focus parent; focus pare
 # Startup Apps
 #
 # Set the background
-exec --no-startup-id feh --bg-scale /home/vgg/Pictures/MeteorM31_hemmerich_960.jpg
+exec --no-startup-id feh --bg-scale /home/vgg/Pictures/Anime/samurai.jpg
+#exec --no-startup-id feh --bg-scale /home/vgg/Pictures/MeteorM31_hemmerich_960.jpg
 #exec --no-startup-id feh --bg-scale /home/vgg/Pictures/space-wallpaper-7-610x343.jpg 
 #
 #start  mpd so that ncmpcpp can access it when launched

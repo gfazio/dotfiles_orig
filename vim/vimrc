@@ -115,6 +115,24 @@ nnoremap <leader>v :edit $MYVIMRC<CR>
 "able to write the file.
 cnoremap w!! %!sudo tee > /dev/null %
 
+"open with @locate or find command
+"tutorial video: https://www.youtube.com/watch?v=X0KP15O006M
+noremap <leader>o :exec '!xdg-open ' . shellescape(getline('.')) <CR><CR>
+noremap <leader>mp :exec '!mplayer ' . shellescape(getline('.')) <CR><CR>
+
+" Ranger File Browser in Vim
+" http://www.everythingcli.org/use-ranger-as-a-file-explorer-in-vim/
+function RangerExplorer()
+   exec "silent !ranger --choosefile=/tmp/vim_ranger_current_file " .
+   expand("%:p:h")
+   if filereadable('/tmp/vim_ranger_current_file')
+      exec 'edit ' . system('cat /tmp/vim_ranger_current_file')
+      call system('rm /tmp/vim_ranger_current_file')
+   endif
+   redraw!
+endfun
+noremap <Leader>re :call RangerExplorer()<CR>
+
 "
 "Manage multiple windows
 "nnoremap <leader>W :call g:VGGToggleWindowFixedWidth()<CR>
@@ -226,6 +244,17 @@ augroup filetype_vim
 			echo "Window Defaults OFF"
 		endif
 	endfunction
+augroup END
+"
+" }}}
+"
+" =================================
+"
+" Javascript file settings ------------ {{{
+"
+augroup filetype_js
+	autocmd!
+	autocmd FileType javascript setlocal foldmethod=marker omnifunc=javascriptcomplete#CompleteJS
 augroup END
 "
 " }}}

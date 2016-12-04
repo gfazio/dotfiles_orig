@@ -2263,6 +2263,7 @@ mpsyt-game-lazygamereviews() { mpsyt user phreakindee ;}
 mpsyt-greatmilitarybattles() { mpsyt user greatmilitarybattles ;}
 mpsyt-greentvgreentv() { mpsyt user greentvgreentv ;}
 mpsyt-homeorganizing() { mpsyt user homeorganizing ;}
+mpsyt-hak5(){ mpsyt pl "https://www.youtube.com/playlist?list=PLW5y1tjAOzI0w_GbtiEbYS5PGJ2pmxAIX" ;}
 mpsyt-linux-linuxgamecast() { mpsyt user linuxgamecast ;}
 mpsyt-linux-jupiterbroadcasting() { mpsyt user jupiterbroadcasting ;}
 mpsyt-midwaysimplicity() { mpsyt user midwaysimplicity ;}
