@@ -91,8 +91,7 @@ bindsym $mod+Shift+q kill
 bindsym $mod+d exec --no-startup-id dmenu_run
 
 # start rofi (alternative program launcher)
-bindsym $mod++Shift+d exec --no-startup-id rofi -show run -lines 3 -eh 2 -width 100 -padding 400 -opacity "85" -bw 0 -bc "$base02" -bg "$base02" -fg "$base03" -hlbg "$base02" -hlfg "#9575cd" -font "System San Francisco Display 18"  
-
+bindsym $mod+Shift+d exec --no-startup-id rofi -show run -lines 3 -eh 2 -width 80 -padding $(($(xwininfo -root | awk '/Height/  {print $2}')/4)) -opacity "75" -bw 0 -bc "$base02" -bg "$base02" -fg "$base03" -hlbg "$base02" -hlfg "#9575cd" -font "System San Francisco Display 18"  
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.

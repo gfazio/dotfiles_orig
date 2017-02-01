@@ -106,4 +106,3 @@ fi
 export PATH="$HOME/anaconda3/bin:$PATH"
 
 #start the fan in linux
-if [ -

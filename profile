@@ -50,3 +50,5 @@ fi
 #Enables H/W acceleration in Firefox
 export MOZ_USE_OMTC=1
 source ~/.bashrc
+
+export PATH="$HOME/.cargo/bin:$PATH"
