@@ -1,15 +1,71 @@
 " =A-S-L================================
 "
-"
 " Plugin setup --- via Pathogen ----- {{{
+" set nocompatible
+" filetype off
+" execute pathogen#infect() 
+" execute pathogen#helptags() 
+" Plugin setup --- via vundle ----- {{{
 set nocompatible
 filetype off
-execute pathogen#infect() 
-execute pathogen#helptags() 
-filetype on
-filetype plugin on
-filetype plugin indent on
+" set the runtime path to include Vundle and initialize
+set rtp+=$HOME/.vim/bundle/Vundle.vim
+call vundle#begin()
 "
+" let Vundle manage Vundle, required
+"
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'cburroughs/pep8.py'
+Plugin 'ervandew/supertab'
+Plugin 'ivanov/vim-ipython'
+Plugin 'jistr/vim-nerdtree-tabs'
+Plugin 'jnurmine/Zenburn'
+Plugin 'kien/ctrlp.vim'
+Plugin 'klen/rope-vim'
+Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
+Plugin 'majutsushi/tagbar'
+Plugin 'mileszs/ack.vim'
+Plugin 'nelstrom/vim-markdown-preview'
+Plugin 'nvie/vim-flake8'
+Plugin 'rkulla/pydiction'
+Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/syntastic'
+Plugin 'suan/vim-instant-markdown'
+Plugin 'tarruda/vim-conque-repl'
+Plugin 'tmhedberg/SimpylFold'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-git'
+Plugin 'tpope/vim-surround'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'vim-latex/vim-latex'
+Plugin 'vim-scripts/Conque-Shell'
+Plugin 'vim-scripts/indentpython.vim'
+Plugin 'vim-scripts/pydoc.vim'
+Plugin 'vim-scripts/vimwiki'
+Plugin 'wincent/command-t'
+Plugin 'WolfgangMehner/vim-plugins'
+"
+" All of your Plugins must be added before the following line
+"
+call vundle#end()            " required
+filetype plugin indent on    " required
+filetype on
+"
+" To ignore plugin indent changes, instead use: filetype plugin on
+"
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
+"
+" }}}
 " }}}
 "
 " =================================
@@ -33,18 +89,27 @@ filetype plugin indent on
             set guicursor=n-v-c:block-Cursor
             "highlight Cursor guifg=yellow guibg=blue
     else
-	    if &term =~ "xterm"
-             if has("terminfo")
-		set t_Co=8
-	        set t_Sf=3%p1%dm
-		set t_Sb=4%p1%dm
-	     else
-		set t_Co=8
-		set t_Sf=3%dm
-		set t_Sb=4%dm
-             endif
-            endif
+"	  "colorscheme zenburn
+          "set background=dark
+	  "colorscheme solarized
+            "colorscheme eclipse 
+            colorscheme  desert
+            "colorscheme twilight
+
+	   " if &term =~ "xterm"
+           "  if has("terminfo")
+	"	set t_Co=8
+	"        set t_Sf=3%p1%dm
+	"	set t_Sb=4%p1%dm
+	"     else
+	"	set t_Co=8
+	"	set t_Sf=3%dm
+	"	set t_Sb=4%dm
+        "     endif
+        "    endif
+    
     endif
+
 "
 " }}}
 "
@@ -62,6 +127,7 @@ set autowrite
 set columns=100
 set dictionary+=/usr/share/dict/words
 set directory=.,$TEMP:
+set encoding=utf-8
 set foldlevel=0   "0=all folds closed; 99=all folds open
 set foldmethod=indent
 set hidden
@@ -119,10 +185,14 @@ cnoremap w!! %!sudo tee > /dev/null %
 "tutorial video: https://www.youtube.com/watch?v=X0KP15O006M
 noremap <leader>o :exec '!xdg-open ' . shellescape(getline('.')) <CR><CR>
 noremap <leader>mp :exec '!mplayer ' . shellescape(getline('.')) <CR><CR>
+noremap <leader>yp :exec '!mplayer $(youtube-dl -g ' . shellescape(getline('.')) . ')' <CR><CR>
+
+"See docstrings for folded code
+let g:SimpylFold_docstring_preview=1
 
 " Ranger File Browser in Vim
 " http://www.everythingcli.org/use-ranger-as-a-file-explorer-in-vim/
-function RangerExplorer()
+function! RangerExplorer()
    exec "silent !ranger --choosefile=/tmp/vim_ranger_current_file " .
    expand("%:p:h")
    if filereadable('/tmp/vim_ranger_current_file')
@@ -183,6 +253,13 @@ let g:EclimProjectTreeAutoOpen=1
 "
 " Status Line ----- {{{
 "
+let g:airline_theme='luna'
+"if !exists('g:airline_symbols')
+"      let g:airline_symbols = {}
+"endif
+"let g:airline_symbols.space = "\ua0"
+set timeoutlen=500 ttimeoutlen=10
+
 set laststatus=2     "Always display status line
 set statusline=%F    "Full path to the file
 set statusline+=\ -\        "Separator 
@@ -209,7 +286,7 @@ augroup filetype_vim
 	autocmd FileType vim setlocal foldmethod=marker 
 	" Source the vimrc file after saving it 
 	if has("autocmd") 
-		autocmd bufwritepost .vimrc source $MYVIMRC 
+		autocmd! bufwritepost $MYVIMRC nested :source $MYVIMRC 
 	endif
 	function! g:VGGToggleWindowFixedWidth()
 		:set winfixwidth!
@@ -272,17 +349,20 @@ inoremap <expr> <PageUp>  pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
 
 let g:SuperTabDefaultCompletionType="context"
 
+"YouCompleteMe
+let g:ycm_autoclose_preview_window_after_completion=1
+map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 "
 " OmniCppComplete
 "
-let OmniCpp_NamespaceSearch=1
-let OmniCpp_GlobalScopeSearch=1
-let OmniCpp_ShowAccess=1
-let OmniCpp_ShowPrototypeInAbbr= 1 " show function parameters
-let OmniCpp_MayCompleteDot=1 " autocomplete after .
-let OmniCpp_MayCompleteArrow=1 " autocomplete after ->
-let OmniCpp_MayCompleteScope=1 " autocomplete after ::
-let OmniCpp_DefaultNamespaces=["std"] "same as inserting using namespace std 
+"let OmniCpp_NamespaceSearch=1
+"let OmniCpp_GlobalScopeSearch=1
+"let OmniCpp_ShowAccess=1
+"let OmniCpp_ShowPrototypeInAbbr= 1 " show function parameters
+"let OmniCpp_MayCompleteDot=1 " autocomplete after .
+"let OmniCpp_MayCompleteArrow=1 " autocomplete after ->
+"let OmniCpp_MayCompleteScope=1 " autocomplete after ::
+"let OmniCpp_DefaultNamespaces=["std"] "same as inserting using namespace std 
 
 "
 " Automatically open and close the popup menu / preview window
@@ -308,30 +388,30 @@ noremap <leader>g :GundoToggle<CR>
 "
 "Ctrl+vi direction keys[hjkl] for window movement
 "
-let g:miniBufExplMapWindowNavVim=1
+"let g:miniBufExplMapWindowNavVim=1
 "
 "Ctrl+ arrow keys for window movement
 "
-let g:miniBufExplMapWindowNavArrows=1
+"let g:miniBufExplMapWindowNavArrows=1
 "
 "<C-Tab> and <C-S-Tab> to move between buffers
 "
-let g:miniBufExplMapCTabSwitchBufs=1
+"let g:miniBufExplMapCTabSwitchBufs=1
 "Allows MBE to close when you select a buffer, plus buffer
 "should not show up in a window hosting an explorer.
-let g:miniBufExplCloseOnSelect = 1
+"let g:miniBufExplCloseOnSelect = 1
 
-let g:miniBufExplMapModSelTarget=1
-let g:miniBufExplBRSplit=0
-let g:miniBufExplVSplit=15
-let g:miniBufExplAutoStart=0
+"let g:miniBufExplMapModSelTarget=1
+"let g:miniBufExplBRSplit=0
+"let g:miniBufExplVSplit=15
+"let g:miniBufExplAutoStart=0
 
 "Open miniBufExpl
-noremap <leader>mbe :MBEOpen<CR>
+"noremap <leader>mbe :MBEOpen<CR>
 "close miniBufExpl
-noremap <leader>mbc :MBEClose<CR>
+"noremap <leader>mbc :MBEClose<CR>
 "update miniBufExpl
-noremap <leader>mbt :MBEToggle<CR>
+"noremap <leader>mbt :MBEToggle<CR>
 
 "
 " }}}
@@ -407,6 +487,14 @@ augroup filetype_py
 	" 
 	autocmd FileType python set omnifunc=pythoncomplete#Complete 
 	autocmd BufRead *.py set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class 
+	autocmd BufRead, BufNewFile *.py
+		    \ set tabstop=4
+		    \ set softtabstop=4
+		    \ set shiftwidth=4
+		    \ set textwidth=79
+	            \ set expandtab
+	            \ set autoindent 
+	            \ set fileformat=unix
 
 	" 
 	" This will allow you to check the syntax of your entire file 
@@ -424,6 +512,10 @@ augroup filetype_py
 let g:pydiction_location="~/.vim/bundle/pydiction/complete-dict" 
 "let g:pyflakes_use_quickfix=0 
 let g:pep8_map="<leader>8"
+" For full syntax highlighting:
+let python_highlight_all=1
+syntax on
+
 
 " Add the virtualenv's site-packages to vim path
 "
@@ -566,14 +658,19 @@ let g:tex_flavor='latex'
 " Slime Settings ----- {{{ 
 "
 
-let g:slime_target="screen"
+"let g:slime_target="screen"
 "let g:slime_target="tmux"
-let g:slime_paste_file = "$HOME/.slime_paste"
-let g:slime_python_ipython = 1
+"let g:slime_paste_file = "$HOME/.slime_paste"
+"let g:slime_python_ipython = 1
 "
 " }}}
 "
 " =================================
 "  Set up the reading of manpages from within vim (use :Man whatever)
+au BufNewFile,BufRead *.js, *.html, *.css
+    \ set tabstop=2
+    \ set softtabstop=2
+    \ set shiftwidth=2
+
 
 runtime ftplugin/man.vim
