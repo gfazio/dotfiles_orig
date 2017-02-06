@@ -44,13 +44,14 @@ Plugin 'tarruda/vim-conque-repl'
 Plugin 'tmhedberg/SimpylFold'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-git'
+Plugin 'tpope/vim-markdown'
 Plugin 'tpope/vim-surround'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'vim-latex/vim-latex'
 Plugin 'vim-scripts/indentpython.vim'
 Plugin 'vim-scripts/pydoc.vim'
-Plugin 'vim-scripts/vimwiki'
+Plugin 'vimwiki/vimwiki'
 Plugin 'wincent/command-t'
 Plugin 'WolfgangMehner/vim-plugins'
 "
@@ -595,11 +596,40 @@ let g:tex_flavor='latex'
 "
 "
 " =================================
+"
+" Man Pages Settings ----- {{{ 
+"
 "  Set up the reading of manpages from within vim (use :Man whatever)
 au BufNewFile,BufRead *.js, *.html, *.css
     \ set tabstop=2
     \ set softtabstop=2
     \ set shiftwidth=2
 
+"
+" }}}
+"
+" =================================
+"
+" Vim Wiki Settings ----- {{{ 
+"
+" vimwiki - Personal wiki for vim
+" https://github.com/vikiwiki/vimwik
+
+" vimwiki with markdown support
+let g:vimwiki_list = [{'path': '$HOME/vimwiki',
+                     \ 'syntax': 'markdown',
+                     \ 'ext': '.md'}]
+" help-page -> :h vimwiki-syntax
+
+"vim-instant-markdown - Instant markdown previews from vim
+" https://github.com/suan/vim-instant-markdown
+
+"let g:instant_markdown_autostart = 0      " disable autostart
+"noremap <leader>md :InstantMarkdownPreview<CR>
+
+"
+" }}}
+"
+" =================================
 
 runtime ftplugin/man.vim

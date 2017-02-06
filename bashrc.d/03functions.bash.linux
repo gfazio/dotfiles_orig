@@ -153,6 +153,7 @@ cfg-urlview() { $EDITOR ~/.urlview ;}
 cfg-updatedb() { sudo $EDITOR /etc/updatedb.conf ;}	
 cfg-vimrc() { $EDITOR ~/.vimrc ;}
 cfg-w3m() { $EDITOR ~/.w3m/config ;}
+cfg-weechat() { $EDITOR ~/.weechat/weechat.conf ;}
 cfg-w3m-keymap() { $EDITOR ~/.w3m/keymap ;}
 cfg-xresources() { $EDITOR ~/.Xresources ;}
 cfg-zshrc() { $EDITOR ~/.zshrc ;}
@@ -765,7 +766,7 @@ alias sshxtrusted='ssh -Y'
 alias stackexchange='lynx http://column80.com'		# lookup information
 alias trash='trash-put -v'
 alias xev-keycode="xev | grep 'keycode\|button'"
- alias weechat='weechat-curses'
+alias weechat='weechat-curses'
 alias lsd='ls -1d */'					# ls folders only
 alias l='ls -l'
 alias lsf='ls --color=always -p | grep -v '/$''		# ls files only
