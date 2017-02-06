@@ -374,7 +374,7 @@ cmx-remove() {
        echo -e "$0 \$cbcomic 50-55"
        echo -e "$0 \$cbcomic 100,120-127"
        return 1
-fi
+       fi
 
 	calibredb remove "${@:2}" --library-path "$1" 
 #
@@ -386,7 +386,7 @@ cmx-show() {
        echo -e "\nUsage:\n$0 <library> <id>" 
        echo -e "\nExample:\n$0 \$cbcomic 16"
        return 1
-fi
+       fi
 
 	calibredb show_metadata "${@:2}" --library-path "$1" | html2text 
 #
@@ -913,11 +913,13 @@ chfontsize() {
 #
 #	#gnome-terminal
 #	dconf write /org/gnome/terminal/legacy/profiles:/$(dconf list /org/gnome/terminal/legacy/profiles:/)font "'Monospace ${1:-16}'"
-#}
+}
 #
 ## search commandlinefu.com
+
 cmdfu() { curl "http://www.commandlinefu.com/commands/matching/$(echo "$@" \
 	| sed 's/ /-/g')/$(echo -n $@ | base64)/plaintext" ;}
+#
 #
 ## display one random command from commandlinefu.com
 #cmdfu-random() { echo -e "`curl -sL http://www.commandlinefu.com/commands/random/json|sed -re 's/.*,"command":"(.*)","summary":"([^"]+).*/\\x1b[1;32m\2\\n\\n\\x1b[1;33m\1\\x1b[0m/g'`\n" ;}
@@ -933,7 +935,9 @@ cmdfu() { curl "http://www.commandlinefu.com/commands/matching/$(echo "$@" \
 ## w3m browser with inline images
 ## https://plus.google.com/102499719144563443986/posts/Vja8W69iHoi
 ## tutorial video: http://www.youtube.com/watch?v=R2bMUtCOGko
+
 w3mimg() { w3m -o imgdisplay=/usr/lib/w3m/w3mimgdisplay $1 ;}
+
 #
 ## mplayer to display webcam
 ## hit 's' to take screenshot, will save in current folder

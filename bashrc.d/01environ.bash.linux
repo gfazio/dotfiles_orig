@@ -44,6 +44,9 @@ export PATH="${PATH}:${ASTROX}/wcstools-3.9.2/bin"
 export PATH="${PATH}:${ASTROX}/nxsa-cl-aioclient-8.4" 
 export PATH="${PATH}:${BASE_DIR}/bin/geckodriver/target/release"
 
+export PYTUT_MASTER="/MacOSX-Data2/media/Youtube/PythonDataAnalysisTutorial"
+export PYTUT="${ASTRO}/SciPyNumpyTuts"
+
 #export SAS_ODF="$HOME/Astro/X-Ray/ODF"
 # After odfingest has been run SAS_ODF needs to be set to the 
 # /full/path/to/ODF/file*SUM.SAS file that has been created.  

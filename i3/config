@@ -317,6 +317,7 @@ assign [class="^Rhythmbox$"] $workspace9
 #
 bindsym $mod+Shift+g exec --no-startup-id /usr/local/bin/eclipse/eclipse 
 bindsym $mod+Shift+f exec --no-startup-id /usr/bin/firefox 
+bindsym $mod+Shift+y exec --no-startup-id /usr/bin/firefox -no-remote -P Youtube
 bindsym $mod+Shift+m exec --no-startup-id /usr/bin/mplayer 
 bindsym $mod+Shift+n exec --no-startup-id /usr/bin/nixnote2
 bindsym $mod+Shift+t exec --no-startup-id /usr/bin/terminator --role="ncmpcpp" -e ncmpcpp

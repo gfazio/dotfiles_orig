@@ -1,5 +1,6 @@
 " =A-S-L================================
 "
+"
 " Plugin setup --- via Pathogen ----- {{{
 " set nocompatible
 " filetype off
@@ -15,21 +16,28 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 "
 Plugin 'VundleVim/Vundle.vim'
+Plugin 'alfredodeza/pytest.vim'
 Plugin 'altercation/vim-colors-solarized'
+Plugin 'bling/vim-airline.git'
 Plugin 'cburroughs/pep8.py'
+Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'davidhalter/jedi-vim'
+Plugin 'ervandew/screen'
 Plugin 'ervandew/supertab'
-Plugin 'ivanov/vim-ipython'
 Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'jnurmine/Zenburn'
+Plugin 'junegunn/fzf.vim'
+Plugin 'KabbAmine/zeavim.vim'
 Plugin 'kien/ctrlp.vim'
-Plugin 'klen/rope-vim'
 Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 Plugin 'majutsushi/tagbar'
 Plugin 'mileszs/ack.vim'
 Plugin 'nelstrom/vim-markdown-preview'
 Plugin 'nvie/vim-flake8'
+Plugin 'pthrasher/conqueterm-vim'
 Plugin 'rkulla/pydiction'
 Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/syntastic'
 Plugin 'suan/vim-instant-markdown'
 Plugin 'tarruda/vim-conque-repl'
@@ -38,10 +46,8 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-git'
 Plugin 'tpope/vim-surround'
 Plugin 'Valloric/YouCompleteMe'
-Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'vim-latex/vim-latex'
-Plugin 'vim-scripts/Conque-Shell'
 Plugin 'vim-scripts/indentpython.vim'
 Plugin 'vim-scripts/pydoc.vim'
 Plugin 'vim-scripts/vimwiki'
@@ -93,6 +99,7 @@ filetype on
           "set background=dark
 	  "colorscheme solarized
             "colorscheme eclipse 
+	    set t_Co=256
             colorscheme  desert
             "colorscheme twilight
 
@@ -120,6 +127,7 @@ filetype on
 syntax on
 
 let mapleader=","
+let maplocalleader="\\"
 
 set autoindent "set autoindenting for programming
 set autoread
@@ -156,6 +164,7 @@ set wildmode=list,longest,full
 "
 noremap <C-S-F12> :call g:VGGCTagsGenerate()<CR>
 noremap <C-F11> :NERDTreeToggle <CR>
+noremap <leader>n :NERDTreeToggle <CR>
 noremap <C-M> :make %<CR>
 noremap <C-F5> :setlocal spell! spelllang = en_gb<CR>
 noremap <C-F3> <ESC>:set guifont=*<CR>
@@ -190,9 +199,12 @@ noremap <leader>yp :exec '!mplayer $(youtube-dl -g ' . shellescape(getline('.'))
 "See docstrings for folded code
 let g:SimpylFold_docstring_preview=1
 
-" Ranger File Browser in Vim
+"
+" =================================
+"
+" Ranger File Browser in Vim  ----- {{{
 " http://www.everythingcli.org/use-ranger-as-a-file-explorer-in-vim/
-function! RangerExplorer()
+function! g:RangerExplorer()
    exec "silent !ranger --choosefile=/tmp/vim_ranger_current_file " .
    expand("%:p:h")
    if filereadable('/tmp/vim_ranger_current_file')
@@ -200,8 +212,12 @@ function! RangerExplorer()
       call system('rm /tmp/vim_ranger_current_file')
    endif
    redraw!
-endfun
-noremap <Leader>re :call RangerExplorer()<CR>
+endfunction
+noremap <Leader>re :call g:RangerExplorer()<CR>
+" }}}
+"
+"
+" =================================
 
 "
 "Manage multiple windows
@@ -211,29 +227,6 @@ nnoremap <leader>W :call g:VGGAutoWindowResize()<CR>
 " }}}
 "
 
-"
-" =================================
-"
-" GoldenView ----- {{{
-
-"let g:goldenview__enable_default_mapping=1
-"Split the tiled window
-nnoremap <C-L> <Plug>GoldenViewSplit
-"nnoremap <silent><C-L> <Plug>GoldenViewSplit
-
-"Quickly switch current window with main pane and toggle between the two
-nnoremap <F8>    <Plug>GoldenViewSwitchMain
-nnoremap <S-F8>  <Plug>GoldenViewSwitchToggle
-"nnoremap <silent><F8>    <Plug>GoldenViewSwitchMain
-"nnoremap <silent><S-F8>  <Plug>GoldenViewSwitchToggle
-
-"Jump to next/previous window
-nnoremap <C-N> <Plug>GoldenViewNext
-nnoremap <C-P> <Plug>GoldenViewPrevious
-"nnoremap <silent><C-N> <Plug>GoldenViewNext
-"nnoremap <silent><C-P> <Plug>GoldenViewPrevious
-" }}}
-"
 "
 " =================================
 "
@@ -254,12 +247,34 @@ let g:EclimProjectTreeAutoOpen=1
 " Status Line ----- {{{
 "
 let g:airline_theme='luna'
-"if !exists('g:airline_symbols')
-"      let g:airline_symbols = {}
-"endif
+if !exists('g:airline_symbols')
+      let g:airline_symbols = {}
+endif
 "let g:airline_symbols.space = "\ua0"
-set timeoutlen=500 ttimeoutlen=10
-
+" unicode symbols
+"let g:airline_left_sep = '»'
+"let g:airline_left_sep = '▶'
+"let g:airline_right_sep = '«'
+"let g:airline_right_sep = '◀'
+"let g:airline_symbols.linenr = '␊'
+"let g:airline_symbols.linenr = '␤'
+"let g:airline_symbols.linenr = '¶'
+"let g:airline_symbols.branch = '⎇'
+"let g:airline_symbols.paste = 'ρ'
+"let g:airline_symbols.paste = 'Þ'
+"let g:airline_symbols.paste = '∥'
+"let g:airline_symbols.whitespace = 'Ξ'
+let g:airline_powerline_fonts = 1
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+let g:airline_symbols.branch = ''
+let g:airline_symbols.readonly = ''
+let g:airline_symbols.linenr = ''
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#whitespace#enabled = 0
+set timeoutlen=300 ttimeoutlen=0
 set laststatus=2     "Always display status line
 set statusline=%F    "Full path to the file
 set statusline+=\ -\        "Separator 
@@ -378,7 +393,7 @@ set completeopt=menuone,menu,longest,preview
 "
 "Gundo Settings --- {{{
 "
-noremap <leader>g :GundoToggle<CR>
+noremap <leader>gu :GundoToggle<CR>
 "
 " }}}
 "
@@ -410,7 +425,7 @@ noremap <leader>g :GundoToggle<CR>
 "noremap <leader>mbe :MBEOpen<CR>
 "close miniBufExpl
 "noremap <leader>mbc :MBEClose<CR>
-"update miniBufExpl
+""update miniBufExpl
 "noremap <leader>mbt :MBEToggle<CR>
 
 "
@@ -505,40 +520,44 @@ augroup filetype_py
 	autocmd Bufwrite *.(py) : call Pyflakes() 
 	autocmd BufRead *.py set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m 
 	" Execute pydoc on the current word in the file being edited
-	autocmd FileType python noremap <buffer> K : execute "!xterm -e 'pydoc " . expand("<cword>") . "'"<CR> 
+"	autocmd FileType python noremap <buffer> K : execute "!xterm -e 'pydoc " . expand("<cword>") . "'"<CR> 
 	" Execute file being edited with <Command> + e: 
-	noremap <buffer> <C-e> :w\|!/usr/bin/env python % <CR>
+"	noremap <buffer> <C-e> :w\|!/usr/bin/env python % <CR>
 
 let g:pydiction_location="~/.vim/bundle/pydiction/complete-dict" 
-"let g:pyflakes_use_quickfix=0 
+let g:pyflakes_use_quickfix=0 
 let g:pep8_map="<leader>8"
 " For full syntax highlighting:
 let python_highlight_all=1
 syntax on
 
+" jedi-vim settings
 
-" Add the virtualenv's site-packages to vim path
-"
-"python << EOF
-"
-"import os.path
-"import sys
-"import vim
-"if 'VIRTUAL_ENV' in os.environ:
-"	project_base_dir = os.environ['VIRTUAL_ENV']
-"	sys.path.insert(0,project_base_dir)
-"	activate_this = os.path.join(project_base_dir,'bin/activate_this.py')
-"	execfile(activate_this, dict(__file__=activate_this))
-"EOF
-"
-"
-"
-" Refactoring using ropevim
-"
-"nnoremap <leader>rj :RopeGotoDefinition<CR>
-"nnoremap <leader>rr :RopeRename<CR>
-"
-"
+let g:jedi#goto_command = "<leader>d"
+let g:jedi#use_splits_not_buffers = "right"
+let g:jedi#goto_assignments_command = "<leader>G"
+let g:jedi#goto_definitions_command = "<leader>GG"
+let g:jedi#documentation_command = "K"
+let g:jedi#usages_command = "<leader>n"
+let g:jedi#completions_command = "<C-Space>"
+let g:jedi#rename_command = "<leader>r"
+let g:jedi#show_call_signatures  = 2
+" don't auto complete
+"let g:jedi#popup_on_dot = 0
+" screen stuff
+let g:ScreenImpl = "Tmux"
+" Open an IPython3 shell.
+autocmd FileType python map <LocalLeader>p :IPython!<CR>
+" Close whichever shell is running.
+autocmd FileType python map <LocalLeader>q :ScreenQuit<CR>
+" Send current line to python and move to next line.
+autocmd FileType python map <LocalLeader>V :ScreenSend<CR>j
+" Send visual selection to python and move to next line.
+autocmd FileType python map <LocalLeader>v :ScreenSend<CR>>0j
+" Send a <CR> to ipython.
+autocmd FileType python map <LocalLeader>cr :call g:ScreenShellSend("\r")<CR>
+" Clear the screen.
+autocmd FileType python map <LocalLeader>L  :call g:ScreenShellSend('!clear')<CR>
 "
 " Execute py tests
 "
@@ -546,9 +565,7 @@ nnoremap <silent><leader>ptf <Esc>:Pytest file<CR>
 nnoremap <silent><leader>ptc <Esc>:Pytest class<CR>
 nnoremap <silent><leader>ptm <Esc>:Pytest method<CR>
 "
-"
 " Cycle through test errors
-"
 "
 nnoremap <silent><leader>ptn <Esc>:Pytest next<CR>
 nnoremap <silent><leader>ptp <Esc>:Pytest previous<CR>
@@ -576,94 +593,6 @@ let g:tex_flavor='latex'
 "
 " }}}
 "
-"
-"### GNU Screen
-"
-"By default, GNU Screen is assumed, you don't have to do anything. If you want
-"to be explicit, you can add this line to your .vimrc:
-"
-"    let g:slime_target = 'screen'
-"
-"Because Screen doesn't accept input from STDIN, a file is used to pipe data
-"between Vim and Screen. By default this file is set to `$HOME/.slime_paste`.
-"The name of the file used can be configured through a variable:
-"
-"    let g:slime_paste_file = '$HOME/.slime_paste'
-"
-"This file is not erased by the plugin and will always contain the last thing
-"you sent over. If this is a problem, I recommend you switch to tmux.
-"
-"When you invoke vim-slime for the first time (see below), you will be prompted for more configuration.
-"
-"screen session name
-"
-"    This is what you put in the -S flag, or one of the line of "screen -ls".
-"
-"screen window name
-"
-"    This is the window number or name, zero-based.
-"
-"### tmux
-"
-"Tmux is *not* the default, to use it you will have to add this line to your .vimrc:
-"
-"    let g:slime_target = 'tmux'
-"
-"When you invoke vim-slime for the first time (see below), you will be prompted for more configuration.
-"
-"tmux socket name
-"
-"    This is what you put in the -L flag, it will be 'default' if you didn't put anything.
-"
-"tmux target pane
-"
-"    ':' means current window, current pane (a reasonable default)
-"    ':i' means the ith window, current pane
-"    ':i.j' means the ith window, jth pane
-"    'h:i.j' means the tmux session where h is the session identifier (either session name or number), the ith window and the jth pane
-"
-"By default `STDIN` is used to pass the text to tmux.
-"If you experience issues with this you may be able to work around them
-"by configuring slime to use a file instead:
-"
-"    let g:slime_paste_file = '$HOME/.slime_paste'
-"
-"This file is not erased by the plugin and will always contain the last thing
-"you sent over.  If this behavior is undesired, one alternative is to use a temporary file:
-"
-"    let g:slime_paste_file = tempname()
-"
-"If you want vim-slime to prefill the prompt answers, you can set a default configuration
-"
-"    let g:slime_default_config = {"socket_name": 'default', 'target_pane': '1'}
-"
-"If this default config is not appropriate for a given buffer, you can call `:SlimeConfig`
-"to reset it.
-"
-"
-"Key Bindings
-"------------
-"
-"By default, the current paragraph will be sent. This is equivalent to typing `vip`. If you (visually) select text, that will be sent over:
-"
-"    C-c, C-c  --- the same as slime
-"
-"_You can just hold `Ctrl` and double-tap `c`._
-"
-"There will be a few questions, as to where you want to send your text, but the answers will be remembered. If you need to reconfigure:
-"
-"    C-c, v    --- mnemonic: 'variables'
-" =================================
-"
-" Slime Settings ----- {{{ 
-"
-
-"let g:slime_target="screen"
-"let g:slime_target="tmux"
-"let g:slime_paste_file = "$HOME/.slime_paste"
-"let g:slime_python_ipython = 1
-"
-" }}}
 "
 " =================================
 "  Set up the reading of manpages from within vim (use :Man whatever)
