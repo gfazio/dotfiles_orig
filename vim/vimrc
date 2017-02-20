@@ -20,25 +20,32 @@ Plugin 'alfredodeza/pytest.vim'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'bling/vim-airline.git'
 Plugin 'cburroughs/pep8.py'
+Plugin 'chriskempson/tomorrow-theme'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'davidhalter/jedi-vim'
 Plugin 'ervandew/screen'
 Plugin 'ervandew/supertab'
+Plugin 'honza/vim-snippets'
 Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'jnurmine/Zenburn'
+Plugin 'junegunn/seoul256.vim'
+Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plugin 'junegunn/fzf.vim'
 Plugin 'KabbAmine/zeavim.vim'
-Plugin 'kien/ctrlp.vim'
+"Plugin 'kien/ctrlp.vim'
 Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 Plugin 'majutsushi/tagbar'
-Plugin 'mileszs/ack.vim'
+"Plugin 'mileszs/ack.vim'
 Plugin 'nelstrom/vim-markdown-preview'
 Plugin 'nvie/vim-flake8'
+Plugin 'pangloss/vim-javascript'
 Plugin 'pthrasher/conqueterm-vim'
+Plugin 'Raimondi/delimitMate'
 Plugin 'rkulla/pydiction'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/syntastic'
+Plugin 'SirVer/ultisnips'
 Plugin 'suan/vim-instant-markdown'
 Plugin 'tarruda/vim-conque-repl'
 Plugin 'tmhedberg/SimpylFold'
@@ -174,7 +181,7 @@ noremap <A-]> :vsp        <CR>exec("tag ".expand("<cword>"))<CR>
 nnoremap <leader>[ :tabprevious<CR> 
 nnoremap <leader>] :tabnext<CR> 
 
-nnoremap <leader>a <Esc>:Ack!
+nnoremap <leader>a :Ag<CR>
 nnoremap <leader>f :set guifont=Monospace\ 12<CR>
 nnoremap <leader>F :set guifont=Monospace\ 15<CR>
 
@@ -546,7 +553,9 @@ let g:jedi#show_call_signatures  = 2
 " don't auto complete
 "let g:jedi#popup_on_dot = 0
 " screen stuff
+" Hello World"
 let g:ScreenImpl = "Tmux"
+let g:ScreenShellTmuxInitArgs = '-2'
 " Open an IPython3 shell.
 autocmd FileType python map <LocalLeader>p :IPython!<CR>
 " Close whichever shell is running.
@@ -626,6 +635,42 @@ let g:vimwiki_list = [{'path': '$HOME/vimwiki',
 
 "let g:instant_markdown_autostart = 0      " disable autostart
 "noremap <leader>md :InstantMarkdownPreview<CR>
+
+"
+" }}}
+"
+" =================================
+"
+" FZF Settings ----- {{{ 
+"
+function! FzfOmniOmniFiles()
+    let is_git = system('git status')
+    if v:shell_error
+	:Files
+    else
+	:GitFiles
+    endif
+endfunction
+nnoremap <C-P> : call FzfOmniOmniFiles()<CR>
+
+let g:fzf_files_options =
+ \ '--preview "(coderay {} || cat {}) 2> /dev/null | head - '.&lines.'"'
+
+"
+" }}}
+"
+" =================================
+"
+" UltiSnips Settings ----- {{{ 
+"
+" Trigger configuration. Do not use <tab> if you use
+" https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<leader>s"
+let g:UltiSnipsJumpForwardTrigger="<C-S-b>"
+let g:UltiSnipsJumpBackwardTrigger="<C-S-z>"
+
+" If you want :UltiSnipsEdit to split your window.
+"let g:UltiSnipsEditSplit="vertical"
 
 "
 " }}}
