@@ -6,66 +6,67 @@
 " filetype off
 " execute pathogen#infect() 
 " execute pathogen#helptags() 
+" }}}
 " Plugin setup --- via vundle ----- {{{
-set nocompatible
-filetype off
+"set nocompatible
+"filetype off
 " set the runtime path to include Vundle and initialize
-set rtp+=$HOME/.vim/bundle/Vundle.vim
-call vundle#begin()
+"set rtp+=$HOME/.vim/bundle/Vundle.vim
+"call vundle#begin()
 "
 " let Vundle manage Vundle, required
 "
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'alfredodeza/pytest.vim'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'cburroughs/pep8.py'
-Plugin 'chriskempson/tomorrow-theme'
-Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'davidhalter/jedi-vim'
-Plugin 'ervandew/screen'
-Plugin 'ervandew/supertab'
-Plugin 'gfazio/Nvim-R'
-Plugin 'honza/vim-snippets'
-Plugin 'jistr/vim-nerdtree-tabs'
-Plugin 'jnurmine/Zenburn'
-Plugin 'junegunn/seoul256.vim'
-Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plugin 'junegunn/fzf.vim'
-Plugin 'KabbAmine/zeavim.vim'
+"Plugin 'VundleVim/Vundle.vim'
+"Plugin 'alfredodeza/pytest.vim'
+"Plugin 'altercation/vim-colors-solarized'
+"Plugin 'cburroughs/pep8.py'
+"Plugin 'chriskempson/tomorrow-theme'
+"Plugin 'christoomey/vim-tmux-navigator'
+"Plugin 'davidhalter/jedi-vim'
+"Plugin 'ervandew/screen'
+"Plugin 'ervandew/supertab'
+"Plugin 'gfazio/Nvim-R'
+"Plugin 'honza/vim-snippets'
+"Plugin 'jistr/vim-nerdtree-tabs'
+"Plugin 'jnurmine/Zenburn'
+"Plugin 'junegunn/seoul256.vim'
+"Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+"Plugin 'junegunn/fzf.vim'
+"Plugin 'KabbAmine/zeavim.vim'
 "Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
-Plugin 'majutsushi/tagbar'
-Plugin 'nelstrom/vim-markdown-preview'
-Plugin 'nvie/vim-flake8'
-Plugin 'pangloss/vim-javascript'
-Plugin 'pthrasher/conqueterm-vim'
-Plugin 'Raimondi/delimitMate'
-Plugin 'rkulla/pydiction'
-Plugin 'scrooloose/nerdtree'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'scrooloose/syntastic'
-Plugin 'SirVer/ultisnips'
-Plugin 'suan/vim-instant-markdown'
-Plugin 'tarruda/vim-conque-repl'
-Plugin 'tmhedberg/SimpylFold'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-git'
-Plugin 'tpope/vim-markdown'
-Plugin 'tpope/vim-surround'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'vim-latex/vim-latex'
-Plugin 'vim-scripts/indentpython.vim'
-Plugin 'vim-scripts/pydoc.vim'
-Plugin 'vimwiki/vimwiki'
-Plugin 'wincent/command-t'
-Plugin 'WolfgangMehner/vim-plugins'
+"Plugin 'majutsushi/tagbar'
+"Plugin 'nelstrom/vim-markdown-preview'
+"Plugin 'nvie/vim-flake8'
+"Plugin 'pangloss/vim-javascript'
+""Plugin 'pthrasher/conqueterm-vim'
+"Plugin 'Raimondi/delimitMate'
+"Plugin 'rkulla/pydiction'
+"Plugin 'scrooloose/nerdtree'
+"Plugin 'scrooloose/nerdcommenter'
+"Plugin 'scrooloose/syntastic'
+"Plugin 'SirVer/ultisnips'
+"Plugin 'suan/vim-instant-markdown'
+"Plugin 'tarruda/vim-conque-repl'
+"Plugin 'tmhedberg/SimpylFold'
+"Plugin 'tpope/vim-fugitive'
+"Plugin 'tpope/vim-git'
+"Plugin 'tpope/vim-markdown'
+"Plugin 'tpope/vim-surround'
+"Plugin 'Valloric/YouCompleteMe'
+"Plugin 'vim-airline/vim-airline'
+"Plugin 'vim-airline/vim-airline-themes'
+"Plugin 'vim-latex/vim-latex'
+"Plugin 'vim-scripts/indentpython.vim'
+"Plugin 'vim-scripts/pydoc.vim'
+"Plugin 'vimwiki/vimwiki'
+"Plugin 'wincent/command-t'
+"Plugin 'WolfgangMehner/vim-plugins'
 "
 " All of your Plugins must be added before the following line
 "
-call vundle#end()            " required
-filetype plugin indent on    " required
-filetype on
+"call vundle#end()            " required
+"filetype plugin indent on    " required
+"filetype on
 "
 " To ignore plugin indent changes, instead use: filetype plugin on
 "
@@ -79,6 +80,69 @@ filetype on
 " Put your non-Plugin stuff after this line
 "
 " }}}
+" Plugin setup --- via vim-plug ----- {{{
+call plug#begin('$HOME/.config/nvim/plugged')
+"
+Plug 'alfredodeza/pytest.vim'
+Plug 'altercation/vim-colors-solarized'
+Plug 'cburroughs/pep8.py'
+Plug 'chriskempson/tomorrow-theme'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'davidhalter/jedi-vim'
+Plug 'ervandew/screen'
+Plug 'ervandew/supertab'
+Plug 'gfazio/Nvim-R'
+Plug 'honza/vim-snippets'
+Plug 'jistr/vim-nerdtree-tabs'
+Plug 'jnurmine/Zenburn'
+Plug 'junegunn/seoul256.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+Plug 'KabbAmine/zeavim.vim'
+Plug 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
+Plug 'majutsushi/tagbar'
+Plug 'nelstrom/vim-markdown-preview'
+Plug 'nvie/vim-flake8'
+Plug 'pangloss/vim-javascript'
+Plug 'pthrasher/conqueterm-vim'
+Plug 'Raimondi/delimitMate'
+Plug 'rkulla/pydiction'
+Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdcommenter'
+Plug 'scrooloose/syntastic'
+Plug 'SirVer/ultisnips'
+Plug 'suan/vim-instant-markdown'
+Plug 'tarruda/vim-conque-repl'
+Plug 'tmhedberg/SimpylFold'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-git'
+Plug 'tpope/vim-markdown'
+Plug 'tpope/vim-surround'
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py'}
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'vim-latex/vim-latex'
+Plug 'vim-scripts/indentpython.vim'
+Plug 'vim-scripts/pydoc.vim'
+Plug 'vimwiki/vimwiki'
+Plug 'wincent/command-t'
+Plug 'WolfgangMehner/vim-plugins'
+"
+" All of your Plugins must be added before the following line
+"
+call plug#end()            " required
+"
+"
+" Brief help
+" :PlugInstall    - installs plugins
+" :PlugUpdate     - update plugins
+" :PlugClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+" :PlugUpgrade    - upgrade vim-plug itself
+" :PlugStatus     - check the status of plugins
+" :PlugDiff       - Examine changes from the previous update and the pending changes
+"
+" Put your non-Plugin stuff after this line
+"
 " }}}
 "
 " =================================
@@ -158,7 +222,7 @@ set shiftwidth=4
 set showmatch
 set showmode
 set title
-set t_RV=       "surpress terminal version query from vim
+"set t_RV=       "surpress terminal version query from vim
 set visualbell
 set wildmenu
 set wildmode=list,longest,full
