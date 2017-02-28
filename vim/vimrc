@@ -18,13 +18,13 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'alfredodeza/pytest.vim'
 Plugin 'altercation/vim-colors-solarized'
-Plugin 'bling/vim-airline.git'
 Plugin 'cburroughs/pep8.py'
 Plugin 'chriskempson/tomorrow-theme'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'davidhalter/jedi-vim'
 Plugin 'ervandew/screen'
 Plugin 'ervandew/supertab'
+Plugin 'gfazio/Nvim-R'
 Plugin 'honza/vim-snippets'
 Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'jnurmine/Zenburn'
@@ -32,10 +32,8 @@ Plugin 'junegunn/seoul256.vim'
 Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plugin 'junegunn/fzf.vim'
 Plugin 'KabbAmine/zeavim.vim'
-"Plugin 'kien/ctrlp.vim'
 Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 Plugin 'majutsushi/tagbar'
-"Plugin 'mileszs/ack.vim'
 Plugin 'nelstrom/vim-markdown-preview'
 Plugin 'nvie/vim-flake8'
 Plugin 'pangloss/vim-javascript'
@@ -54,7 +52,8 @@ Plugin 'tpope/vim-git'
 Plugin 'tpope/vim-markdown'
 Plugin 'tpope/vim-surround'
 Plugin 'Valloric/YouCompleteMe'
-Plugin 'vim-airline/vim-airline-themes'
+"Plugin 'vim-airline/vim-airline'
+"Plugin 'vim-airline/vim-airline-themes'
 Plugin 'vim-latex/vim-latex'
 Plugin 'vim-scripts/indentpython.vim'
 Plugin 'vim-scripts/pydoc.vim'
@@ -135,7 +134,7 @@ filetype on
 syntax on
 
 let mapleader=","
-let maplocalleader="\\"
+let maplocalleader=",,"
 
 set autoindent "set autoindenting for programming
 set autoread
@@ -254,6 +253,14 @@ let g:EclimProjectTreeAutoOpen=1
 "
 " Status Line ----- {{{
 "
+function! Local_AirlineThemePatcher(palette)
+        " Trick to ensure 'Normal' highlight group exists
+	  if !hlexists('Normal')
+	      highlight Normal ctermbg=0
+	  endif
+endfunction
+	
+"let g:airline_theme_patch_func = 'Local_AirlineThemePatcher'
 let g:airline_theme='luna'
 if !exists('g:airline_symbols')
       let g:airline_symbols = {}

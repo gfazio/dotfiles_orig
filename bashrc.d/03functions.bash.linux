@@ -66,6 +66,15 @@ prompt_bash() {
 macf(){
    sudo /usr/sbin/macfanctld }
 # --- }}}
+#--- zsh history fix--- {{{
+#
+zsh_hist_fix(){
+   cd $HOME; mv -f .zsh_history .zsh_history_bad; 
+   strings .zsh_history_bad > .zsh_history; 
+   fc -R .zsh_history; rm -f .zsh_history_bad
+   }
+
+# --- }}}
 ###########################################################
 ###########################################################
 #-------- Transmission CLI {{{
@@ -114,6 +123,14 @@ firefox_Y() { /usr/bin/firefox -no-remote -P Youtube & ; }
 #-------- DVD playback{{{
 dvd_play() { mplayer dvdnav:// -mouse-movements \
              -dvd-device /dev/dvd }
+# --- }}}
+############################################################
+#-------- DVD rip{{{
+dvd_rip() {
+ rawout=$(HandBrakeCLI -i /dev/dvd -t 0 2>&1 >/dev/null);
+ count=$(echo $rawout | grep -Eao "\\+ title [0-9]+:" | wc -l);
+ for i in $(seq $count); do HandBrakeCLI -i /dev/dvd -t $i -Z "Very Fast 720p30" -a 2 -o ${1}.mp4 ; done
+ }
 # --- }}}
 ############################################################
 #-------- Configurations {{{
@@ -4586,7 +4603,7 @@ fzf-locate() {
 #}
 #
 #
- function rip() {
+ function rip_orig() {
  handbrake -i /dev/dvd -o ${HOME}/${1}.mp4 -L -U -F -f mp4 -e x264 -b 4000 -B 192
  }
 #
