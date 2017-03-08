@@ -89,6 +89,7 @@ export WEBOS_TOOLS="${COMP}/Palm/webos/Homebrew/Tools"
 
 export XDG_CONFIG_HOME="${HOME}/.config"
 export EDITOR="vim"
+export TERM="xterm-256color"
 # set display
 export DISPLAY=:0
 

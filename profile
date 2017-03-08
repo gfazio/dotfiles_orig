@@ -48,7 +48,8 @@ else if test "$OS" = "Linux"; then
 fi
 
 #Enables H/W acceleration in Firefox
-export MOZ_USE_OMTC=1
+#export MOZ_USE_OMTC=1
+export TERM=xterm-256color
 source ~/.bashrc
 
 export PATH="$HOME/.cargo/bin:$PATH"

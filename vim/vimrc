@@ -1,16 +1,25 @@
-" =A-S-L================================
-"
+" =================================
+"             Vimrc 
+" =================================
 "
 " Plugin setup --- via Pathogen ----- {{{
 " set nocompatible
 " filetype off
 " execute pathogen#infect() 
 " execute pathogen#helptags() 
+" }}}
+"
+" =================================
+"
 " Plugin setup --- via vundle ----- {{{
+"
 set nocompatible
 filetype off
+"
 " set the runtime path to include Vundle and initialize
+"
 set rtp+=$HOME/.vim/bundle/Vundle.vim
+"
 call vundle#begin()
 "
 " let Vundle manage Vundle, required
@@ -18,21 +27,24 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'alfredodeza/pytest.vim'
 Plugin 'altercation/vim-colors-solarized'
+Plugin 'benmills/vimux'
 Plugin 'cburroughs/pep8.py'
 Plugin 'chriskempson/tomorrow-theme'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'davidhalter/jedi-vim'
+Plugin 'ervandew/ag'
 Plugin 'ervandew/screen'
 Plugin 'ervandew/supertab'
-Plugin 'gfazio/Nvim-R'
+Plugin 'flazz/vim-colorschemes'
 Plugin 'honza/vim-snippets'
 Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'jnurmine/Zenburn'
+Plugin 'julienr/vim-cellmode'
 Plugin 'junegunn/seoul256.vim'
 Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plugin 'junegunn/fzf.vim'
 Plugin 'KabbAmine/zeavim.vim'
-"Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
+Plugin 'kien/ctrlp.vim'
 Plugin 'majutsushi/tagbar'
 Plugin 'nelstrom/vim-markdown-preview'
 Plugin 'nvie/vim-flake8'
@@ -57,19 +69,23 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'vim-latex/vim-latex'
 Plugin 'vim-scripts/indentpython.vim'
 Plugin 'vim-scripts/pydoc.vim'
+Plugin 'vim-scripts/vim-R-plugin'
 Plugin 'vimwiki/vimwiki'
 Plugin 'wincent/command-t'
 Plugin 'WolfgangMehner/vim-plugins'
 "
-" All of your Plugins must be added before the following line
+" All Plugins must be added before the following line
 "
 call vundle#end()            " required
+"
 filetype plugin indent on    " required
+"
 filetype on
 "
 " To ignore plugin indent changes, instead use: filetype plugin on
 "
 " Brief help
+"
 " :PluginList       - lists configured plugins
 " :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
 " :PluginSearch foo - searches for foo; append `!` to refresh local cache
@@ -79,7 +95,6 @@ filetype on
 " Put your non-Plugin stuff after this line
 "
 " }}}
-" }}}
 "
 " =================================
 "
@@ -88,40 +103,20 @@ filetype on
     " GVIM- (here instead of .gvimrc)
     if has('gui_running')
 	    set lines=40
-            "colorscheme eclipse 
-            "colorscheme  desert
-            "colorscheme twilight
             colorscheme zenburn
 
 	    if has("gui_gtk2")
                set guifont=Inconsolata\ 15
 	    elseif has("gui_macvim")
                 set guifont=Inconsolata-dz:h14
-		"set guifont=Menlo\ Regular:h14
 	    endif
-            set guicursor=n-v-c:block-Cursor
-            "highlight Cursor guifg=yellow guibg=blue
-    else
-"	  "colorscheme zenburn
-          "set background=dark
-	  "colorscheme solarized
-            "colorscheme eclipse 
-	    set t_Co=256
-            colorscheme  desert
-            "colorscheme twilight
 
-	   " if &term =~ "xterm"
-           "  if has("terminfo")
-	"	set t_Co=8
-	"        set t_Sf=3%p1%dm
-	"	set t_Sb=4%p1%dm
-	"     else
-	"	set t_Co=8
-	"	set t_Sf=3%dm
-	"	set t_Sb=4%dm
-        "     endif
-        "    endif
-    
+            set guicursor=n-v-c:block-Cursor
+    else
+            set background=dark
+	    set t_Co=256
+            colorscheme wombat256i 
+
     endif
 
 "
@@ -144,7 +139,7 @@ set dictionary+=/usr/share/dict/words
 set directory=.,$TEMP:
 set encoding=utf-8
 set foldlevel=0   "0=all folds closed; 99=all folds open
-set foldmethod=indent
+set foldmethod=marker
 set hidden
 set history=1000
 set hlsearch   "set highligh searching
@@ -169,20 +164,23 @@ set wildmode=list,longest,full
 "
 " General Key Bindings ----- {{{
 "
-noremap <C-S-F12> :call g:VGGCTagsGenerate()<CR>
+
 noremap <C-F11> :NERDTreeToggle <CR>
-noremap <leader>n :NERDTreeToggle <CR>
+nnoremap <leader>n :NERDTreeToggle <CR>
+
 noremap <C-M> :make %<CR>
 noremap <C-F5> :setlocal spell! spelllang = en_gb<CR>
-noremap <C-F3> <ESC>:set guifont=*<CR>
-noremap <C-\> : tab split <CR>exec("tag ".expand("<cword>"))<CR>
-noremap <A-]> :vsp        <CR>exec("tag ".expand("<cword>"))<CR>
-nnoremap <leader>[ :tabprevious<CR> 
-nnoremap <leader>] :tabnext<CR> 
+
+noremap <C-\> :tab split <CR>exec("tag ".expand("<cword>"))<CR>
+noremap <A-]> :vsp       <CR>exec("tag ".expand("<cword>"))<CR>
 
 nnoremap <leader>a :Ag<CR>
+
+noremap <C-F3> <ESC>:set guifont=*<CR>
 nnoremap <leader>f :set guifont=Monospace\ 12<CR>
 nnoremap <leader>F :set guifont=Monospace\ 15<CR>
+nnoremap <leader>[ :tabprevious<CR> 
+nnoremap <leader>] :tabnext<CR> 
 
 " clears highlighted search results
 nnoremap <Esc> :nohlsearch <CR><Esc>
@@ -233,8 +231,6 @@ noremap <Leader>re :call g:RangerExplorer()<CR>
 nnoremap <leader>W :call g:VGGAutoWindowResize()<CR>
 " }}}
 "
-
-"
 " =================================
 "
 " Eclim Settings ------ {{{
@@ -246,6 +242,8 @@ nnoremap <leader>W :call g:VGGAutoWindowResize()<CR>
 let g:EclimProjectStatusLine = 'eclim(p=${name}, n=${natures})'
 
 let g:EclimProjectTreeAutoOpen=1
+let g:EclimLocateFileNonProjectScope = 'ag'
+
 "
 " }}}
 "
@@ -260,25 +258,12 @@ function! Local_AirlineThemePatcher(palette)
 	  endif
 endfunction
 	
-"let g:airline_theme_patch_func = 'Local_AirlineThemePatcher'
 let g:airline_theme='luna'
+
 if !exists('g:airline_symbols')
       let g:airline_symbols = {}
 endif
-"let g:airline_symbols.space = "\ua0"
-" unicode symbols
-"let g:airline_left_sep = '»'
-"let g:airline_left_sep = '▶'
-"let g:airline_right_sep = '«'
-"let g:airline_right_sep = '◀'
-"let g:airline_symbols.linenr = '␊'
-"let g:airline_symbols.linenr = '␤'
-"let g:airline_symbols.linenr = '¶'
-"let g:airline_symbols.branch = '⎇'
-"let g:airline_symbols.paste = 'ρ'
-"let g:airline_symbols.paste = 'Þ'
-"let g:airline_symbols.paste = '∥'
-"let g:airline_symbols.whitespace = 'Ξ'
+
 let g:airline_powerline_fonts = 1
 let g:airline_left_sep = ''
 let g:airline_left_alt_sep = ''
@@ -289,7 +274,7 @@ let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = ''
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#whitespace#enabled = 0
-let g:powerline_pycmd = 'py3'
+
 set timeoutlen=300 ttimeoutlen=0
 set laststatus=2     "Always display status line
 set statusline=%F    "Full path to the file
@@ -382,18 +367,7 @@ let g:SuperTabDefaultCompletionType="context"
 
 "YouCompleteMe
 let g:ycm_autoclose_preview_window_after_completion=1
-map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
-"
-" OmniCppComplete
-"
-"let OmniCpp_NamespaceSearch=1
-"let OmniCpp_GlobalScopeSearch=1
-"let OmniCpp_ShowAccess=1
-"let OmniCpp_ShowPrototypeInAbbr= 1 " show function parameters
-"let OmniCpp_MayCompleteDot=1 " autocomplete after .
-"let OmniCpp_MayCompleteArrow=1 " autocomplete after ->
-"let OmniCpp_MayCompleteScope=1 " autocomplete after ::
-"let OmniCpp_DefaultNamespaces=["std"] "same as inserting using namespace std 
+noremap <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 "
 " Automatically open and close the popup menu / preview window
@@ -407,54 +381,13 @@ set completeopt=menuone,menu,longest,preview
 "
 " =================================
 "
-"Gundo Settings --- {{{
-"
-noremap <leader>gu :GundoToggle<CR>
-"
-" }}}
-"
-" =================================
-"
-" MiniBufExplorer Settings ----- {{{
-"
-"Ctrl+vi direction keys[hjkl] for window movement
-"
-"let g:miniBufExplMapWindowNavVim=1
-"
-"Ctrl+ arrow keys for window movement
-"
-"let g:miniBufExplMapWindowNavArrows=1
-"
-"<C-Tab> and <C-S-Tab> to move between buffers
-"
-"let g:miniBufExplMapCTabSwitchBufs=1
-"Allows MBE to close when you select a buffer, plus buffer
-"should not show up in a window hosting an explorer.
-"let g:miniBufExplCloseOnSelect = 1
-
-"let g:miniBufExplMapModSelTarget=1
-"let g:miniBufExplBRSplit=0
-"let g:miniBufExplVSplit=15
-"let g:miniBufExplAutoStart=0
-
-"Open miniBufExpl
-"noremap <leader>mbe :MBEOpen<CR>
-"close miniBufExpl
-"noremap <leader>mbc :MBEClose<CR>
-""update miniBufExpl
-"noremap <leader>mbt :MBEToggle<CR>
-
-"
-" }}}
-"
-" =================================
-"
 " Taglist Settings ---- {{{
 "
 " Taglist variables
 "
 set tags+=./tags;/    
 set tags+=/home/vgg/Computing/Sandbox/tags    
+"
 "can verify taglist is correct via 
 ": set verbose tags?" command
 
@@ -475,6 +408,7 @@ let Tlist_Use_Horiz_Window=0
 "
 nnoremap TT :TlistToggle<CR>
 nnoremap <C-S-F11> :TlistToggle<CR>
+noremap <C-S-F12> :call g:VGGCTagsGenerate()<CR>
 
 function! g:VGGCTagsGenerate()
 		:!ctags -R --c++-kinds=+pl --fields=+iaS --extra=+q . 
@@ -535,6 +469,7 @@ augroup filetype_py
 	autocmd BufRead *.py set makeprg=python\ -c\ \"import\ py_compile,sys;\ sys.stderr=sys.stdout;\ py_compile.compile(r'%')\" 
 	autocmd Bufwrite *.(py) : call Pyflakes() 
 	autocmd BufRead *.py set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m 
+
 	" Execute pydoc on the current word in the file being edited
 "	autocmd FileType python noremap <buffer> K : execute "!xterm -e 'pydoc " . expand("<cword>") . "'"<CR> 
 	" Execute file being edited with <Command> + e: 
@@ -543,40 +478,56 @@ augroup filetype_py
 let g:pydiction_location="~/.vim/bundle/pydiction/complete-dict" 
 let g:pyflakes_use_quickfix=0 
 let g:pep8_map="<leader>8"
+"
 " For full syntax highlighting:
+"
 let python_highlight_all=1
 syntax on
 
+"
 " jedi-vim settings
+"
 
-let g:jedi#goto_command = "<leader>d"
+let g:jedi#goto_command = "<LocalLeader>d"
 let g:jedi#use_splits_not_buffers = "right"
-let g:jedi#goto_assignments_command = "<leader>G"
-let g:jedi#goto_definitions_command = "<leader>GG"
+let g:jedi#goto_assignments_command = "<LocalLeader>G"
+let g:jedi#goto_definitions_command = "<LocalLeader>GG"
 let g:jedi#documentation_command = "K"
-let g:jedi#usages_command = "<leader>n"
+let g:jedi#usages_command = "<LocalLeader>n"
 let g:jedi#completions_command = "<C-Space>"
-let g:jedi#rename_command = "<leader>r"
+let g:jedi#rename_command = "<LocalLeader>r"
 let g:jedi#show_call_signatures  = 2
-" don't auto complete
-"let g:jedi#popup_on_dot = 0
+"
+"
 " screen stuff
-" Hello World"
+"
 let g:ScreenImpl = "Tmux"
 let g:ScreenShellTmuxInitArgs = '-2'
+
 " Open an IPython3 shell.
 autocmd FileType python map <LocalLeader>p :IPython!<CR>
+
 " Close whichever shell is running.
 autocmd FileType python map <LocalLeader>q :ScreenQuit<CR>
+
 " Send current line to python and move to next line.
 autocmd FileType python map <LocalLeader>V :ScreenSend<CR>j
+
 " Send visual selection to python and move to next line.
 autocmd FileType python map <LocalLeader>v :ScreenSend<CR>>0j
+
 " Send a <CR> to ipython.
 autocmd FileType python map <LocalLeader>cr :call g:ScreenShellSend("\r")<CR>
+
 " Clear the screen.
 autocmd FileType python map <LocalLeader>L  :call g:ScreenShellSend('!clear')<CR>
 "
+" cellmode 
+"
+let g:cellmode_use_tmux=1
+let g:cellmode_tmux_windowname=''
+let g:cellmode_tmux_panenumber=2
+
 " Execute py tests
 "
 nnoremap <silent><leader>ptf <Esc>:Pytest file<CR>
@@ -588,6 +539,7 @@ nnoremap <silent><leader>ptm <Esc>:Pytest method<CR>
 nnoremap <silent><leader>ptn <Esc>:Pytest next<CR>
 nnoremap <silent><leader>ptp <Esc>:Pytest previous<CR>
 nnoremap <silent><leader>pte <Esc>:Pytest error<CR>
+
 augroup END
 
 "
@@ -600,6 +552,7 @@ augroup END
 " IMPORTANT: grep will sometimes skip displaying the file name if you
 " search in a singe file. This will confuse Latex-Suite. Set your grep
 " program to always generate a file-name.
+
 set grepprg=grep\ -nH\ $*
 
 " OPTIONAL: Starting with Vim 7, the filetype of empty .tex files 
@@ -611,12 +564,12 @@ let g:tex_flavor='latex'
 "
 " }}}
 "
-"
 " =================================
 "
 " Man Pages Settings ----- {{{ 
 "
 "  Set up the reading of manpages from within vim (use :Man whatever)
+
 au BufNewFile,BufRead *.js, *.html, *.css
     \ set tabstop=2
     \ set softtabstop=2
@@ -627,22 +580,89 @@ au BufNewFile,BufRead *.js, *.html, *.css
 "
 " =================================
 "
+" Ag Settings ----- {{{ 
+"
+" ag.vim is a plugin for vim which allows you to search over files using the
+" silver searcher (ag).
+"
+" Usage
+"
+" :Ag [options] pattern [directory]
+"
+" The :Ag command provides several features to make running ag easier:
+"
+"    :Ag supports command completion of:
+"
+"         - patterns from search history: hit <tab> when starting
+"	          to run :Ag and you can choose from a list of 10 of your most
+"                 recent searches. A common use case while editing code could be to
+"	          hit * on a function name to search for occurrences in the current
+"	          file, then to run :Ag <tab> to search for the function across all
+"	          files.
+"	  - ag options: If you type - and then hit <tab>, you can
+"	          scroll through all the ag.vim supported ag options.
+"	  - file/directory name to search in: Once you've
+"	          supplied a search pattern, the next argument to
+"	          :Ag is an optional directory or file to search in
+"	          and you can make use of <tab> completion to choose
+"	          that file or directory.
+"
+"		Note: turn on vim's wildmenu support to get the most out of vim's command completion:
+"
+"                         set wildmenu
+"                         set wildmode=longest:full,full
+"
+"      Some vim based regex atoms in the supplied pattern will be converted to their PCRE equivalent so 
+"      that you can do something like hit * on a word in vim, then run :Ag <tab> or :Ag <c-r>/ to
+"      search for that word with ag without having to convert the pattern yourself:
+"	   - Word boundaries: \<Word\> will be converted to \bWord\b
+"	   - Non-greedy matches: foo.\{-}bar will be converted to foo.*?bar
+"
+"      The directory argument supplied to :Ag supports simple glob patterns. To simplify
+"      filtering of your search by file extension, you can pass a glob pattern to :Ag and it will
+"      convert it to a file search regex for ag. For example, to limit your search to only python
+"      files starting in some directory, you could run:
+"
+"      :Ag FooBar foo/**/*.py
+"
+"      This will be converted to the equivalent of running:
+"
+"      :Ag -G foo/.*/[^/]*\.py$ FooBar
+"
+"  Configuration
+"
+"	g:AgSmartCase (default: 0) - When set to a non-0 value, :Ag will run ag with the --smart-case option.
+"
+"  Extras
+"
+"       ag.vim also registers itself as a backend for eclim's :LocateFile functionality. You
+"	can even set ag as the default for non-eclim projects by adding the following to your vimrc:
+"
+"	let g:EclimLocateFileNonProjectScope = 'ag'
+
+	let g:AgSmartCase=1 
+"
+" }}}
+" =================================
+"
 " Vim Wiki Settings ----- {{{ 
 "
 " vimwiki - Personal wiki for vim
 " https://github.com/vikiwiki/vimwik
 
 " vimwiki with markdown support
+
 let g:vimwiki_list = [{'path': '$HOME/vimwiki',
                      \ 'syntax': 'markdown',
                      \ 'ext': '.md'}]
+
 " help-page -> :h vimwiki-syntax
 
 "vim-instant-markdown - Instant markdown previews from vim
 " https://github.com/suan/vim-instant-markdown
 
-"let g:instant_markdown_autostart = 0      " disable autostart
-"noremap <leader>md :InstantMarkdownPreview<CR>
+let g:instant_markdown_autostart = 0      " disable autostart
+noremap <LocalLeader>md :InstantMarkdownPreview<CR>
 
 "
 " }}}
@@ -673,16 +693,19 @@ let g:fzf_files_options =
 "
 " Trigger configuration. Do not use <tab> if you use
 " https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsExpandTrigger="<leader>s"
+
+let g:UltiSnipsExpandTrigger="<LocalLeader>s"
 let g:UltiSnipsJumpForwardTrigger="<C-S-b>"
 let g:UltiSnipsJumpBackwardTrigger="<C-S-z>"
 
 " If you want :UltiSnipsEdit to split your window.
-"let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsEditSplit="vertical"
 
 "
 " }}}
 "
 " =================================
-
+"
 runtime ftplugin/man.vim
+"
+" =================================

@@ -10,6 +10,7 @@ export Z_DIR=$HOME/dotfiles/z
 # time that oh-my-zsh is loaded.
 #ZSH_THEME="robbyrussell"
 ZSH_THEME="agnoster"
+#ZSH_THEME="3den"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
