@@ -1,10 +1,14 @@
 ##########################################################
 #
-# #-------- Environment Variables #-------- {{{
+# Environment Variables -------- {{{
 #
 ###########################################################
  
-# cmx environment variables
+###########################################################
+#
+# Calibre variables ------ {{{
+#
+###########################################################
 
 export CMX_CALIBRE="/MacOSX-Data2/Calibre"
 export CMX_MAGS="/MacOSX-Data2/Magazines"
@@ -12,7 +16,12 @@ export CMX_COMICS="/MacOSX-Data2/Comix"
 
 ###########################################################
 #
-#-------- Astro {{{
+#  }}} ------ Calibre variables
+#
+###########################################################
+###########################################################
+#
+# Astro -------- {{{
 #
 ###########################################################
 
@@ -26,10 +35,10 @@ export SAS_VRSN="xmmsas_20170112_1337"
 
 export ASTRO="${BASE_DIR}/Astro"
 export ASTROM="${VMD}/Astro"
-export ASTROSW="${ASTROM}/sw"
-export ASTROPY="${ASTROSW}/AstroPy"
+export ASTROMSW="${ASTROM}/sw"
+export ASTROPY="${ASTROMSW}/AstroPy"
 export ASTROX="${ASTRO}/X-Ray"
-export ASTROXM="${ASTROM}/X-Ray"
+export ASTROMX="${ASTROM}/X-Ray"
 export AWD="${ASTROX}/WorkingDir"
 export HEADAS="${ASTROX}/${HEADAS_VRSN}/${HEADAS_ARCH}"
 export SASDIR="${ASTROX}/XMM-SAS/SAS/${SAS_VRSN}"
@@ -58,11 +67,14 @@ export SAS_CCFPATH="${ASTROSW}/ccf"
 export SAS_VERBOSITY=3
 export SAS_SUPPRESS_WARNING=3
 
-## Astro -------- }}}
-#
 ###########################################################
 #
-#-------- Comp {{{
+#  }}} -------- Astro 
+#
+###########################################################
+###########################################################
+#
+# Comp -------- {{{
 #
 ###########################################################
 
@@ -103,13 +115,13 @@ export BROWSERCLI=$(find_alt w3m links lynx $OPENER )
 export COMICER=$(find_alt mcomix comix $OPENER )
 export EBOOKER=$(find_alt calibre-ebook-viewer $OPENER )
 export EDITOR=$(find_alt vim emacs nano leafpad gedit $OPENER )
-export FILEMANAGER=$(find_alt thunar vifm nautilus mc $OPENER )
-export MUSICER=$(find_alt mplayer mpv cvlc rhythmbox ncmpcmpp $OPENER )
+export FILEMANAGER=$(find_alt thunar vifm ranger nautilus mc $OPENER )
+export MUSICER=$(find_alt mplayer mpv ncmpcmpp cvlc rhythmbox $OPENER )
 export PAGER=$(find_alt less more )
-export PLAYER=$(find_alt mplayer cvlc mpv $OPENER )
+export PLAYER=$(find_alt mplayer mpv cvlc $OPENER )
 export READER=$(find_alt okular evince $OPENER )
 export ROOTER=$(find_alt gksudo kdesudo )
-export IMAGEVIEWER=$(find_alt ristretto feh display eog $OPENER )
+export IMAGEVIEWER=$(find_alt feh ristretto display eog $OPENER )
 
 
 # General -------- }}}
