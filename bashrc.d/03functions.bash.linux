@@ -6,13 +6,25 @@
 
 ###########################################################
 #------------Network {{{
+#
 # ip_show ip addresses for eth0, eth1 and external - used
 # for login 
-ip_show() {
-   echo -e "External:\t `wget -qO - http://icanhazip.com`"; 
-   echo -e "Internal:\t  `/sbin/ifconfig eth0 | 
-   grep 'inet addr' |  awk '{print $2}' | awk -F : '{print $2}'`" }  
+ip_show(){
+   # check to see if interface is up 
 
+    if [[ $(cat /sys/class/net/wlan0/operstate) == "up" ]];
+    then
+    # check to see if external network is available
+      if  ping -q -c 1 -W 1 8.8.8.8 > /dev/null ; then
+         echo -e "External:\t `wget -qO - http://icanhazip.com`" ;
+      else
+         echo -e "No External Network...\n"
+      fi
+      echo -e "Internal:\t  `/sbin/ifconfig wlan0 |  grep 'inet addr' |  awk '{print $2}' | awk -F : '{print $2}'`" ;  
+    else
+      echo -e "No Network...\n"
+    fi
+}
 # --- }}}
 ###########################################################
 # ----------- VPNs {{{
@@ -116,13 +128,13 @@ tsm-ncurse() { transmission-remote-cli ;}
 # --- }}}
 ############################################################
 #-------- Firefox profile{{{
-firefox_J() { /usr/bin/firefox -no-remote -P Jupyter > /dev/null 2>&1 & ; }
-firefox_Y() { /usr/bin/firefox -no-remote -P Youtube & ; }
+firefox_J() { /usr/bin/firefox -no-remote -P Jupyter > /dev/null 2>&1 &  }
+firefox_Y() { /usr/bin/firefox -no-remote -P Youtube &  }
 # --- }}}
 ############################################################
 #-------- DVD playback{{{
 dvd_play() { mplayer dvdnav:// -mouse-movements \
-             -dvd-device /dev/dvd }
+             -dvd-device /dev/dvd ;}
 # --- }}}
 ############################################################
 #-------- DVD rip{{{
@@ -194,7 +206,7 @@ rld-zshrc() { source ~/.zshrc ;}
 # }}}
 #------- IPlayer {{{
 
-get_iplayer-list(){cls;for FILE in `cat ToDownloadList`; do URI=$FILE; echo "Downloading $URI"; /home/vgg/bin/get_iplayer  --modes=flashhigh,hlshigh --url $URI; done}
+get_iplayer-list(){ clear ; for FILE in `cat ToDownloadList`; do URI=$FILE; echo "Downloading $URI"; /home/vgg/bin/get_iplayer  --modes=flashhigh,hlshigh --url $URI; done}
 bbccbbc(){/home/vgg/bin/get_iplayer --stream --type=livetv "CBBC" --player="/usr/bin/mplayer -"&}
 bbccbbs(){/home/vgg/bin/get_iplayer --stream --type=livetv "CBeebies" --player="/usr/bin/mplayer -"&}
 bbcn(){/home/vgg/bin/get_iplayer --stream --type=livetv "BBC News" --player="/usr/bin/mplayer -"&}
@@ -4416,37 +4428,37 @@ fzf-locate() {
 #
 #
 #
-#function extract {
-# if [ -z "$1" ]; then
-#    # display usage if no parameters given
-#    echo "Usage: extract <path/file_name>.<zip|rar|bz2|gz|tar|tbz2|tgz|Z|7z|xz|ex|tar.bz2|tar.gz|tar.xz>"
-# else
-#    if [ -f "$1" ] ; then
-#        NAME=${1%.*}
-#        #mkdir $NAME && cd $NAME
-#        case "$1" in
-#          *.tar.bz2)   tar xvjf ./"$1"    ;;
-#          *.tar.gz)    tar xvzf ./"$1"    ;;
-#          *.tar.xz)    tar xvJf ./"$1"    ;;
-#          *.lzma)      unlzma ./"$1"      ;;
-#          *.bz2)       bunzip2 ./"$1"     ;;
-#          *.rar)       unrar x -ad ./"$1" ;;
-#          *.gz)        gunzip ./"$1"      ;;
-#          *.tar)       tar xvf ./"$1"     ;;
-#          *.tbz2)      tar xvjf ./"$1"    ;;
-#          *.tgz)       tar xvzf ./"$1"    ;;
-#          *.zip)       unzip ./"$1"       ;;
-#          *.Z)         uncompress ./"$1"  ;;
-#          *.7z)        7z x ./"$1"        ;;
-#          *.xz)        unxz ./"$1"        ;;
-#          *.exe)       cabextract ./"$1"  ;;
-#          *)           echo "extract: '$1' - unknown archive method" ;;
-#        esac
-#    else
-#        echo "'$1' - file does not exist"
-#    fi
-#fi
-#}
+function xtrct {
+ if [ -z "$1" ]; then
+    # display usage if no parameters given
+    echo "Usage: extract <path/file_name>.<zip|rar|bz2|gz|tar|tbz2|tgz|Z|7z|xz|ex|tar.bz2|tar.gz|tar.xz>"
+ else
+    if [ -f "$1" ] ; then
+        NAME=${1%.*}
+        #mkdir $NAME && cd $NAME
+        case "$1" in
+          *.tar.bz2)   tar xvjf ./"$1"    ;;
+          *.tar.gz)    tar xvzf ./"$1"    ;;
+          *.tar.xz)    tar xvJf ./"$1"    ;;
+          *.lzma)      unlzma ./"$1"      ;;
+          *.bz2)       bunzip2 ./"$1"     ;;
+          *.rar)       unrar x -ad ./"$1" ;;
+          *.gz)        gunzip ./"$1"      ;;
+          *.tar)       tar xvf ./"$1"     ;;
+          *.tbz2)      tar xvjf ./"$1"    ;;
+          *.tgz)       tar xvzf ./"$1"    ;;
+          *.zip)       unzip ./"$1"       ;;
+          *.Z)         uncompress ./"$1"  ;;
+          *.7z)        7z x ./"$1"        ;;
+          *.xz)        unxz ./"$1"        ;;
+          *.exe)       cabextract ./"$1"  ;;
+          *)           echo "extract: '$1' - unknown archive method" ;;
+        esac
+    else
+        echo "'$1' - file does not exist"
+    fi
+fi
+}
 #
 #
 #

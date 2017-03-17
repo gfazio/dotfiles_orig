@@ -6,13 +6,72 @@
  
 ###########################################################
 #
+#-------- General {{{
+#
+###########################################################
+
+export VMD="/MacOSX-Data"
+export VMD2="/MacOSX-Data2"
+export VMD3="/MacOSX-Data3"
+
+export XDG_CONFIG_HOME="${HOME}/.config"
+export EDITOR="vim"
+export TERM="xterm-256color"
+# set display
+export DISPLAY=:0
+
+# find alternative apps if it is installed on your system
+find_alt() { for i;do which "$i" >/dev/null && { echo "$i"; return 0;};done;return 1; }
+
+# set the default program
+# the first program in the array will be chosen as the default
+export OPENER=$(find_alt xdg-open exo-open gnome-open )
+export BROWSERCLI=$(find_alt w3m links lynx $OPENER )
+export COMICER=$(find_alt mcomix comix $OPENER )
+export EBOOKER=$(find_alt calibre-ebook-viewer $OPENER )
+export EDITOR=$(find_alt vim emacs nano leafpad gedit $OPENER )
+export FILEMANAGER=$(find_alt thunar vifm ranger nautilus mc $OPENER )
+export MUSICER=$(find_alt mplayer mpv ncmpcmpp cvlc rhythmbox $OPENER )
+export PAGER=$(find_alt less more )
+export PLAYER=$(find_alt mplayer mpv cvlc $OPENER )
+export READER=$(find_alt okular evince $OPENER )
+export ROOTER=$(find_alt gksudo kdesudo )
+export IMAGEVIEWER=$(find_alt feh ristretto display eog $OPENER )
+
+###########################################################
+#
+# General -------- }}}
+#
+###########################################################
+###########################################################
+#
+# PATH -------- {{{
+#
+###########################################################
+
+export PATH="${BASE_DIR}/anaconda3/bin:$PATH"
+export PATH="${PATH}:${BASE_DIR}/bin"
+export PATH="${PATH}:/opt/local/bin:/usr/local/bin:/usr/bin/:/bin:/usr/local/sbin/:/usr/x86_64-suse-linux/bin:/usr/local/bin/eclipse"
+export PATH="${PATH}:/opt/Palm/novacom/:/opt/PalmPDK/bin/:/opt/PalmSDK/Current/bin"
+export PATH="${PATH}:${ASTRO}:${ASTROX}:${ASTROX}/ds9:${ASTROX}/XPA"
+export PATH="${PATH}:${ASTROX}/wcstools-3.9.2/bin" 
+export PATH="${PATH}:${ASTROX}/nxsa-cl-aioclient-8.4" 
+export PATH="${PATH}:${BASE_DIR}/bin/geckodriver/target/release"
+
+###########################################################
+#
+#  }}} -------- PATH 
+#
+###########################################################
+###########################################################
+#
 # Calibre variables ------ {{{
 #
 ###########################################################
 
-export CMX_CALIBRE="/MacOSX-Data2/Calibre"
-export CMX_MAGS="/MacOSX-Data2/Magazines"
-export CMX_COMICS="/MacOSX-Data2/Comix"
+export CMX_CALIBRE="${VMD2}/Calibre"
+export CMX_MAGS="${VMD2}/Magazines"
+export CMX_COMICS="${VMD2}Comix"
 
 ###########################################################
 #
@@ -25,8 +84,6 @@ export CMX_COMICS="/MacOSX-Data2/Comix"
 #
 ###########################################################
 
-
-export VMD="/MacOSX-Data"
 export BASE_DIR="$HOME" 
 
 export HEADAS_VRSN="heasoft-6.20"
@@ -44,24 +101,11 @@ export HEADAS="${ASTROX}/${HEADAS_VRSN}/${HEADAS_ARCH}"
 export SASDIR="${ASTROX}/XMM-SAS/SAS/${SAS_VRSN}"
 export SAS_IMAGEVIEWER="$ASTROX/ds9/ds9"
 
-export PATH="${BASE_DIR}/anaconda3/bin:$PATH"
-export PATH="${PATH}:${BASE_DIR}/bin"
-export PATH="${PATH}:/opt/local/bin:/usr/local/bin:/usr/bin/:/bin:/usr/local/sbin/:/usr/x86_64-suse-linux/bin:/usr/local/bin/eclipse"
-export PATH="${PATH}:/opt/Palm/novacom/:/opt/PalmPDK/bin/:/opt/PalmSDK/Current/bin"
-export PATH="${PATH}:${ASTRO}:${ASTROX}:${ASTROX}/ds9:${ASTROX}/XPA"
-export PATH="${PATH}:${ASTROX}/wcstools-3.9.2/bin" 
-export PATH="${PATH}:${ASTROX}/nxsa-cl-aioclient-8.4" 
-export PATH="${PATH}:${BASE_DIR}/bin/geckodriver/target/release"
-
-export PYTUT_MASTER="/MacOSX-Data2/media/Youtube/PythonDataAnalysisTutorial"
-export PYTUT="${ASTRO}/SciPyNumpyTuts"
-
 #export SAS_ODF="$HOME/Astro/X-Ray/ODF"
 # After odfingest has been run SAS_ODF needs to be set to the 
 # /full/path/to/ODF/file*SUM.SAS file that has been created.  
 
 export SAS_ODF="${AWD}/CU_Vir/2125_0677980501_SCX00000SUM.SAS"  
-
 export SAS_CCF="${AWD}/ccf.cif"
 export SAS_CCFPATH="${ASTROSW}/ccf"
 export SAS_VERBOSITY=3
@@ -91,47 +135,19 @@ export webOS="${COMPD}/WebOS"
 
 export WEBOS_TOOLS="${COMP}/Palm/webos/Homebrew/Tools"
 
+export PYTUT_MASTER="${VMD2}/media/Youtube/PythonDataAnalysisTutorial"
+export PYTUT="${ASTRO}/SciPyNumpyTuts"
+
+###########################################################
+#
 # Comp -------- }}}
 #
 ###########################################################
-#
-#-------- General {{{
-#
-###########################################################
-
-export XDG_CONFIG_HOME="${HOME}/.config"
-export EDITOR="vim"
-export TERM="xterm-256color"
-# set display
-export DISPLAY=:0
-
-# find alternative apps if it is installed on your system
-find_alt() { for i;do which "$i" >/dev/null && { echo "$i"; return 0;};done;return 1; }
-
-# set the default program
-# the first program in the array will be chosen as the default
-export OPENER=$(find_alt xdg-open exo-open gnome-open )
-export BROWSERCLI=$(find_alt w3m links lynx $OPENER )
-export COMICER=$(find_alt mcomix comix $OPENER )
-export EBOOKER=$(find_alt calibre-ebook-viewer $OPENER )
-export EDITOR=$(find_alt vim emacs nano leafpad gedit $OPENER )
-export FILEMANAGER=$(find_alt thunar vifm ranger nautilus mc $OPENER )
-export MUSICER=$(find_alt mplayer mpv ncmpcmpp cvlc rhythmbox $OPENER )
-export PAGER=$(find_alt less more )
-export PLAYER=$(find_alt mplayer mpv cvlc $OPENER )
-export READER=$(find_alt okular evince $OPENER )
-export ROOTER=$(find_alt gksudo kdesudo )
-export IMAGEVIEWER=$(find_alt feh ristretto display eog $OPENER )
-
-
-# General -------- }}}
-#
 ###########################################################
 #
 #-------- History control {{{
 #
 ###########################################################
-
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 
@@ -142,8 +158,11 @@ export HISTCONTROL=erasedups		   # Erase duplicates across
 export HISTCONTROL=ignoreboth		   #Remove Extra Commands
 export HISTIGNORE="ls:exit:df:w:h:ll"
 
+###########################################################
+#
 # History control -------- }}}
 #
+###########################################################
 ###########################################################
 #
 #-------- Colours {{{
@@ -236,15 +255,16 @@ On_IPurple='\e[10;95m'  # Purple
 On_ICyan='\e[0;106m'    # Cyan
 On_IWhite='\e[0;107m'   # White
  
+###########################################################
 #
 # Bash Color Code -------- }}}
 #
 ###########################################################
-
 ###########################################################
 #
 # Colours -------- }}}
 #
+###########################################################
 ###########################################################
 #
 #-------- SSH / ftp / rdesktop {{{
@@ -253,10 +273,11 @@ On_IWhite='\e[0;107m'   # White
 
 export GPUServer="128.243.70.77"
 
+###########################################################
+#
 # SSH / ftp / rdesktop -------- }}}
 #
 ##########################################################
-
 ##########################################################
 #
 # #-------- Environment Variables #-------- }}}

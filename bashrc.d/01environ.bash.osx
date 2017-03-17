@@ -1,15 +1,66 @@
 ##############################################################################
 #
-#                ENVIRONMENT VARIABLES
+# Environment Variables -------- {{{
 #
 ###############################################################################
+ 
 ###############################################################################
 #
-# Astro
+#-------- General {{{
 #
 ###############################################################################
 
 export VMD="/Volumes/MacOSX-Data"
+export VMD2="/Volumes/MacOSX-Data2"
+export VMD3="/Volumes/MacOSX-Data3"
+
+export EDITOR="vim"
+
+###########################################################
+#
+# General -------- }}}
+#
+###########################################################
+###########################################################
+#
+# PATH -------- {{{
+#
+###########################################################
+export PATH="${VMD}/Computing/anaconda/bin:$PATH"
+export PATH="${PATH}:/Users/vgg/bin/"
+export PATH="${PATH}:/opt/local/bin:/opt/local/sbin"
+export PATH="${PATH}:/opt/PalmSDK/Current/bin:/opt/PalmPDK/bin/"
+export PATH="${PATH}:${ASTRO}:${ASTROX}:${ASTROX}/DS9"
+export PATH="${PATH}:/Applications/calibre.app/Contents/MacOS/"
+export PYTHONPATH="${PYTHONPATH}:${ASTROPY}/astrolib/astrolib_installed/lib/python"
+export VLC_PLUGIN_PATH="/Applications/VLC.app/Contents/MacOS/plugins"
+###########################################################
+#
+#  }}} -------- PATH 
+#
+###########################################################
+###########################################################
+#
+# Calibre variables ------ {{{
+#
+###########################################################
+
+export CMX_CALIBRE="${VMD2}/Calibre"
+export CMX_MAGS="${VMD2}/Magazines"
+export CMX_COMICS="${VMD2}Comix"
+
+###########################################################
+#
+#  }}} ------ Calibre variables
+#
+###########################################################
+###########################################################
+#
+# Astro -------- {{{
+#
+###########################################################
+ 
+
 export BASE_DIR="$VMD" 
 
 export HEADAS_VRSN="heasoft-6.17"
@@ -23,22 +74,26 @@ export ASTROX="${ASTRO}/X-Ray"
 export AWD="${ASTROX}/WorkingDir"
 export HEADAS="${ASTROSW}/${HEADAS_VRSN}/${HEADAS_ARCH}"
 export SASDIR="${ASTROSW}/SAS/${SAS_VRSN}"
+export SAS_IMAGEVIEWER="${ASTROX}/ds9/ds9"
 
 #export SAS_ODF="/home/vgg/Astro/X-Ray/ODF"
 # After odfingest has been run SAS_ODF needs to be set to the 
 # /full/path/to/ODF/file*SUM.SAS file that has been created.  
 
 export SAS_ODF="${AWD}/CU_Vir/2125_0677980501_SCX00000SUM.SAS"  
-
 export SAS_CCF="${AWD}/ccf.cif"
 export SAS_CCFPATH="${ASTROSW}/CCF"
 export SAS_VERBOSITY=3
 export SAS_SUPPRESS_WARNING=3
-export SAS_IMAGEVIEWER="${ASTROX}/ds9/ds9"
 
+###########################################################
+#
+#  }}} -------- Astro 
+#
+###########################################################
 ###############################################################################
 #
-# Comp
+# Comp -------- {{{
 #
 ###############################################################################
 
@@ -55,46 +110,151 @@ export webOS="${COMPD}/WebOS"
 
 export WEBOS_TOOLS="${COMP}/Palm/webos/Homebrew/Tools"
 
-###############################################################################
-#
-# General
-#
-###############################################################################
+export PYTUT_MASTER="${VMD2}/media/Youtube/PythonDataAnalysisTutorial"
+export PYTUT="${ASTRO}/SciPyNumpyTuts"
 
-export EDITOR="vim"
-export PATH="/Volumes/MacOSX-Data/Computing/anaconda/bin:$PATH"
-export PATH="${PATH}:/Users/vgg/bin/"
-export PATH="${PATH}:/opt/local/bin:/opt/local/sbin"
-export PATH="${PATH}:/opt/PalmSDK/Current/bin:/opt/PalmPDK/bin/"
-export PATH="${PATH}:${ASTRO}:${ASTROX}:${ASTROX}/DS9"
-export PATH="${PATH}:/Applications/calibre.app/Contents/MacOS/"
-export PYTHONPATH="${PYTHONPATH}:${ASTROPY}/astrolib/astrolib_installed/lib/python"
-export VLC_PLUGIN_PATH="/Applications/VLC.app/Contents/MacOS/plugins"
-###############################################################################
+###########################################################
 #
-# History control
+# Comp -------- }}}
 #
-###############################################################################
+###########################################################
+###########################################################
+#
+#-------- History control {{{
+#
+###########################################################
 
-export HISTCONTROL=erasedups
+# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+
 export HISTSIZE=10000
-export HISTIGNORE="ls:exit:df:w:h:ll:apollo:top"
+export HISTFILESIZE=3000
+export HISTCONTROL=erasedups		   # Erase duplicates across 
+                                           # the whole history
+export HISTCONTROL=ignoreboth		   #Remove Extra Commands
+export HISTIGNORE="ls:exit:df:w:h:ll"
 
+###########################################################
+#
+# History control -------- }}}
+#
+###########################################################
 ###############################################################################
 #
-# Colours
+#-------- Colours {{{
 #
 ###############################################################################
 
+export CHEATCOLOR=true
 export CLICOLOR=true
 export LSCOLORS='cxfxcxdxbxegedabagacad'
 
+###########################################################
+#
+#-------- Bash Color Code {{{
+#
+###########################################################
+#------------------------------------------------------
+# https://wiki.archlinux.org/index.php/Color_Bash_Prompt
+# Reset
+###########################################################
+
+Color_Off='\e[0m'       # Text Reset
+
+# Regular Colors
+Black='\e[0;30m'        # Black
+Red='\e[0;31m'          # Red
+Green='\e[0;32m'        # Green
+Yellow='\e[0;33m'       # Yellow
+Blue='\e[0;34m'         # Blue
+Purple='\e[0;35m'       # Purple
+Cyan='\e[0;36m'         # Cyan
+White='\e[0;37m'        # White
+
+# Bold
+BBlack='\e[1;30m'       # Black
+BRed='\e[1;31m'         # Red
+BGreen='\e[1;32m'       # Green
+BYellow='\e[1;33m'      # Yellow
+BBlue='\e[1;34m'        # Blue
+BPurple='\e[1;35m'      # Purple
+BCyan='\e[1;36m'        # Cyan
+BWhite='\e[1;37m'       # White
+
+# Underline
+UBlack='\e[4;30m'       # Black
+URed='\e[4;31m'         # Red
+UGreen='\e[4;32m'       # Green
+UYellow='\e[4;33m'      # Yellow
+UBlue='\e[4;34m'        # Blue
+UPurple='\e[4;35m'      # Purple
+UCyan='\e[4;36m'        # Cyan
+UWhite='\e[4;37m'       # White
+
+# Background
+On_Black='\e[40m'       # Black
+On_Red='\e[41m'         # Red
+On_Green='\e[42m'       # Green
+On_Yellow='\e[43m'      # Yellow
+On_Blue='\e[44m'        # Blue
+On_Purple='\e[45m'      # Purple
+On_Cyan='\e[46m'        # Cyan
+On_White='\e[47m'       # White
+
+# High Intensity
+IBlack='\e[0;90m'       # Black
+IRed='\e[0;91m'         # Red
+IGreen='\e[0;92m'       # Green
+IYellow='\e[0;93m'      # Yellow
+IBlue='\e[0;94m'        # Blue
+IPurple='\e[0;95m'      # Purple
+ICyan='\e[0;96m'        # Cyan
+IWhite='\e[0;97m'       # White
+
+# Bold High Intensity
+BIBlack='\e[1;90m'      # Black
+BIRed='\e[1;91m'        # Red
+BIGreen='\e[1;92m'      # Green
+BIYellow='\e[1;93m'     # Yellow
+BIBlue='\e[1;94m'       # Blue
+BIPurple='\e[1;95m'     # Purple
+BICyan='\e[1;96m'       # Cyan
+BIWhite='\e[1;97m'      # White
+
+# High Intensity backgrounds
+On_IBlack='\e[0;100m'   # Black
+On_IRed='\e[0;101m'     # Red
+On_IGreen='\e[0;102m'   # Green
+On_IYellow='\e[0;103m'  # Yellow
+On_IBlue='\e[0;104m'    # Blue
+On_IPurple='\e[10;95m'  # Purple
+On_ICyan='\e[0;106m'    # Cyan
+On_IWhite='\e[0;107m'   # White
+ 
+###########################################################
+#
+# Bash Color Code -------- }}}
+#
+###########################################################
+###########################################################
+#
+# Colours -------- }}}
+#
+###########################################################
 ###############################################################################
 #
-# SSH / ftp / rdesktop
+#-------- SSH / ftp / rdesktop {{{
 #
 ###############################################################################
 
 export GPUServer="128.243.70.77"
 
-###############################################################################
+###########################################################
+#
+# SSH / ftp / rdesktop -------- }}}
+#
+##########################################################
+##########################################################
+#
+# #-------- Environment Variables #-------- }}}
+#
+###########################################################
