@@ -1,13 +1,11 @@
 ###############################################################################
 #
-#                         LINUX COMMANDS AND ALIASES
+#                         LINUX COMMANDS AND ALIASES --- {{{
 #
 ###############################################################################
-
-
 ###############################################################################
 #
-# General
+# General --- {{{
 #
 ###############################################################################
 
@@ -35,8 +33,8 @@ alias hkp0="ssh 192.168.0.200"
 alias phkp0="ping 192.168.0.200"
 alias hkp1="ssh hongkongphooey.is-a-geek.net"
 alias phkp1="ping hongkongphooey.is-a-geek.net"
-#alias hkp2="ssh hongkongphooy.ddns.net"
-#alias phkp2="ping hongkongphooy.ddns.net"
+alias hkp2="ssh hongkongphooy.ddns.net"
+alias phkp2="ping hongkongphooy.ddns.net"
 alias kali="sudo mount -t ext4 /dev/sda10 /Kali"
 alias lo="logout"
 alias l="ls -pCFG"
@@ -67,11 +65,15 @@ alias wanip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias wosqi="java -jar $COMP/Palm/webos/Homebrew/Tools/01-newWebOSQuickInstall-4.6.0.jar &"
 alias wh="echo $cwd"
 alias zork1="xzip -geometry 300x300 -statgeometry 30x30 $HOME/bin/zork/DATA/ZORK1.DAT &"
-
 ###############################################################################
-##
-## ANALYSES SOFTWARE
-##
+#
+# General --- }}}
+#
+###############################################################################
+###############################################################################
+#
+# ANALYSES SOFTWARE --- {{{
+#
 ###############################################################################
 
 alias heainit=". $HEADAS/headas-init.sh"
@@ -81,4 +83,13 @@ alias mendeley="/home/vgg/bin/mendeleydesktop-1.17.6-linux-x86_64/bin/mendeleyde
 alias sasinit="heainit; . $SASDIR/setsas.sh"
 alias setodf="export SAS_ODF=${PWD}"
 alias updateccf="rsync -v -a --delete --delete-after --force --include='*.CCF' --exclude='*/' xmm.esac.esa.int::XMM_VALID_CCF $HOME/Astro/X-Ray/CCF/"
+###############################################################################
+#
+# ANALYSES SOFTWARE --- }}}
+#
+###############################################################################
+###############################################################################
+#
+#                         LINUX COMMANDS AND ALIASES --- }}}
+#
 ###############################################################################

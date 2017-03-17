@@ -1,9 +1,13 @@
 ###############################################################################
 #
-#                         LINUX COMMANDS AND ALIASES
+#                         'NIX COMMANDS AND ALIASES --- {{{
 #
 ###############################################################################
-
+###############################################################################
+#
+#        ITunesHelper removal --- {{{
+#
+###############################################################################
 ###############################################################################
 #
 # ITunesHelper removal. This will allow you to disable or enable iTunes from 
@@ -20,7 +24,12 @@ alias rcdonperm='sudo chmod 755 /System/Library/CoreServices/rcd.app/Contents/Ma
 
 ###############################################################################
 #
-# IPlayer 
+#        ITunesHelper removal --- }}}
+#
+###############################################################################
+###############################################################################
+#
+# IPlayer --- {{{
 #
 ###############################################################################
 
@@ -43,7 +52,12 @@ alias bbcr5x='/Users/vgg/bin/get_iplayer --stream --type=liveradio "BBC 5 live S
 
 ###############################################################################
 #
-# General
+# IPlayer --- }}}
+#
+###############################################################################
+###############################################################################
+#
+# General --- {{{
 #
 ###############################################################################
 
@@ -79,8 +93,9 @@ alias fndsh="defaults write com.apple.finder AppleShowAllFiles YES; killall Find
 # hide hidden files in finder
 alias fndnosh="defaults write com.apple.finder AppleShowAllFiles NO; killall Finder"
 alias fixeclipse="rm -f /Users/vgg/Computing/Development/Workspace/.metadata/.plugins/org.eclipse.e4.workbench/workbench.xmi"
-alias galias="vim /Users/vgg/.bashrc.d/02aliases.bash" 
-alias galiasenv="vim /Users/vgg/.bashrc.d/01environ.bash"
+alias galias="vim /Users/vgg/.bashrc.d/02aliases.bash.osx" 
+alias galiasenv="vim /Users/vgg/.bashrc.d/01environ.bash.osx"
+alias galiasfunc="vim /Users/vgg/bashrc.d/03functions.bash.osx"
 alias gonotts="ssh $GPUServer"
 alias gunzip="gzip -d"
 alias hkp0="ssh 192.168.0.200"
@@ -95,26 +110,33 @@ alias l="ls -pCFG"
 alias ls="ls -pCFG"
 alias ll='ls -alF'
 alias la='ls -A'
-alias less_alias="less /Users/vgg/.bashrc.d/02aliases.bash"
-alias more_alias="more /Users/vgg/.bashrc.d/02aliases.bash"
-alias less_env="less /Users/vgg/.bashrc.d/01environ.bash"
+alias less_alias="less /Users/vgg/.bashrc.d/02aliases.bash.osx"
+alias less_env="less /Users/vgg/.bashrc.d/01environ.bash.osx"
+alias less_func="less /Users/vgg/.bashrc.d/03functions.bash.osx"
 alias prot="chmod og-rx"
 alias pre2="novacom -d roadrunner-linux -t open tty://"
 alias pre3="novacom -d mantaray-linux -t open tty://"
 alias touchpad="novacom -d topaz-linux -t open tty://"
-alias ralias=". /Users/vgg/.bashrc.d/01environ.bash ; . /Users/vgg/.bashrc.d/02aliases.bash"
+alias ralias=". /Users/vgg/.bashrc.d/01environ.bash.osx ; . /Users/vgg/.bashrc.d/02aliases.bash.osx; . /Users/vgg/.bashrc.d/03functions.bash.osx"
 alias restartssh="sudo launchctl stop com.openssh.sshd"
 alias refind-fix=". /Users/vgg/bin/refind-fix.sh"
 alias rm="rm -f"    
+alias sucl="ssh -XC zuserver1.star.ucl.ac.uk"
 alias uefi="sudo diskutil unmount /EFI"
 alias vlc="/Applications/VLC.app/Contents/MacOS/vlc"
 alias wanip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias wh="echo $cwd"
+alias wosqi="java -jar $COMP/Palm/webos/Homebrew/Tools/01-newWebOSQuickInstall-4.6.0.jar &"
 
 ###############################################################################
-##
-## ANALYSES SOFTWARE
-##
+#
+# General --- }}}
+#
+###############################################################################
+###############################################################################
+#
+# ANALYSES SOFTWARE --- {{{
+#
 ###############################################################################
 
 alias heainit=". $HEADAS/headas-init.sh"
@@ -126,4 +148,13 @@ alias gog4=". $VMD/Astro/GEANT4/geant4.9.6/geant4.9.6-install/bin/geant4.sh"
 alias sasinit="heainit; . $SASDIR/setsas.sh"
 alias setodf="export SAS_ODF=${PWD}"
 
+###############################################################################
+#
+# ANALYSES SOFTWARE --- }}}
+#
+###############################################################################
+###############################################################################
+#
+#                         'NIX COMMANDS AND ALIASES --- }}}
+#
 ###############################################################################
