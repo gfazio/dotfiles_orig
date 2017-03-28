@@ -37,6 +37,7 @@ Plugin 'ervandew/screen'
 Plugin 'ervandew/supertab'
 Plugin 'flazz/vim-colorschemes'
 Plugin 'honza/vim-snippets'
+"Plugin 'ivanov/vim-ipython'
 Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'jnurmine/Zenburn'
 Plugin 'julienr/vim-cellmode'
@@ -69,6 +70,7 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'vim-latex/vim-latex'
 Plugin 'vim-scripts/indentpython.vim'
 Plugin 'vim-scripts/pydoc.vim'
+Plugin 'vim-scripts/taglist.vim'
 Plugin 'vim-scripts/vim-R-plugin'
 Plugin 'vimwiki/vimwiki'
 Plugin 'wincent/command-t'
@@ -203,6 +205,31 @@ noremap <leader>yp :exec '!mplayer $(youtube-dl -g ' . shellescape(getline('.'))
 
 "See docstrings for folded code
 let g:SimpylFold_docstring_preview=1
+
+"Toggle relative numbering, and set to absolute on loss of focus or insert
+"mode
+
+set rnu
+function! ToggleNumbersOn()
+    set nu!
+    set rnu
+endfunction
+function! ToggleRelativeOn()
+    set rnu!
+    set nu
+endfunction
+autocmd FocusLost * call ToggleRelativeOn()
+autocmd FocusGained * call ToggleRelativeOn()
+autocmd InsertEnter * call ToggleRelativeOn()
+autocmd InsertLeave * call ToggleRelativeOn()
+
+
+""" SYSTEM CLIPBOARD COPY AND PASTE SUPPORT """
+set pastetoggle=<F2>      "F2 before pasting to preserve indentation
+"copy/paste to/from clipboard
+vnoremap <C-c> "*y
+map <silent><leader>p :set paste<CR>o<Esc>"*]p:set nopaste<CR>"
+map <silent><leader><S-p> :set paste<CR>O<Esc>"*]p:set nopaste<CR>"
 
 "
 " =================================
@@ -414,6 +441,8 @@ function! g:VGGCTagsGenerate()
 		:!ctags -R --c++-kinds=+pl --fields=+iaS --extra=+q . 
 		:!ctags -R --c-kinds=+pl --fields=+iaS --extra=+q . 
 		:!ctags -R --Fortran-kinds=+iL --fields=+iaS --extra=+q . 
+		:!ctags -R --Python-kinds=+cfimv --fields=+iaS --extra=+q . 
+		:!ctags -R --Vim-kinds=+acfmv --fields=+iaS --extra=+q . 
 	         echo "cTags generated..."
 endfunction
 "

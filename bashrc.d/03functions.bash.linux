@@ -3,7 +3,6 @@
 # #-------- Functions #-------- {{{
 #
 ###########################################################
-
 ###########################################################
 #------------Network {{{
 #
@@ -63,21 +62,19 @@ vpn_usla-dn(){
 
 # --- }}}
 ############################################################
-#
-############################################################
-############################################################
 #------------ Login / Shell {{{
 prompt_bash() {
    export PS1="${Color_off}\
    [${Cyan}\u${Color_off}@${Yellow}\h${Color_off}] \
    ${BBlue}\w${Color_off}\\$ " }
 # --- }}}
-#
+############################################################
 #--- macfanctld--- {{{
 #
 macf(){
    sudo /usr/sbin/macfanctld }
 # --- }}}
+############################################################
 #--- zsh history fix--- {{{
 #
 zsh_hist_fix(){
@@ -87,7 +84,6 @@ zsh_hist_fix(){
    }
 
 # --- }}}
-###########################################################
 ###########################################################
 #-------- Transmission CLI {{{
 # this is notes for video: http://www.youtube.com/watch?v=ee4XzWuapsE
@@ -193,6 +189,7 @@ cfg-xresources() { $EDITOR ~/.Xresources ;}
 cfg-zshrc() { $EDITOR ~/.zshrc ;}
 cfg-zurlrc() { $EDITOR ~/.zurlrc ;}
 # --- }}}
+###########################################################
 #-------- Configurations Reload {{{
 #------------------------------------------------------
 rld-bashrc() { source ~/.bashrc ;}
@@ -204,6 +201,7 @@ rld-xmodmap() { xmodmap ~/.Xmodmap ;}
 rld-xresources() { xrdb -load ~/.Xresources ;}
 rld-zshrc() { source ~/.zshrc ;}
 # }}}
+###########################################################
 #------- IPlayer {{{
 
 get_iplayer-list(){ clear ; for FILE in `cat ToDownloadList`; do URI=$FILE; echo "Downloading $URI"; /home/vgg/bin/get_iplayer  --modes=flashhigh,hlshigh --url $URI; done}
@@ -224,6 +222,7 @@ bbcr5(){/home/vgg/bin/get_iplayer --stream --type=liveradio "BBC Radio 5 live" -
 bbcr5x(){/home/vgg/bin/get_iplayer --stream --type=liveradio "BBC 5 live Sports Extra" --player="/usr/bin/mplayer -"&}
 
 # }}}
+###########################################################
 #------- Novacom {{{
 nova-up(){ echo "nova-up:...:"; sudo -E novacomd -d; }
 nova-down(){sudo -E kill -9 $(echo `ps aux | grep novacomd | awk '/root/{print $2}'`); echo "nova-down:...completed:"; }
@@ -232,6 +231,7 @@ pre3(){ novacom -d mantaray-linux -t open tty:// ;}
 touchpad(){ novacom -d topaz-linux -t open tty:// ;}
 veer(){ novacom -d broadway-linux -t open tty:// ;}
 # }}}
+###########################################################
 #-------- Tmux Sessions {{{
 #------------------------------------------------------
 tmx0() {
@@ -274,7 +274,7 @@ tmx1() {
 }
 
 # }}}
-#
+###########################################################
 #-------- System Information {{{
 #------------------------------------------------------
 m-sound() { arecord -L && arecord -l && cat /proc/asound/pcm ;} #List audio capture card/mic
@@ -308,6 +308,7 @@ echo External IP: $(curl -s http://ipecho.net/plain)
 }
 #
 #}}}
+###########################################################
 #-------- PulseAudio Switcher CLI v2 {{{
 #------------------------------------------------------
 # DEMO: https://www.youtube.com/watch?v=jhv-2pNWfr4
@@ -355,6 +356,7 @@ pa-solo() {
 }
 
 #}}}
+###########################################################
 #-------- Calibre CLI v3 {{{
 #------------------------------------------------------
 # DEMO: http://www.youtube.com/watch?v=FeoVsC4U_0A
@@ -443,6 +445,7 @@ calibre-server -p 57772 --daemonize --with-library "$CMX_MAGS"
 }
 
 #}}}
+###########################################################
 #-------- Convert to Audio {{{
 #------------------------------------------------------
 # https://trac.ffmpeg.org/wiki/Encode/MP3
@@ -575,6 +578,7 @@ fi
 }
 
 # }}}
+###########################################################
 #-------- Simple HTTP Server {{{
 #------------------------------------------------------
 # DEMO: http://www.youtube.com/watch?v=FFIjMYzkHhc
@@ -588,11 +592,13 @@ SimpleHTTPserver() {
     fi
 }
 #}}}
+###########################################################
 
 ##############################
 ####### B. WAITING LIST ######
 ##############################
 
+###########################################################
 #-------- FFMPEG X11GRAB Screencasting {{{
 #------------------------------------------------------
 # record desktop using ffmpeg
@@ -676,7 +682,8 @@ SimpleHTTPserver() {
 # worked well on ffmpeg 0.11.1
 # ffmpeg -f pulse -ac 1 -i hw:3,0 -async 1 -f x11grab -r 30 -s $(xwininfo -root | grep 'geometry' |awk '{print $2;}' | cut -d\+ -f1) -i :0.0 -vcodec libx264 -pix_fmt yuv444p -preset ultrafast -crf 0 -acodec libmp3lame -ab 128k -threads 0 -y ~/Public/screencast/aa_screencast_baking.mkv 
 
-# }}}
+# --- }}}
+###########################################################
 #-------- FFMPEG X11GRAB Screencasting v2 (Multiple Inputs) {{{
 #------------------------------------------------------
 # DESC: record desktop using ffmpeg X11grab
@@ -771,6 +778,7 @@ pa-sources() { pactl list sources | awk '/Source #/ ||/Name:/ || /Description:/ 
 #
 #
 ## }}}
+###########################################################
 ##-------- Alias Custom {{{
 ##------------------------------------------------------
 ## alias ps="ps aux | grep -v grep | grep "
@@ -823,6 +831,7 @@ lst() {
 #
 #
 ## }}}
+###########################################################
 ##-------- Functions {{{
 ##------------------------------------------------------
 #
@@ -990,6 +999,7 @@ w3mimg() { w3m -o imgdisplay=/usr/lib/w3m/w3mimgdisplay $1 ;}
 #webcam-mplayer-screenshot() { mplayer tv:// -tv driver=v4l2:width=1920:height=1080:device=/dev/video0 -fps 30 -vf screenshot -ontop ;}
 #
 ##}}}
+###########################################################
 ##-------- Gotbletu Universal Package Manager {{{
 ##------------------------------------------------------
 ## DEMO: https://www.youtube.com/watch?v=N8CZhlIssdk
@@ -1240,6 +1250,7 @@ w3mimg() { w3m -o imgdisplay=/usr/lib/w3m/w3mimgdisplay $1 ;}
 ## }}}
 #
 ##}}}
+###########################################################
 ##-------- Clipboard and Upload {{{
 ##------------------------------------------------------
 ## DEMO: http://www.youtube.com/watch?v=fKP0FLp3uW0 (xclip)
@@ -1266,6 +1277,7 @@ alias pbnoformatting='xclip -selection clipboard -o | xclip -selection clipboard
 #
 #
 ## }}}
+###########################################################
 ##-------- Screenshot and Upload {{{
 ##------------------------------------------------------
 ## DEMO: http://www.youtube.com/watch?v=Hh8G1aBp8gc
@@ -1285,6 +1297,7 @@ alias pbnoformatting='xclip -selection clipboard -o | xclip -selection clipboard
 #}
 #
 ## }}}
+###########################################################
 ##-------- Fuzzy Finder {{{
 ##------------------------------------------------------
 ## DEMO: https://www.youtube.com/playlist?list=PLqv94xWU9zZ2fMsMMDF4PjtNHCeBFbggD
@@ -1346,6 +1359,7 @@ fzf-locate() {
 #}
 #
 ##}}}
+###########################################################
 ##-------- Flexget (Torrent RSS) {{{
 ##------------------------------------------------------
 ## DEMO: http://www.youtube.com/playlist?list=PLqv94xWU9zZ0pVGrgKtMuhFHun8-MahSY
@@ -1365,6 +1379,7 @@ fzf-locate() {
 #flexget-forget() { flexget movie_list forget "$@" ;}	# allow redownloading on waiting list
 #
 ##}}}
+###########################################################
 ##-------- Convert to Video {{{
 ##------------------------------------------------------
 ## http://linuxconfig.org/ffmpeg-audio-format-conversions
@@ -1501,6 +1516,7 @@ fzf-locate() {
 #}
 #
 ## }}}
+###########################################################
 ##-------- Convert to iOS (iPod, Macs, iPhone, Apple TV) {{{
 ##------------------------------------------------------
 ## https://trac.handbrake.fr/wiki/BuiltInPresets
@@ -1655,6 +1671,7 @@ fzf-locate() {
 #}
 #
 ## }}}
+###########################################################
 ##-------- Convert to Devices (Other, Gaming Device) {{{
 ##------------------------------------------------------
 ## http://develop.participatoryculture.org/index.php/ConversionMatrix
@@ -1696,6 +1713,7 @@ fzf-locate() {
 #}
 #
 ## }}}
+###########################################################
 ##-------- Convert to Archive {{{
 ##------------------------------------------------------
 #
@@ -1816,10 +1834,12 @@ fzf-locate() {
 #}
 #
 ## }}}
+###########################################################
 ##-------- VimWiki {{{
 ##------------------------------------------------------
 #wikimd()     { $EDITOR ~/.vimwiki/wikimd/index.md ;}
 ## }}}
+###########################################################
 ##-------- Slice Videos {{{
 ##------------------------------------------------------
 #
@@ -1902,6 +1922,7 @@ fzf-locate() {
 #}
 #
 ## }}}
+###########################################################
 ##-------- RipMe CLI (Bulk Image Downloader) {{{
 ##------------------------------------------------------
 ## image album downloader
@@ -1910,6 +1931,7 @@ fzf-locate() {
 #ripme-cli() { java -jar /usr/share/java/ripme-git-1.2.8.jar -l ~/Downloads -u "$@" ;}
 #
 ## }}}
+###########################################################
 ##-------- Mount Archive (ZIP|RAR|TAR) {{{
 ##------------------------------------------------------
 ## http://ubuntuforums.org/showthread.php?t=1207096
@@ -1946,6 +1968,7 @@ fzf-locate() {
 #}
 #
 ## }}}
+###########################################################
 ##-------- Mount Disc Images (ISO|NRG|BIN|MDF|IMG) {{{
 ##------------------------------------------------------
 #mount-discimage() {
@@ -1992,6 +2015,7 @@ fzf-locate() {
 #    done
 #}
 ## }}}
+###########################################################
 ##-------- Image Resizer (32|96|128|480|600|768|720|960|1080) {{{
 ##------------------------------------------------------
 ## Resizing Pictures to different resolutions
@@ -2144,12 +2168,14 @@ fzf-locate() {
 #}
 #
 ## }}}
+###########################################################
 #
 ###############################
 ######## C. STREAMING MEDIA ###
 ###############################
 ## Code that is still useful but I no longer use it, still here for references
 #
+###########################################################
 ##-------- Peerflix (Popcorntime CLI) {{{
 ##------------------------------------------------------
 ## DEMO: https://www.youtube.com/watch?v=NG13yOTPgfY
@@ -2160,9 +2186,11 @@ fzf-locate() {
 #peerflix-mplayer() { mplayer http://localhost:$PFLIX_PORT ;}	
 #
 ## }}}
+###########################################################
 ##-------- Play Youtube videos in mplayer {{{
 #yt-mp() { export YTFILE=$1 ;mplayer -fs -cookies -cookies-file /tmp/cookies.txt $(`youtube-dl -g --cookies /tmp/cookies.txt $YTFILE` ) ; unset YTFILE;}
 ## }}}
+###########################################################
 ##-------- Sopcast CLI v2 (Streaming P2P Videos) {{{
 ##------------------------------------------------------
 ## DEMO: http://www.youtube.com/watch?v=Dm7cFjhzgHo
@@ -2223,6 +2251,7 @@ fzf-locate() {
 #spp-tv-foxsports2.eng,ro() { sppc "sop://124.232.150.188:3920/5730" ;}
 #
 ##}}}
+###########################################################
 ##-------- MPS-Youtube Channels {{{
 ##------------------------------------------------------
 ## tutorial video: https://www.youtube.com/watch?v=VE2iCBkIs8E
@@ -2307,6 +2336,7 @@ fzf-locate() {
 #mpsyt-wwefannation() { mpsyt user wwefannation ;}
 #
 ## }}}
+###########################################################
 ##-------- Youtube Viewer Channels {{{
 ##------------------------------------------------------
 ## tutorial video: http://www.youtube.com/watch?v=FnJ67oAxVQ4
@@ -2376,6 +2406,7 @@ fzf-locate() {
 #yts-walkingdead-webisodes() { youtube-viewer -p PLC09448134D906619 ;}
 #yts-wwefannation() { youtube-viewer -u wwefannation ;}
 ### }}}
+###########################################################
 ##-------- NVLC Podcast RSS {{{
 ##------------------------------------------------------
 ## DEMO: https://www.youtube.com/watch?v=7y_58wpHuFE
@@ -2415,6 +2446,7 @@ fzf-locate() {
 #podcast-science-thisweekinscience() { nvlc-podcast "http://feeds.feedburner.com/twis/science/" ;}
 #
 ##}}}
+###########################################################
 ##-------- Internet Music {{{
 ## URL: http://whatnotlinux.blogspot.com/2013/02/somafm-and-digitally-imported-bash.html
 #somafm() {
@@ -2426,12 +2458,14 @@ fzf-locate() {
 #}
 #
 ##}}}
+###########################################################
 #
 ###############################
 ######## D. OBSOLETE LIST #####
 ###############################
 ## Code that is still useful but I no longer use it, still here for references
 #
+###########################################################
 ##-------- Recordmydesktop CLI {{{
 ##------------------------------------------------------
 ## http://www.pclinuxos.com/forum/index.php/topic,97181.msg822796.html#msg822796
@@ -2491,6 +2525,7 @@ fzf-locate() {
 ##E3: (fullscreen); recordmydesktop --no-frame --full-shots --fps 30 --channels 2 --freq 44100 --overwrite -o out.ogv ;}
 #
 ##}}}
+###########################################################
 ##-------- Air Comic Server # {{{
 ##------------------------------------------------------
 ## tutorial Video: http://www.youtube.com/watch?v=YceW_VcGA4A
@@ -2504,6 +2539,7 @@ fzf-locate() {
 #aircomicserver-gui() { nohup java -XX:+UseSerialGC -Xms32M -Xminf=5 -Xmaxf=10 -jar $ACSJar -c $ACSConf >/dev/null 2>&1& }
 #aircomicserver-quit() { kill $(ps -ef | grep '[A]irComicServer.jar' | awk '{print $2}') ;}
 ## }}}
+###########################################################
 ##-------- Cherry Music Server # {{{
 ##------------------------------------------------------
 ## tutorial Video: https://www.youtube.com/watch?v=X2goFerMJDY
@@ -2515,6 +2551,7 @@ fzf-locate() {
 #cfg-cherrymusic() { $EDITOR ~/.config/cherrymusic/cherrymusic.conf ;}
 #
 ## }}}
+###########################################################
 ##-------- Sharelin (Gnutella2 P2P Downloader) {{{
 ##------------------------------------------------------
 #
@@ -2523,6 +2560,7 @@ fzf-locate() {
 #sharelin-quit() { killall sharelin ;}
 #
 ## }}}
+###########################################################
 ##-------- Aria2c WebUI {{{
 ##------------------------------------------------------
 ## downloader for torrents, magnet links, http, ftp, metalinks
@@ -2561,6 +2599,7 @@ fzf-locate() {
 #}
 #
 ## }}}
+###########################################################
 ##-------- iPod 5G Device {{{
 ##------------------------------------------------------
 ## convert to ipod 5g compatible video format
@@ -2579,6 +2618,7 @@ fzf-locate() {
 #tsp-handbrake-high() { tsp HandBrakeCLI -i "$1" -o "${1%.*}.high.mp4" --preset="High Profile" ;}
 #
 ## }}}
+###########################################################
 ##-------- Spell Checking / Translation Related {{{
 ##------------------------------------------------------
 ## spell checking
@@ -2588,6 +2628,7 @@ fzf-locate() {
 #check-file() { aspell check "$1" ;}
 #
 ##}}}
+###########################################################
 ##-------- i3 / Openbox {{{
 ##------------------------------------------------------
 ## wallpaper path
@@ -2682,6 +2723,7 @@ fzf-locate() {
 #
 #
 ##}}}
+###########################################################
 ##-------- Capture RTMP Streams (URL Sniffing) {{{
 ##------------------------------------------------------
 ## tutorial video: http://www.youtube.com/watch?v=u1dQ81HT4AU
@@ -2694,6 +2736,7 @@ fzf-locate() {
 #tsniff-begin() { sudo tcpdump -ieth0 -nn -A | grep -e"rtmp" -e"connect" -e"play" > /tmp/tcpoutput.txt ;}
 #tsniff-less() { less /tmp/tcpoutput.txt ;}
 ##}}}
+###########################################################
 #
 ###############################
 ######## E. TESTING LIST ######
@@ -2701,6 +2744,7 @@ fzf-locate() {
 ## New code dump, stuff I am creating or copy from others
 #
 #
+###########################################################
 ##-------- Weechat XDCC {{{
 ##------------------------------------------------------
 ## http://nibl.co.uk/bots.php?search=
@@ -2723,10 +2767,12 @@ fzf-locate() {
 #
 #
 ## }}}
-##-------- Empty Template {{{
+###########################################################
+#-------- Empty Template {{{
 ##------------------------------------------------------
 #
 ## }}}
+###########################################################
 ## https://www.reddit.com/r/archlinux/comments/42784v/what_are_your_bash_aliasesfunctions_for_ffmpeg/cz88h5f
 #ffmpeg-stereo () {
 #        ffmpeg -i "$1" -i "$2" -filter_complex "[0:a][1:a]amerge=inputs=2[aout]" -map "[aout]" -c:a flac "$3"
@@ -2743,12 +2789,14 @@ fzf-locate() {
 #mpd-kill() { kill -9 $(cat ~/.mpd/mpd.pid) ;}
 #mpd-restart() { kill -9 $(cat ~/.mpd/mpd.pid) && mpd ;}
 #
-##-------- Battery Status {{{
+###########################################################
+#-------- Battery Status {{{
 ##------------------------------------------------------
 ## https://www.reddit.com/r/debian/comments/41sw7g/checking_battery_status_in_terminal/cz68iwq
 #alias batterystatus="upower -i /org/freedesktop/UPower/devices/........ | grep time"
 #alias batteryshow='cat /sys/class/power_supply/BAT1/status'
-## }}}
+# }}}
+###########################################################
 ##-------- Binary / Shell Scripts {{{
 ##------------------------------------------------------
 #
@@ -2800,6 +2848,7 @@ fzf-locate() {
 #wolframalpha() { ~/.scripts/shellscripts/wolframalpha_com/was.sh ;}
 #
 ##}}}
+###########################################################
 ##-------- Copy Move {{{
 ##------------------------------------------------------
 #cpr() {
@@ -2837,6 +2886,7 @@ fzf-locate() {
 #	fi
 #}
 ## }}}
+###########################################################
 ##-------- VirtualEnv (Python Isolated Environment) {{{
 ##------------------------------------------------------
 #
@@ -2853,6 +2903,7 @@ fzf-locate() {
 #}
 #
 ## }}}
+###########################################################
 ##-------- Convert to Image {{{
 ##------------------------------------------------------
 ## pdftoppm convert pdf to images
@@ -2933,6 +2984,7 @@ fzf-locate() {
 #}
 #
 ## }}}
+###########################################################
 ##-------- Disk Image to ISO {{{
 ##------------------------------------------------------
 #
@@ -3020,6 +3072,7 @@ fzf-locate() {
 #
 #
 ## }}}
+###########################################################
 ##-------- Convert to Documents {{{
 ##------------------------------------------------------
 #convert_images_to_pdf() {
@@ -3098,6 +3151,7 @@ fzf-locate() {
 #}
 #
 ## }}}
+###########################################################
 ##-------- Convert to Android (Smartphone, Tablet) {{{
 ##------------------------------------------------------
 ## http://develop.participatoryculture.org/index.php/ConversionMatrix
@@ -3201,6 +3255,7 @@ fzf-locate() {
 #}
 #
 ## }}}
+###########################################################
 ##-------- Youtube to Audio (Vice Versa) {{{
 ##------------------------------------------------------
 #
@@ -3226,6 +3281,7 @@ fzf-locate() {
 #}
 #
 ## }}}
+###########################################################
 ##-------- Demuxing {{{
 ##------------------------------------------------------
 #
@@ -3236,6 +3292,7 @@ fzf-locate() {
 ## demux_fonts/attachments
 #
 ## }}}
+###########################################################
 ##-------- Extraction / Archive Related {{{
 ##------------------------------------------------------
 ##Compression (cd into dir, will compress every single folder)
@@ -3292,6 +3349,7 @@ fzf-locate() {
 #
 #
 ##}}}
+###########################################################
 ##-------- Music Tagging CLI {{{
 ##------------------------------------------------------
 #lltag-artist() { lltag --yes -a "$1" "$2" ;}
@@ -3330,6 +3388,7 @@ fzf-locate() {
 #
 #
 ## }}}
+###########################################################
 ##-------- Plowshare {{{
 ##------------------------------------------------------
 ## d/l cyberlocker files like rapidshare, mediafire ..etc
@@ -3344,6 +3403,7 @@ fzf-locate() {
 #plowdown-random() { plowdown -r 3 --max-rate 900K -m ~/.config/plowshare/random.txt ;}
 #
 ##}}}
+###########################################################
 ##-------- Sound Effects {{{
 ##------------------------------------------------------
 ## http://whatnotlinux.blogspot.com/2011/12/enterprise-ambiance.html
@@ -3352,6 +3412,7 @@ fzf-locate() {
 #ambiance-pinknoise() { play -c2 -n synth pinknoise band -n 280 80 band -n 60 25 gain +20 treble +40 500 bass -3 20 flanger 4 2 95 50 .3 sine 50 lin ;}
 #
 ##}}}
+###########################################################
 ## concat  = joinning files in a series (like a train)
 ## convert = change one format to another
 ## slice   = cut files into peices (video, sound, both)
@@ -3359,6 +3420,7 @@ fzf-locate() {
 ## demux   = extraction of video or sound tracks
 ## split   = split into peiceses (archive into peices like zip, rar)
 ## combine = join files together again (usually for splited archive files like 001, zip ..etc)
+###########################################################
 ##-------- Rip Disc to Files {{{
 ##------------------------------------------------------
 #
@@ -3385,6 +3447,7 @@ fzf-locate() {
 #rip_to_aac() { mkdir -p ~/Downloads/audiocd ; ripit -o ~/Downloads/audiocd -p 0 -c 3 --nointeraction "$@" ;}
 #
 ## }}}
+###########################################################
 ##-------- Hardcoded Subtitles to Videos {{{
 ##------------------------------------------------------
 ## https://trac.ffmpeg.org/wiki/HowToBurnSubtitlesIntoVideo
@@ -3422,6 +3485,7 @@ fzf-locate() {
 #
 #
 ## }}}
+###########################################################
 ##-------- Concatenate Files {{{
 ##------------------------------------------------------
 #
@@ -3495,6 +3559,7 @@ fzf-locate() {
 #
 #
 ## }}}
+###########################################################
 ##-------- Extract Files {{{
 ##------------------------------------------------------
 #
@@ -3514,6 +3579,7 @@ fzf-locate() {
 #}
 #
 ## }}}
+###########################################################
 ##-------- Muxing {{{
 ##------------------------------------------------------
 #mux_to_mkv() { 
@@ -3528,6 +3594,7 @@ fzf-locate() {
 #	}
 #
 ## }}}
+###########################################################
 ##-------- Web Search Prefix {{{
 ##------------------------------------------------------
 ## Custom seaches
@@ -3597,6 +3664,7 @@ fzf-locate() {
 #	$BROWSER http://translate.google.com/#auto/en/"$*" ;}
 #
 ##}}}
+###########################################################
 ##-------- Search for Files {{{
 ##------------------------------------------------------
 ## http://askubuntu.com/questions/460535/how-do-i-tell-locate-to-keep-the-index-of-an-external-hdd
@@ -3700,6 +3768,7 @@ fzf-locate() {
 #}
 #
 ##}}}
+###########################################################
 ##-------- IPTV {{{
 ##------------------------------------------------------
 ## http://database.freetuxtv.net/WebStream/
@@ -3709,6 +3778,7 @@ fzf-locate() {
 #IPTVPLAYER=mplayer
 #itv-tech-twit() { "$IPTVPLAYER" "http://bglive-a.bitgravity.com/twit/live/high" ;}
 ##}}}
+###########################################################
 ##-------- Internet Videos - Castalba.tv {{{
 ##------------------------------------------------------
 ## http://castalba.tv/channels
@@ -3726,6 +3796,7 @@ fzf-locate() {
 #	-y "aljazeera_eng_low" | "$CTVPLAYER" - ;}
 #
 ##}}}
+###########################################################
 ##-------- GNOME 2 configs {{{
 ##------------------------------------------------------
 #
@@ -3799,6 +3870,7 @@ fzf-locate() {
 #
 #
 ## }}}
+###########################################################
 ##-------- Clean Stuff {{{
 ##------------------------------------------------------
 #
@@ -3831,12 +3903,14 @@ fzf-locate() {
 #	find . -type l -xtype l | xargs -l rm 
 #}
 ## }}}
+###########################################################
 ##-------- Logitech K810 Keyboard {{{
 ##------------------------------------------------------
 #
 #k810-battery() { echo Logitech K810 Battery: $(cat /sys/class/power_supply/hid-00:1f:20:a8:08:47-battery/capacity) ;}
 #k810-resync() { echo -e 'connect 00:1F:20:A8:08:47 \nexit' | bluetoothctl ;}
 ## }}}
+###########################################################
 ##-------- TMSU (File Tagging CLI) {{{
 ##------------------------------------------------------
 #
@@ -3854,6 +3928,7 @@ fzf-locate() {
 #	fi
 #}
 ## }}}
+###########################################################
 ##-------- Remote Desktop {{{
 ##------------------------------------------------------
 #
@@ -3861,6 +3936,7 @@ fzf-locate() {
 #rdp-win7() { rdesktop -u bonster -g 1920x1020 192.168.1.152:3389 -r sound:local ;}
 #
 ## }}}
+###########################################################
 ##-------- Surfraw Bookmarks {{{
 ##------------------------------------------------------
 ## surfraw completions testing
@@ -3870,6 +3946,7 @@ fzf-locate() {
 #showbookmarks() { awk 'NF != 0 && !/#/ {print $1}' ~/.config/surfraw/bookmarks | sort -n ;}
 #
 ##}}}
+###########################################################
 ##-------- WINE Gaming {{{
 ##------------------------------------------------------
 ## get newest version
@@ -3886,6 +3963,7 @@ fzf-locate() {
 #
 #
 ##}}}
+###########################################################
 ##-------- DPKG {{{
 ##------------------------------------------------------
 #
@@ -3926,6 +4004,7 @@ fzf-locate() {
 #	| xargs sudo apt-get -y purge ;}
 #
 ## }}}
+###########################################################
 ##-------- Renaming Case {{{
 ##------------------------------------------------------
 #
@@ -3998,6 +4077,7 @@ fzf-locate() {
 ## http://stackoverflow.com/a/11824856
 #lowercase-extension() { find . -name '*.*' -exec sh -c ' a=$(echo "$0" | sed -r "s/([^.]*)\$/\L\1/"); [ "$a" != "$0" ] && mv "$0" "$a" ' {} \; ;}
 ## }}}
+###########################################################
 ##-------- Keyboard related {{{
 ##------------------------------------------------------
 #
@@ -4021,6 +4101,7 @@ fzf-locate() {
 #fi
 #}
 ## }}}
+###########################################################
 ##-------- Function Informations {{{
 ##------------------------------------------------------
 #
@@ -4046,6 +4127,7 @@ fzf-locate() {
 #function    dfh              { df -PTah $@; }
 #function    dfi              { df -PTai $@; }
 ## }}}
+###########################################################
 ##-------- OCR {{{
 ##------------------------------------------------------
 #
@@ -4061,6 +4143,7 @@ fzf-locate() {
 #	xclip -selection clipboard -i "$DIR"/result.txt
 #}
 ## }}}
+###########################################################
 ##-------- Midi Music {{{
 ##------------------------------------------------------
 #
@@ -4068,6 +4151,7 @@ fzf-locate() {
 ## https://wiki.archlinux.org/index.php/FluidSynth#Standalone_mode
 #midi-fluidsynth() { fluidsynth -a alsa -m alsa_seq -l -i /usr/share/soundfonts/fluidr3/FluidR3GM.SF2 "$1" ;}
 ## }}}
+###########################################################
 ##-------- SSD TRIM {{{
 ##------------------------------------------------------
 #
@@ -4079,6 +4163,7 @@ fzf-locate() {
 #trim-fstrim() { sudo fstrim -v "$1" ;}
 #gen-cron-trim() { sudo cp ~/.scripts/trim /etc/cron.daily/ ;}
 ## }}}
+###########################################################
 ##-------- OLD CFG {{{
 ##------------------------------------------------------
 #
@@ -4096,6 +4181,7 @@ fzf-locate() {
 #rld-screenlayout() { ~/.screenlayout/reload_monitor.sh ;}
 #
 ## }}}
+###########################################################
 ##-------- IMGUR {{{
 ##------------------------------------------------------
 #
@@ -4122,6 +4208,7 @@ fzf-locate() {
 #	rm -rf "$IMGUR_SAVE_PATH"/"$2"
 #}
 ## }}}
+###########################################################
 #
 #quicksynergy-daemon() { /usr/bin/synergys --daemon --config ~/.quicksynergy/synergy.conf ;}
 ## mutt background fix
@@ -4930,6 +5017,7 @@ fi
 #    done
 #}
 #
+###########################################################
 ###########################################################
 ##
 ## #-------- Functions #-------- }}}

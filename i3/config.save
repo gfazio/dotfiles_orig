@@ -81,8 +81,7 @@ bindsym $mod+n border normal
 
 # start a terminal
 bindsym $mod+Return exec --no-startup-id gnome-terminal
-bindsym $mod+Ctrl+Return exec --no-startup-id guake
-bindsym $mod+Shift+Return exec --no-startup-id yakuake
+bindsym $mod+Shift+Return exec --no-startup-id guake
 #bindsym $mod+Shift+Return exec --no-startup-id terminator 
 
 # kill focused window
@@ -317,22 +316,19 @@ assign [class="^Rhythmbox$"] $workspace9
 # Launch Specific Apps
 #
 bindsym $mod+Shift+g exec --no-startup-id /usr/local/bin/eclipse/eclipse 
-bindsym $mod+Shift+f exec --no-startup-id /usr/bin/firefox -no-remote -P default
+bindsym $mod+Shift+f exec --no-startup-id /usr/bin/firefox 
 bindsym $mod+Shift+y exec --no-startup-id /usr/bin/firefox -no-remote -P Youtube
 bindsym $mod+Shift+i exec --no-startup-id /usr/bin/firefox -no-remote -P Jupyter
-bindsym $mod+Shift+t exec --no-startup-id /usr/bin/firefox -private-window -no-remote -P Torrent
-bindsym $mod+Shift+n exec --no-startup-id /usr/bin/firefox -private-window -no-remote -P Citrix
+bindsym $mod+Shift+i exec --no-startup-id /usr/bin/firefox -no-remote -P Torrent
 bindsym $mod+Shift+m exec --no-startup-id /usr/bin/mplayer 
-bindsym $mod+Shift+n+2 exec --no-startup-id /usr/bin/nixnote2
+bindsym $mod+Shift+n exec --no-startup-id /usr/bin/nixnote2
 bindsym $mod+Shift+v exec --no-startup-id /usr/bin/vlc 
 
 #
 # Refresh layouts if one of the windows is killed
 #
 
-#bindsym $mod+Shift+x exec --no-startup-id workspace $2; focus parent; focus parent; focus parent; focus parent; focus parent; kill; append_layout /home/vgg/.i3/ws_2-generic-t.json; exec --no-startup-id gnome-terminal --role="vim"; exec --no-startup-id gnome-terminal --role="zypper"; exec --no-startup-id terminator --role="ranger" -T "RANGER" -b -e ranger ; exec --no-startup-id terminator --role="ncmpcpp" --layout="NCMPCPP" -T "NCMPCPP" -b 
-
-bindsym $mod+Shift+x exec --no-startup-id workspace $workspace2; append_layout /home/vgg/.i3/ws_2-generic-t.json; exec --no-startup-id gnome-terminal --role="vim"; exec --no-startup-id gnome-terminal --role="zypper"; exec --no-startup-id terminator --role="vifm" -T "VIFM" -b -e vifm ; exec --no-startup-id terminator --role="ncmpcpp" --layout="NCMPCPP" -T "NCMPCPP" -b ; workspace $workspace1' 
+bindsym $mod+Shift+x exec --no-startup-id workspace $2; focus parent; focus parent; focus parent; focus parent; focus parent; kill; append_layout /home/vgg/.i3/ws_2-generic-t.json; exec --no-startup-id gnome-terminal --role="vim"; exec --no-startup-id gnome-terminal --role="zypper"; exec --no-startup-id terminator --role="ranger" -T "RANGER" -b -e ranger ; exec --no-startup-id terminator --role="ncmpcpp" --layout="NCMPCPP" -T "NCMPCPP" -b 
 
 #bindsym $mod+Shift+x exec --no-startup-id workspace $2; focus parent; focus parent; focus parent; focus parent; focus parent; kill; append_layout /home/vgg/.i3/ws_2-generic.json; exec gnome-terminal --role="vim"; exec gnome-terminal --role="zypper"; exec gnome-terminal --role="mc" -e mc ; exec terminator --role="ncmpcpp" -e tmux
 
@@ -363,7 +359,7 @@ exec compton -f
 #
 # start up some applications in their respective workspaces
 #
-exec --no-startup-id i3-msg 'workspace $workspace5  ;  exec --no-startup-id /usr/bin/firefox  -no-remote -P default'
+exec --no-startup-id i3-msg 'workspace $workspace5  ;  exec --no-startup-id /usr/bin/firefox '
 #
 #exec --no-startup-id i3-msg 'workspace $workspace2; append_layout /home/vgg/.i3/ws_2-generic.json; exec gnome-terminal --role="vim"; exec gnome-terminal --role="zypper"; exec gnome-terminal --role="mc" -e mc ; exec terminator --role="ncmpcpp" -e ncmpcpp; workspace $workspace1' 
 #exec --no-startup-id i3-msg 'workspace $workspace2; append_layout /home/vgg/.i3/ws_2-generic-t.json; exec --no-startup-id gnome-terminal --role="vim"; exec --no-startup-id gnome-terminal --role="zypper"; exec --no-startup-id terminator --role="ranger" -T "RANGER" -b -e ranger ; exec --no-startup-id terminator --role="ncmpcpp" -e tmux -T "NCMPCPP" -b ; workspace $workspace1' 
