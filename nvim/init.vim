@@ -1,100 +1,72 @@
-" =================================
-"             Vimrc 
-" =================================
+" ================================
+"             NVimrc 
+" ================================
 "
-" Plugin setup --- via Pathogen ----- {{{
-" set nocompatible
-" filetype off
-" execute pathogen#infect() 
-" execute pathogen#helptags() 
-" }}}
+" Plugin setup --- via vim-plug ----- {{{
 "
-" =================================
-"
-" Plugin setup --- via vundle ----- {{{
-"
-if has('vim')
-    set nocompatible
-endif
 filetype off
 "
 " set the runtime path to include Vundle and initialize
 "
-set rtp+=$HOME/.vim/bundle/Vundle.vim
+"set rtp+=$HOME/.config/nvim/bundle/Vundle.vim
 "
-call vundle#begin()
-"
-" let Vundle manage Vundle, required
-"
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'alfredodeza/pytest.vim'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'benmills/vimux'
-Plugin 'cburroughs/pep8.py'
-Plugin 'chriskempson/tomorrow-theme'
-Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'davidhalter/jedi-vim'
-Plugin 'ervandew/ag'
-Plugin 'ervandew/screen'
-Plugin 'ervandew/supertab'
-Plugin 'flazz/vim-colorschemes'
-Plugin 'honza/vim-snippets'
-Plugin 'jistr/vim-nerdtree-tabs'
-Plugin 'jnurmine/Zenburn'
-Plugin 'julienr/vim-cellmode'
-Plugin 'junegunn/seoul256.vim'
-Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plugin 'junegunn/fzf.vim'
-Plugin 'KabbAmine/zeavim.vim'
-Plugin 'kien/ctrlp.vim'
-Plugin 'majutsushi/tagbar'
-Plugin 'nelstrom/vim-markdown-preview'
-Plugin 'nvie/vim-flake8'
-Plugin 'pangloss/vim-javascript'
-Plugin 'Raimondi/delimitMate'
-Plugin 'rkulla/pydiction'
-Plugin 'scrooloose/nerdtree'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'scrooloose/syntastic'
-Plugin 'SirVer/ultisnips'
-Plugin 'sjl/tslime2.vim'
-Plugin 'suan/vim-instant-markdown'
-Plugin 'tmhedberg/SimpylFold'
-Plugin 'tpope/timl'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-git'
-Plugin 'tpope/vim-markdown'
-Plugin 'tpope/vim-surround'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'vim-latex/vim-latex'
-Plugin 'vim-scripts/indentpython.vim'
-Plugin 'vim-scripts/pydoc.vim'
-Plugin 'vim-scripts/vim-R-plugin'
-Plugin 'vimwiki/vimwiki'
-Plugin 'wincent/command-t'
-Plugin 'WolfgangMehner/vim-plugins'
+call plug#begin('~/.config/nvim/plugged')
+Plug 'alfredodeza/pytest.vim'
+Plug 'altercation/vim-colors-solarized'
+Plug 'benmills/vimux'
+Plug 'cburroughs/pep8.py'
+Plug 'chriskempson/tomorrow-theme'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'davidhalter/jedi-vim'
+Plug 'ervandew/ag'
+Plug 'ervandew/screen'
+Plug 'ervandew/supertab'
+Plug 'flazz/vim-colorschemes'
+Plug 'honza/vim-snippets'
+Plug 'jistr/vim-nerdtree-tabs'
+Plug 'jnurmine/Zenburn'
+Plug 'julienr/vim-cellmode'
+Plug 'junegunn/seoul256.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+Plug 'klen/python-mode'
+Plug 'KabbAmine/zeavim.vim'
+Plug 'kien/ctrlp.vim'
+Plug 'majutsushi/tagbar'
+Plug 'nelstrom/vim-markdown-preview'
+Plug 'nvie/vim-flake8'
+Plug 'pangloss/vim-javascript'
+Plug 'Raimondi/delimitMate'
+Plug 'rkulla/pydiction'
+Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdcommenter'
+Plug 'scrooloose/syntastic'
+Plug 'SirVer/ultisnips'
+Plug 'sjl/tslime2.vim'
+Plug 'suan/vim-instant-markdown'
+Plug 'tmhedberg/SimpylFold'
+Plug 'tpope/timl'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-git'
+Plug 'tpope/vim-markdown'
+Plug 'tpope/vim-surround'
+Plug 'Valloric/YouCompleteMe'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'vim-latex/vim-latex'
+Plug 'vim-scripts/indentpython.vim'
+Plug 'vim-scripts/pydoc.vim'
+Plug 'vim-scripts/vim-R-plugin'
+Plug 'vimwiki/vimwiki'
+Plug 'wincent/command-t'
+Plug 'WolfgangMehner/vim-plugins'
 "
 " All Plugins must be added before the following line
 "
-call vundle#end()            " required
+call plug#end()            " required
 "
-filetype plugin indent on    " required
 "
 filetype on
-"
-" To ignore plugin indent changes, instead use: filetype plugin on
-"
-" Brief help
-"
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
 "
 " }}}
 "
@@ -128,26 +100,16 @@ filetype on
 "
 " General Settings ------ {{{
 "
-syntax on
 
 let mapleader=","
 let maplocalleader=" "
 
-set autoindent "set autoindenting for programming
-set autoread
 set autowrite
 set columns=100
 set dictionary+=/usr/share/dict/words
-set directory=.,$TEMP:
-set encoding=utf-8
-set directory=.,$TEMP:
-set encoding=utf-8
 set foldlevel=0   "0=all folds closed; 99=all folds open
 set foldmethod=marker
 set hidden
-set history=1000
-set hlsearch   "set highligh searching
-set incsearch  "set incremental searching
 set lines=40
 set nobackup
 set nowritebackup
@@ -157,9 +119,8 @@ set shiftwidth=4
 set showmatch
 set showmode
 set title
-set t_RV=       "surpress terminal version query from vim
+"set t_RV=       "surpress terminal version query from vim
 set visualbell
-set wildmenu
 set wildmode=list,longest,full
 "
 " }}}
@@ -169,7 +130,6 @@ set wildmode=list,longest,full
 " General Key Bindings ----- {{{
 "
 
-noremap § :norm i#<CR>
 noremap <C-F11> :NERDTreeToggle <CR>
 nnoremap <leader>n :NERDTreeToggle <CR>
 
@@ -521,6 +481,10 @@ let python_highlight_all=1
 syntax on
 
 "
+"pymode
+"
+let g:pymode_python = 'python3'
+"
 " jedi-vim settings
 "
 
@@ -676,8 +640,6 @@ au BufNewFile,BufRead *.js, *.html, *.css
 
 " vimwiki with markdown support
 
-filetype plugin on
-syntax on
 let g:vimwiki_list = [{'path': '$HOME/vimwiki',
                      \ 'syntax': 'markdown',
                      \ 'ext': '.md'}]
@@ -729,6 +691,16 @@ let g:UltiSnipsEditSplit="vertical"
 
 "
 " }}}
+"
+" =================================
+"
+" CtrlP Settings ----- {{{ 
+"
+let g:ctrlp_map = '<c-p>'
+"
+" }}}
+"
+" =================================
 "
 " =================================
 "

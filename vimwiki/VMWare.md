@@ -1,5 +1,13 @@
-# Pentesting Lab Setup
+# Pentesting Lab Setup #
 
-## Guest OSes
+## Guest OSes ##
 
-If you enter a login loop, then press ctrl-alt f1,2,3,4,5, or 6 to get a console login. login as root and enter dpkg --configure -a. Select any defaults offered and then reboot.
+These are notes for the individual VM's used in the virtual networks for the pen-testing lab.
+
+[[Kali]] (Kali Linux 2.0)
+[[Metasploitable]] (Metasploitable)
+[[WindowsXP]] (Windows XP)
+[[Windows7]] (Windows 7)
+[[Windows-Server]](Windows Server)
+
+

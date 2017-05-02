@@ -211,8 +211,9 @@ use_spacer right
 ####
 ## My colors (suit yourself)
 #
-color0 White#FFFFFFcolor1 Ivory#FFFFF0
-color2 Ivory2#EEEEE0
+color0 White#FFFFFF
+color1 Ivory#FFFFF0
+color2 Yellow#F0F000
 color3 Ivory3#CDCDC1
 color4 Tan1#FFA54F
 color5 Tan2#EE9A49

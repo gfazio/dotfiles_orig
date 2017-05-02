@@ -1,24 +1,26 @@
 
 # List of Programs/Apps to install on Pre3 #
 
+ipk backup Archive directory is at /home/vgg/macosxd/Computing/Palm/webos/BACKUPS/ipk-backups
+
 ## Home Screens ##
 
 Here are the Pre3 Homescreens from which you can link to the list of applications they each contain.
 
-    [Application](Application)
-    [System](System)
-    [Internet](Internet)
-    [WebOS](WebOS)
-    [Kids](Kids)
-    [Training](Training) Sports
-    [Science](Science)
-    [Media](Media)
-    [Games](Games)
-    [Board Games](Board Games)
-    [Cards](Cards) Puzzles
-    [3D RPG](3D-RPG)
-    [Catholic](Catholic)
+    [[Applications]]
+    [[System]]
+    [[Internet]]
+    [[WebOS]]
+    [[Kids]]
+    [[Training]]
+    [[Science]]
+    [[Media]]
+    [[Games]]
+    [[Board Games]]
+    [[Cards]]
+    [[3D-RPG]] 
+    [[Catholic]]
     [[Just For Fun]]
     [[Productivity]]
-    [Extras](Extras)
+    [[Extras]]
     

@@ -79,7 +79,8 @@
             "percent": 0.32,
             "swallows": [
                {
-                "class": "^Gnome\\-terminal$",
+                "class": "^Terminator$",
+                //"class": "^Gnome\\-terminal$",
                // "instance": "^gnome\\-terminal\\-server$",
                // "title": "^vgg\\@linux\\-gauw\\:\\ \\~$",
                // "transient_for": "^$",
@@ -105,7 +106,8 @@
     "percent": 0.5,
     "swallows": [
        {
-        "class": "^Gnome\\-terminal$",
+        "class": "^Terminator$",
+        //"class": "^Gnome\\-terminal$",
        // "instance": "^gnome\\-terminal\\-server$",
        // "title": "^vgg\\@linux\\-gauw\\:\\ \\~$",
        // "transient_for": "^$",

@@ -1,14 +1,14 @@
 # Setup fzf
 # ---------
-if [[ ! "$PATH" == */home/vgg/.fzf/bin* ]]; then
-  export PATH="$PATH:/home/vgg/.fzf/bin"
+if [[ ! "$PATH" == */home/vgg/dotfiles/fzf/bin* ]]; then
+  export PATH="$PATH:/home/vgg/dotfiles/fzf/bin"
 fi
 
 # Auto-completion
 # ---------------
-[[ $- == *i* ]] && source "/home/vgg/.fzf/shell/completion.bash" 2> /dev/null
+[[ $- == *i* ]] && source "/home/vgg/dotfiles/fzf/shell/completion.bash" 2> /dev/null
 
 # Key bindings
 # ------------
-source "/home/vgg/.fzf/shell/key-bindings.bash"
+source "/home/vgg/dotfiles/fzf/shell/key-bindings.bash"
 

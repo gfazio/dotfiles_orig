@@ -43,10 +43,30 @@ vpn_eu-up(){
    nmcli con up id AirVPN_Europe_UDP-443 }
 vpn_eu-dn(){
    nmcli con down id AirVPN_Europe_UDP-443 }
-vpn_gblon-up(){
+vpn_gblon1-up(){
    nmcli con up id AirVPN_GB-London_Bellatrix_UDP-443 }
-vpn_gblon-dn(){
+vpn_gblon1-dn(){
    nmcli con down id AirVPN_GB-London_Bellatrix_UDP-443 }
+vpn_gblon2-up(){
+   nmcli con up id AirVPN_GB-London_Algedi_UDP-443 }
+vpn_gblon2-dn(){
+   nmcli con down id AirVPN_GB-London_Algedi_UDP-443 }
+vpn_gblon3-up(){
+   nmcli con up id AirVPN_GB-London_Alshain_UDP-443 }
+vpn_gblon3-dn(){
+   nmcli con down id AirVPN_GB-London_Alshain_UDP-443 }
+vpn_gblon4-up(){
+   nmcli con up id AirVPN_GB-London_Asterion_UDP-443 }
+vpn_gblon4-dn(){
+   nmcli con down id AirVPN_GB-London_Asterion_UDP-443 }
+vpn_gbmdh-up(){
+   nmcli con up id AirVPN_GB-Maidenhead_Carinae_UDP-443 }
+vpn_gbmdh-dn(){
+   nmcli con down id AirVPN_GB-Maidenhead_Carinae_UDP-443 }
+vpn_gbman-up(){
+   nmcli con up id AirVPN_GB-Manchester_Nashira_UDP-443 }
+vpn_gbman-dn(){
+   nmcli con down id AirVPN_GB-Manchester_Nashira_UDP-443 }
 vpn_hk-up(){
    nmcli con up id AirVPN_HK-HongKong_Yed_UDP-443 }
 vpn_hk-dn(){
@@ -73,6 +93,18 @@ prompt_bash() {
 #
 macf(){
    sudo /usr/sbin/macfanctld }
+# --- }}}
+############################################################
+#--- compile neomutt--- {{{
+# shell function to compile neomutt:
+
+   compile_neomutt () {
+             #./configure prefix=/usr/local/bin -enable-pop -enable-imap -enable-smtp -with-curses \
+             ./configure prefix=/usr/local/bin -enable-pop -enable-imap -enable-smtp -with-slang \
+	     -enable-sidebar -enable-notmuch -enable-nntp  -enable-compressed \
+	     -enable-hcache -with-tokyocabinet -with-ssl -with-gnutls -with-idn -with-included-gettext \
+	     -with-regex -enable-locales-fix -disable-dependency-tracking }
+
 # --- }}}
 ############################################################
 #--- zsh history fix--- {{{
@@ -171,6 +203,7 @@ cfg-profile() { $EDITOR ~/.profile ;}
 cfg-pulseaudio() { sudo $EDITOR /etc/pulse/default.pa ;}
 cfg-pyload() { $EDITOR ~/.pyload/pyload.conf ;}
 cfg-pyradio() { $EDITOR ~/.pyradio.csv ;}
+cfg-ranger() { $EDITOR ~/.config/ranger/rc.conf ;}
 cfg-ssh-client() { sudo $EDITOR /etc/ssh/ssh_config ;}
 cfg-ssh-daemon() { sudo $EDITOR /etc/ssh/sshd_config ;}
 cfg-sudoers() { sudo $EDITOR /etc/sudoers ;}
@@ -442,6 +475,17 @@ calibre-server -p 57770 --daemonize --with-library "$CMX_CALIBRE"
 calibre-server -p 57771 --daemonize --with-library "$CMX_COMICS"
 calibre-server -p 57772 --daemonize --with-library "$CMX_MAGS"
 
+}
+cmx-bkv(){
+	if [  $# -lt 2 ]; then
+       echo -e "launch ebook-viewer with particular from a library" 
+       echo -e "\nUsage:\n$0 <library> <id>" 
+       echo -e "\nExample:\n$0 \$cbcomic 16"
+       return 1
+       fi
+
+	BKDIR=`find ${CMX_CALIBRE} -name "*$2*"`
+	find $BKDIR -type f \( -name "*.epub" -o -name "*.mobi" -o -name "*.pdf" \) -exec /usr/bin/ebook-viewer {} \; & 
 }
 
 #}}}
@@ -980,7 +1024,7 @@ cmdfu() { curl "http://www.commandlinefu.com/commands/matching/$(echo "$@" \
 ## https://plus.google.com/102499719144563443986/posts/Vja8W69iHoi
 ## tutorial video: http://www.youtube.com/watch?v=R2bMUtCOGko
 
-w3mimg() { w3m -o imgdisplay=/usr/lib/w3m/w3mimgdisplay $1 ;}
+w3mimg() { w3m -o imgdisplay=/usr/lib64/w3m/w3mimgdisplay $1 ;}
 
 #
 ## mplayer to display webcam
@@ -1837,7 +1881,7 @@ fzf-locate() {
 ###########################################################
 ##-------- VimWiki {{{
 ##------------------------------------------------------
-#wikimd()     { $EDITOR ~/.vimwiki/wikimd/index.md ;}
+wikimd()     { $EDITOR ~/vimwiki/index.md ;}
 ## }}}
 ###########################################################
 ##-------- Slice Videos {{{
