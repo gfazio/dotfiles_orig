@@ -14,30 +14,9 @@
 
 #####################################################
 #
-# --- i3-gaps --- {{{
-#
-#####################################################
- 
-hide_edge_borders both
-for_window [class="^.*"] border pixel 0 
-gaps inner 15 
-gaps outer 5
- 
-bindsym $mod+o		gaps outer current plus 5
-bindsym $mod+Shift+o	gaps outer current minus 5
-bindsym $mod+g		gaps inner current plus 5
-bindsym $mod+Shift+g	gaps inner current minus 5
-
-# }}}
-#
-#####################################################
-#####################################################
-#
 # --- Constants  --- {{{          
 #
 #####################################################
-
-set $mod Mod4
 
 set $base00 #101218
 set $base01 #1f222d
@@ -95,8 +74,36 @@ font pango:System San Francisco Display 10
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 
+
+set $mod Mod4
 floating_modifier $mod
 
+set $term termite
+set $browser /home/vgg/anaconda3/bin/qutebrowser
+#####################################################
+#
+# =================================
+# --- i3-gaps --- {{{
+# =================================
+#
+#####################################################
+ 
+hide_edge_borders both
+for_window [class="^.*"] border pixel 0 
+gaps inner 15 
+gaps outer 5
+ 
+bindsym $mod+Ctrl+h	gaps inner current plus 5
+bindsym $mod+Ctrl+j	gaps outer current minus 5
+bindsym $mod+Ctrl+k	gaps outer current plus 5
+bindsym $mod+Ctrl+l	gaps inner current minus 5
+
+bindsym $mod+Ctrl+d	gaps inner current set 0; gaps outer current set 0
+bindsym $mod+Ctrl+t	gaps inner current set 15; gaps outer current set 15
+
+# }}}
+#
+#####################################################
 #####################################################
 #
 # =================================
@@ -149,9 +156,9 @@ bindsym $mod+v split v
 bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
+#bindsym $mod+s layout stacking
+#bindsym $mod+w layout tabbed
+bindsym $mod+t layout toggle split
 
 # split and stack in vertical orientation
 bindsym $mod+z split v, layout stacking
@@ -197,24 +204,26 @@ mode "resize" {
         bindsym Escape mode "default"
 }
 
-bindsym $mod+r mode "resize"
+bindsym $mod+Ctrl+r mode "resize"
 
+# Resize window without going into Resize mode
+ 
+bindsym $mod+Ctrl+y	resize shrink width 10 px or 10ppt
+bindsym $mod+Ctrl+u	resize shrink height 10 px or 10 ppt
+bindsym $mod+Ctrl+i	resize grow height 10 px or 10 ppt
+bindsym $mod+Ctrl+o	resize grow width 10 px or 10 ppt
 
 # Floating
 
  for_window [class="Lxappearance"] floating enable
- for_window [class="Mplayer" ] floating enable
- for_window [class="Mpv" ] floating enable, border normal #move absolute 10 100
+ for_window [class="Mplayer" ] floating enable #, border normal 
+ for_window [class="Mpv" ] floating enable #, border normal #move absolute 10 100
  for_window [class="Vlc"] floating enable
  for_window [class="YaST2"] floating enable
  for_window [class="Pavucontrol"] floating enable
  for_window [class="Blueman-manager"] floating enable
- for_window [class="Gnome-terminal" ] floating enable
-# for_window [class="Terminator" ] floating enable
- for_window [class="XTerm" ] floating enable
- for_window [class="UXTerm" ] floating enable
- for_window [class="URxvt" ] floating enable
  for_window [class="Guake" ] floating enable
+ for_window [title="Gimp"] move workspace $workspace9
  for_window [title="GIMP Startup"] move workspace $workspace9
  for_window [window_role="gimp-dock"] floating disable; move left; resize shrink width 50 px or 50ppt
  for_window [window_role="gimp-toolbox"] floating disable; move right; resize grow width 30 px or 30ppt
@@ -272,10 +281,10 @@ workspace_auto_back_and_forth yes
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-        font pango: System San Francisco Display, FontAwesome 10 
-        status_command $HOME/bin/conky-i3bar.sh
+	font pango: System San Francisco Display, FontAwesome 10 
+	status_command $HOME/.conky/conky-i3bar.sh
 
-        colors {
+	colors {
 	      separator $base03
 	      background $base01
 	      statusline $base05
@@ -286,6 +295,22 @@ bar {
 	      urgent_workspace   $base01 $base01    $base08
 	}
 }	
+#bar {
+	#font pango: System San Francisco Display, FontAwesome 10 
+	#status_command ~/.i3/bar/bumblebee-status -m battery nic sensors datetime amixer -p disk.path=/home/vgg datetime.format="%a, %b %d, %Y at %I:%M %p" nic.exclude="lo,virbr,docker,vboxnet,veth,eth1,vmnet1,vmnet8" -t solarized-powerline
+	#position bottom
+
+	#colors {
+	      #separator $base03
+	      #background $base01
+	      #statusline $base05
+	##                        border  background text
+	      #focused_workspace  $base01 $base01    $base07
+	      #active_workspace   $base01 $base02    $base03
+	      #inactive_workspace $base01 $base01    $base03
+	      #urgent_workspace   $base01 $base01    $base08
+	#}
+#}	
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -315,6 +340,7 @@ mode "$mode_system" {
     bindsym s exec --no-startup-id i3lock --color="$base02" && sleep1 && systemctl suspend, mode "default"
     bindsym r exec --no-startup-id systemctl reboot, mode "default"
     bindsym Shift+s exec --no-startup-id systemctl poweroff -i, mode "default"  
+    bindsym n exec --no-startup-id systemctl restart NetworkManager
 
     # back to normal: Enter or Escape
     bindsym Return mode "default"
@@ -338,24 +364,27 @@ bindsym $mod+d exec --no-startup-id dmenu_run
 
 # start rofi (alternative program launcher)
 bindsym $mod+Ctrl+space exec --no-startup-id $HOME/bin/scripts/rofi-scripts-collection/rofi-bangs.sh -font "System San Francisco Display 12"  
+
 bindsym $mod+Shift+d exec --no-startup-id rofi -show run -lines 10 -eh 2 -width 80 -padding $(($(xwininfo -root | awk '/Height/  {print $2}')/4)) -opacity "75" -bw 0 -bc "$base02" -bg "$base02" -fg "$base03" -hlbg "$base02" -hlfg "#9575cd" -font "System San Francisco Display 12"  
 
 # start a terminal
-bindsym $mod+Return exec --no-startup-id gnome-terminal
+bindsym $mod+Return exec --no-startup-id $term
+bindsym $mod+Shift+Return exec --no-startup-id $term -e tmux
 bindsym $mod+Ctrl+Return exec --no-startup-id guake
-bindsym $mod+Alt+Return exec --no-startup-id urxvt
-#bindsym $mod+Shift+Return exec --no-startup-id terminator 
 
 # Miscellaneous Apps
-bindsym $mod+Alt+e exec --no-startup-id /usr/local/bin/eclipse/eclipse 
+
+bindsym $mod+e exec --no-startup-id $term -e "mutt -F ~/.muttrc"
+bindsym $mod+r exec --no-startup-id $term -e ranger
+bindsym $mod+Shift+w exec --no-startup-id /usr/local/bin/eclipse/eclipse 
 bindsym $mod+Shift+f exec --no-startup-id /usr/bin/firefox -no-remote -P default
 bindsym $mod+Shift+y exec --no-startup-id /usr/bin/firefox -no-remote -P Youtube
 bindsym $mod+Shift+i exec --no-startup-id /usr/bin/firefox -no-remote -P Jupyter
 bindsym $mod+Shift+t exec --no-startup-id /usr/bin/firefox -private-window -no-remote -P Torrent
 bindsym $mod+Shift+n exec --no-startup-id /usr/bin/firefox -private-window -no-remote -P Citrix
-bindsym $mod+Shift+m exec --no-startup-id /usr/bin/mplayer 
-bindsym $mod+Alt+m exec --no-startup-id /usr/bin/mpv
-bindsym $mod+Shift+n+2 exec --no-startup-id /usr/bin/nixnote2
+bindsym $mod+w exec --no-startup-id $browser
+bindsym $mod+m exec --no-startup-id /usr/bin/mplayer 
+bindsym $mod+Shift+m exec --no-startup-id /usr/bin/mpv
 bindsym $mod+Shift+v exec --no-startup-id /usr/bin/vlc 
 bindsym $mod+grave exec --no-startup-id /home/vgg/bin/scripts/any_term_dropdown.sh
 
@@ -377,7 +406,7 @@ assign [class="^Gimp$"] $workspace9
 #
 #####################################################
 # Set the background
-exec --no-startup-id feh --bg-scale /home/vgg/Pictures/Anime/samurai.jpg
+exec --no-startup-id feh --bg-scale /home/vgg/.config/wall.png 
 #exec --no-startup-id feh --bg-scale /home/vgg/Pictures/MeteorM31_hemmerich_960.jpg
 #exec --no-startup-id feh --bg-scale /home/vgg/Pictures/space-wallpaper-7-610x343.jpg 
 
@@ -401,8 +430,8 @@ exec compton -f
 #
 # start up some applications in their respective workspaces
 #
-exec --no-startup-id i3-msg 'workspace $workspace10  ;  exec --no-startup-id /usr/bin/gnome-terminal'
 exec --no-startup-id i3-msg 'workspace $workspace5  ;  exec --no-startup-id /usr/bin/firefox  -no-remote -P default'
+exec --no-startup-id i3-msg 'workspace $workspace10  ;  exec --no-startup-id /usr/bin/termite; workspace $workspace5'
 
 # }}}
 #
@@ -410,6 +439,97 @@ exec --no-startup-id i3-msg 'workspace $workspace5  ;  exec --no-startup-id /usr
 #
 # }}}
 #
+#####################################################
+#
+# --- Key Bindings List --- {{{
+#
+#####################################################
+#
+# $mod+{}
+# =======
+# $mod+a 		focus parent
+# $mod+b 		split h
+# $mod+d 		exec --no-startup-id dmenu_run
+# $mod+e 		exec --no-startup-id $term -e "mutt -F ~/.muttrc"
+# $mod+f 		fullscreen toggle
+# $mod+h 		focus left
+# $mod+j 		focus down
+# $mod+k 		focus up
+# $mod+l 		focus right
+# $mod+m 		exec --no-startup-id /usr/bin/mplayer 
+# $mod+n 		border normal
+# $mod+r 		exec --no-startup-id $term -e ranger
+# $mod+t 		layout toggle split
+# $mod+u 		border none
+# $mod+v 		split v
+# $mod+w 		exec --no-startup-id $browser
+# $mod+y 		border pixel 2
+# $mod+z 		split v, layout stacking
+# $mod+space 		focus mode_toggle
+# $mod+Return 		exec --no-startup-id 
+# $mod+grave 		exec --no-startup-id /home/vgg/bin/scripts/any_term_dropdown.sh
+# $mod+F11 		exec --no-startup-id amixer set Master 5%-
+# $mod+F12 		exec  --no-startup-id amixer set Master 5%+
+# $mod+F1 		exec --no-startup-id xbacklight -dec 5 
+# $mod+F2 		exec --no-startup-id xbacklight -inc 5 
+# $mod+F4 		mode "$mode_system"
+#
+# =======
+# $mod+Shift+{}
+# =======
+# $mod+Shift+c 		reload
+# $mod+Shift+d 		exec --no-startup-id rofi -show run -lines 10 -eh 2 -width 80 \
+#                    		-padding $(($(xwininfo -root | awk '/Height/  {print $2}')/4)) \
+#                    		-opacity "75" -bw 0 -bc "$base02" -bg "$base02" -fg "$base03" \
+#                    		-hlbg "$base02" -hlfg "#9575cd" -font "System San Francisco Display 12"  
+# $mod+Shift+e 		exec --no-startup-id "i3-nagbar -t warning -m 'You pressed the exit shortcut.\ 
+#                     		Do you really want to exit i3? This will end your X session.' -b \ 
+#                     		'Yes, exit i3' 'i3-msg exit'"
+# $mod+Shift+f 		exec --no-startup-id /usr/bin/firefox -no-remote -P default
+# $mod+Shift+h 		move left
+# $mod+Shift+i 		exec --no-startup-id /usr/bin/firefox -no-remote -P Jupyter
+# $mod+Shift+j 		move down
+# $mod+Shift+k 		move up
+# $mod+Shift+l 		move right
+# $mod+Shift+m 		exec --no-startup-id /usr/bin/mpv
+# $mod+Shift+n 		exec --no-startup-id /usr/bin/firefox -private-window -no-remote -P Citrix
+# $mod+Shift+q 		kill
+# $mod+Shift+r 		restart
+# $mod+Shift+t 		exec --no-startup-id /usr/bin/firefox -private-window -no-remote -P Torrent 
+# $mod+Shift+u		resize shrink height 10 px or 10 ppt
+# $mod+Shift+w 		exec --no-startup-id /usr/local/bin/eclipse/eclipse 
+# $mod+Shift+y 		exec --no-startup-id /usr/bin/firefox -no-remote -P Youtube
+# $mod+Shift+space 	floating toggle
+# $mod+Shift+Return 	exec --no-startup-id $term -e tmux
+#
+# =======
+# $mod+Ctrl+{}
+# =======
+# $mod+Ctrl+r 		mode "resize" 
+# $mod+Ctrl+d		gaps inner current set 0; gaps outer current set 0
+# $mod+Ctrl+t		gaps inner current set 15; gaps outer current set 15
+
+# $mod+Ctrl+i		resize grow height 10 px or 10 ppt
+# $mod+Ctrl+o		resize grow width 10 px or 10 ppt
+# $mod+Ctrl+u		resize shrink height 10 px or 10 ppt
+# $mod+Ctrl+y		resize shrink width 10 px or 10ppt
+
+# $mod+Ctrl+h		gaps inner current plus 5
+# $mod+Ctrl+j		gaps outer current minus 5
+# $mod+Ctrl+k		gaps outer current plus 5
+# $mod+Ctrl+l		gaps inner current minus 5
+# $mod+Ctrl+space 	exec --no-startup-id $HOME/bin/scripts/rofi-scripts-collection/rofi-bangs.sh \
+# 				-font "System San Francisco Display 12"  
+# $mod+Ctrl+Return 	exec --no-startup-id guake
+#
+# =======
+
+
+#####################################################
+#
+# --- }}}
+#
+#####################################################
 #####################################################
 #
 # --- Archive --- {{{
@@ -439,9 +559,13 @@ exec --no-startup-id i3-msg 'workspace $workspace5  ;  exec --no-startup-id /usr
 
 #bindsym $mod+Shift+x exec --no-startup-id workspace $2; focus parent; focus parent; focus parent; focus parent; focus parent; kill; append_layout /home/vgg/.i3/ws_2-generic.json; exec gnome-terminal --role="vim"; exec gnome-terminal --role="zypper"; exec gnome-terminal --role="mc" -e mc ; exec terminator --role="ncmpcpp" -e ncmpcpp
 
+#####################################################
+#
 # }}}
 #
 #####################################################
+#
 # }}}
+# 
 #
 #####################################################

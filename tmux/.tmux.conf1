@@ -1,0 +1,467 @@
+#             set -g default-terminal "screen-256color"
+ 
+#-------- Common Settings {{{
+#------------------------------------------------------
+# how to use tmux demo video: http://www.youtube.com/watch?v=ZNM1KfqpyGo
+# https://gist.github.com/1147532
+# http://crunchbanglinux.org/forums/post/236199/
+# https://gist.github.com/adinapoli/4723872
+
+# change prefix key to Ctrl-a; like GNU Screen
+#unbind-key C-b
+#set-option -g prefix C-a
+
+# goto last used window
+bind-key C-a last-window
+
+# Nested Tmux Session
+# send to tmux session within another tmux session; like screen
+bind-key a send-prefix
+
+# fix delay time between tmux & vim
+set-option -sg escape-time 0
+
+# default shell
+set-option -g default-command /bin/zsh
+set-option -g default-shell /bin/zsh
+
+# reload config
+bind-key r source-file ~/.tmux.conf \; display-message "Configuration reloaded"
+
+# edit config
+bind-key e new-window -n 'conf' '${EDITOR:-vim} ~/.tmux.conf && tmux source ~/.tmux.conf && tmux display "~/.tmux.conf sourced"'
+bind-key '/' new-window 'man tmux'
+
+# clear screen and scrollback history
+bind-key -n C-l send-keys C-l \; run 'tmux clear-history'
+
+# set display timelimit
+set-option -g display-panes-time 2000
+set-option -g display-time 1000  
+
+# history size
+set-option -g history-limit 10000
+
+# enable shell hotkeys C-left/C-right
+# http://sigizmund.com/tmux-and-c-leftc-right/
+set-window-option -g xterm-keys on
+
+# enable 256 color terminal
+# http://blog.sanctum.geek.nz/256-colour-terminals/
+set -g default-terminal "screen-256color"
+set -g set-titles on
+set -g set-titles-string 'tmux: #T'
+setw -g clock-mode-colour colour13
+setw -g clock-mode-style 12
+
+#}}}
+#-------- Keybinding (Vim Style) {{{
+#------------------------------------------------------
+# vim keys in command prompt
+set-option -g status-keys vi
+
+# select panes
+bind-key k select-pane -U
+bind-key h select-pane -L
+bind-key j select-pane -D
+bind-key l select-pane -R
+
+# cycle windows/panes (no prefix)
+bind-key -n M-k select-pane -t :.-	# prev pane
+bind-key -n M-j select-pane -t :.+	# next pane
+bind-key -n M-h select-window -t :-	# previous window
+bind-key -n M-l select-window -t :+	# next window
+
+# resize panes
+bind-key -r J resize-pane -D 1 
+bind-key -r K resize-pane -U 1 
+bind-key -r H resize-pane -L 1 
+bind-key -r L resize-pane -R 1 
+
+# better pane split bindings with current path (tmux 1.9+)
+bind-key \ split-window -h -c "#{pane_current_path}"	# vertical split
+bind-key - split-window -v -c "#{pane_current_path}"	# horizontal split
+
+# full window split bindings with current path (tmux 2.3+)
+#bind-key | split-window -fh -c "#{pane_current_path}"	# vertical split
+#bind-key _ split-window -fv -c "#{pane_current_path}"	# horizontal split
+
+# new window/pane with the current path (tmux 1.9+)
+bind-key c new-window -c "#{pane_current_path}"
+
+# kill window/pane without prompt
+# http://unix.stackexchange.com/a/30283
+bind-key & kill-window
+bind-key x kill-pane
+
+
+# sync panes; send what you are typing to other panes.
+bind-key C-s set-window-option synchronize-panes
+
+#}}}
+#-------- Copy Mode (Vim Style) {{{
+#------------------------------------------------------
+# This section of hotkeys mainly work in copy mode and no where else
+
+# vim keys in copy or choice mode
+set-window-option -g mode-keys vi
+
+# copying selection vim style
+# http://jasonwryan.com/blog/2011/06/07/copy-and-paste-in-tmux/
+# https://github.com/myfreeweb/dotfiles/blob/master/tmux.conf
+#bind-key Escape copy-mode			# enter copy mode; default [
+#bind-key -t vi-copy Escape cancel		# exit copy mode; or hit q
+bind-key -t vi-copy 'v' begin-selection		# begin visual mode
+bind-key -t vi-copy 'V' select-line		# visual line
+bind-key -t vi-copy 'y' copy-selection		# yank
+bind-key -t vi-copy 'r' rectangle-toggle        # visual block toggle
+#bind-key p paste-buffer			# paste; default ]
+bind ] paste-buffer				# paste; default ]
+bind-key P choose-buffer 			# choose which buffer to paste from
+
+# read and write and delete paste buffer ( xsel method)
+# https://wiki.archlinux.org/index.php/Tmux#ICCCM_Selection_Integration
+# ctrl+shift+v
+bind-key < command-prompt -p "copy to tmux (hit enter to confirm):" "run-shell 'tmux set-buffer -- \"$(xsel -o -b)\"'"
+bind-key > command-prompt -p "copy to xsel (hit enter to confirm):" "run-shell 'tmux show-buffer | xsel -i -b'"
+bind-key + command-prompt "delete-buffer"
+
+#}}}
+#-------- Window / Pane Settings {{{
+#------------------------------------------------------
+# start window/pane index on 1 instead of 0
+set-option -g base-index 1
+set-window-option -g pane-base-index 1
+
+# pane divider color; non active pane
+set-option -g pane-border-fg green
+set-option -g pane-border-bg black
+
+# pane divider color; active pane
+# helps when you have more than two panes.
+# version 1.8 makes it easy to see 2 panes now
+set-option -g pane-active-border-fg white
+set-option -g pane-active-border-bg yellow
+
+# make the current window the first window
+bind T swap-window -t 1
+
+# swap windows/panes
+bind-key -n M-Left swap-window -t -1
+bind-key -n M-Right swap-window -t +1
+# bind-key -n M-Up swap-pane -U
+# bind-key -n M-Down swap-pane -D
+
+# auto renumber windows sequentially
+# https://github.com/thoughtbot/dotfiles/blob/master/tmux.conf
+set-option -g renumber-windows on
+
+#}}}
+#-------- Statusbar {{{
+#------------------------------------------------------
+
+# refresh the status bar every 1 second.
+set-option -g status-interval 1000
+
+# Time messages remain in the status bar. Lower this number
+# if this is too distracting.
+set-option -g display-time 4000
+
+# command/message line colors
+set-option -g message-fg white
+set-option -g message-bg black
+set-option -g message-attr bright
+
+# CENTER {{{
+# window notifications; display activity on other window
+set-window-option -g monitor-activity on
+set-option -g visual-activity on
+
+# statusbar colors
+set-option -g status-fg white
+set-option -g status-bg black
+set-option -g status-attr default
+
+# window title colors; non active
+set-window-option -g window-status-fg cyan
+set-window-option -g window-status-bg default
+set-window-option -g window-status-attr dim
+
+# window title colors; active
+set-window-option -g window-status-current-fg white	#font
+set-window-option -g window-status-current-bg red	#boarder
+set-window-option -g window-status-current-attr bright
+
+#}}}
+# LEFT SIDE {{{
+# in the status bar.
+set-option -g status-justify centre
+set-option -g status-left-length 40
+set-option -g status-left "#[fg=green]Session: #S #[fg=yellow]#I #[fg=cyan]#P"
+
+#}}}
+# RIGHT SIDE {{{
+# use "man date" to set the clock to your liking
+set-option -g status-right "#[fg=blue]#(~/battery Discharging) | #[fg=cyan]%a %D %l:%M:%p"
+#}}}
+
+# Smart pane switching with awareness of vim splits
+is_vim='echo "#{pane_current_command}" | grep -iqE "(^|\/)g?(view|n?vim?)(diff)?$"'
+bind -n C-H if-shell "$is_vim" "send-keys C-h" "select-pane -L"
+bind -n C-J if-shell "$is_vim" "send-keys C-j" "select-pane -D"
+bind -n C-K if-shell "$is_vim" "send-keys C-k" "select-pane -U"
+bind -n C-L if-shell "$is_vim" "send-keys C-l" "select-pane -R"
+# regain focus vim
+set -g focus-events on
+
+#}}}
+#-------- External Scripts {{{
+#------------------------------------------------------
+
+# Run command on idle; screensaver
+# demo video: http://www.youtube.com/watch?v=s0T82aJn1DQ
+#set-option -g lock-after-time 10
+#set-option -g lock-command "/usr/bin/cmatrix -C blue"
+
+#}}}
+#-------- Layout {{{
+#------------------------------------------------------
+# demo video: http://www.youtube.com/watch?v=sxw-n5Du600
+# http://amjith.blogspot.com/2011/08/scripting-tmux-layouts.html
+# http://unix.stackexchange.com/a/17118
+# -v = split horizontal
+# -h = split veritical
+
+
+# email
+bind-key C-e new-window -n email -c $HOME \; \
+	send-keys 'mutt' 'Enter' \; \
+	split-window -h -p 40 -t 1  \; \
+	send-keys 'newsbeuter' 'Enter' \; \
+	select-pane -t 1
+
+# file manager
+bind-key C-f new-window -n fm -c $HOME \; \
+	send-keys 'ranger' 'Enter' 
+
+# torrent
+bind-key C-t new-window -n torr -c $HOME \; \
+	send-keys 'source activate transmission' 'Enter' \; \
+	send-keys 'tsm-daemon' 'Enter' \; \
+	send-keys 'tsm-ncurse' 'Enter' \; \
+	split-window -h -p 40 -t 1  \; \
+	send-keys 'clear' 'Enter' \; \
+	split-window -v -p 50 -t 1  \; \
+	send-keys 'mpsyt user hak5' 'Enter' \; \
+	#send-keys 'mpsyt user FunkerTactical' 'Enter' \; \
+	#send-keys 'mpsyt user UCiIVDn5bUGZUJc_15qJPjUw' 'Enter' \; \
+	#send-keys 'mpsyt user UCi8e0iOVk1fEOogdfu4YgfA' 'Enter' \; \
+	# send-keys 'clear && figlet -c Movie Trailers && youtube-viewer -C -f -4 --results=6 -u UCi8e0iOVk1fEOogdfu4YgfA' 'Enter' \; \
+	select-pane -t 1
+
+# chat
+bind-key C-c new-window -n chat -c $HOME \; \
+	send-keys 'weechat-curses' 'Enter' \; \
+
+# NCMPCPP
+bind-key v new-window -n NCMPCPP -c $HOME \; \
+	send-keys 'ncmpcpp -s visualizer' 'Enter' \; \
+	split-window -v -p 50 -t 1 \; \
+	send-keys 'ncmpcpp -s playlist' 'Enter' \; \
+	select-pane -t 2
+
+# stats
+bind-key C-y new-window -n stats -c $HOME \; \
+	send-keys 'htop' 'Enter' \; \
+	split-window -v -p 50 -t 1  \; \
+	send-keys 'clear && figlet Freespace' 'Enter' \; \
+	split-window -h -p 50 -t 1  \; \
+	send-keys 't lsp | less' 'Enter' \; \
+	split-window -h -p 50 -t 2  \; \
+	send-keys 'df' 'Enter' \; \
+	select-pane -t 2
+
+# news
+bind-key C-w new-window -n News/Web -c $HOME \; \
+	send-keys 'clear && w3m google.com' 'Enter' \; \
+	split-window -v -p 50 -t 1  \; \
+	send-keys 'newsbeuter' 'Enter' \; \
+	select-pane -t 1
+
+# video
+bind-key C-v new-window -n video -c $HOME \; \
+	send-keys 'vifm ~/macosxd2/media/Misc/Media/' 'Enter' \; \
+	split-window -v -p 50 -t 1  \; \
+	send-keys 'clear && figlet youtube-viewer' 'Enter' \; \
+	split-window -h -p 50 -t 1  \; \
+	send-keys 'clear && figlet rtmpdump' 'Enter' \; \
+	split-window -h -p 50 -t 2  \; \
+	send-keys 'clear && figlet Freespace' 'Enter' \; \
+	select-pane -t 2
+#Misc
+bind-key C-N new-window -n Email/Chat -c $HOME \; \
+	send-keys 'mutt' 'Enter' \; \
+	split-window -v -p 50 -t 1  \; \
+	send-keys 'weechat-curses' 'Enter' \; \
+	select-pane -t 1
+
+
+
+#--}}}
+#-------- URL Launcher {{{
+#------------------------------------------------------
+# This section is for grabbing links on the current pane/window without the mouse
+# and launching it with GUI or CLI browser
+
+# w3m context view
+# demo video: http://www.youtube.com/watch?v=C7YPjbrTeCs
+# http://www.mail-archive.com/mutt-users@mutt.org/msg09657.html
+# hit ':' to activate links; Tab or Esc+M to browse thru the links
+# hit Esc then Shift+M to open GUI browser; make sure external browser is set in w3m config
+# hit Q to quit without confirmation 
+bind-key u capture-pane \; save-buffer /tmp/tmux-buffer \; new-window -n "w3m" '$SHELL -c "w3m < /tmp/tmux-buffer"'
+
+# urlview
+# demo video: http://www.youtube.com/watch?v=guB4WuVFhtY
+# https://wiki.archlinux.org/index.php/Tmux#Browsing_URL.27s
+# to set default browser add to ~/.urlview; COMMAND exec >> /tmp/urlview.out 2>&1; set -x; $BROWSER
+bind-key C-U capture-pane \; save-buffer /tmp/tmux-buffer \; new-window -n "urlview" '$SHELL -c "urlview < /tmp/tmux-buffer"'
+
+# urlscan context view and url view
+# demo video: http://www.youtube.com/watch?v=c-3IdFufY5Q
+# compact view; show links only
+# bind-key y capture-pane \; save-buffer /tmp/tmux-buffer \; new-window -n "urlscan" '$SHELL -c "urlscan -c < /tmp/tmux-buffer"'
+# context view; show dialog near links
+# bind-key Y capture-pane \; save-buffer /tmp/tmux-buffer \; new-window -n "urlscan" '$SHELL -c "urlscan < /tmp/tmux-buffer"'
+
+
+#}}}
+#-------- Fuzzy Finder {{{
+#------------------------------------------------------
+bind-key b split-window "tmux lsw | percol --initial-index $(tmux lsw | awk '/active.$/ {print NR-1}') | cut -d':' -f 1 | tr -d '\n' | xargs -0 tmux select-window -t"
+bind-key B split-window "tmux ls | percol --initial-index $(tmux ls | awk \"/^$(tmux display-message -p '#{session_name}'):/ {print NR-1}\") | cut -d':' -f 1 | tr -d '\n' | xargs -0 tmux switch-client -t"
+
+bind-key -n 'C-\' new-window -n bookmarks \; send-keys "fzf-surfraw && tmux kill-window\n"
+bind-key -n 'M-\' new-window -n locate \; send-keys "fzf-locate && tmux kill-window\n"
+bind-key "'" new-window -n snippet \; send-keys "fzf-snippet && tmux kill-window\n"
+bind-key '"' new-window -n multisnippet \; send-keys "fzf-multisnippet && tmux kill-window\n"
+
+#}}}
+#-------- Tmux Plugins Manager{{{
+#------------------------------------------------------
+# https://github.com/tmux-plugins/tpm
+#
+# Installs and loads TMUX plugins.
+#
+# Clone TPM:
+#
+# $ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+#
+# Put this at the bottom of .tmux.conf:
+#
+# # List of plugins
+# set -g @plugin 'tmux-plugins/tpm'
+# set -g @plugin 'tmux-plugins/tmux-sensible'
+#
+# # Other examples:
+# # set -g @plugin 'github_username/plugin_name'
+# # set -g @plugin 'git@github.com/user/plugin'
+# # set -g @plugin 'git@bitbucket.com/user/plugin'
+#
+# # Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
+# run '~/.tmux/plugins/tpm/tpm'
+#
+# Reload TMUX environment so TPM is sourced:
+#
+# # type this in terminal if tmux is already running
+# $ tmux source ~/.tmux.conf
+#
+# That's it!
+# Installing plugins
+#===================
+#
+#     Add new plugin to ~/.tmux.conf with set -g @plugin '...'
+#     Press prefix + I (capital I, as in Install) to fetch the plugin.
+#
+#     You're good to go! The plugin was cloned to ~/.tmux/plugins/ dir and sourced.
+#
+#Uninstalling plugins
+#====================
+#
+#     Remove (or comment out) plugin from the list.
+#     Press prefix + alt + u (lowercase u as in uninstall) to remove the plugin.
+#
+#     All the plugins are installed to ~/.tmux/plugins/ so alternatively you can find plugin directory there and remove it.
+#
+#Key bindings
+#============
+#
+#    prefix + I
+#
+#    Installs new plugins from GitHub or any other git repository
+#    Refreshes TMUX environment
+#
+#    prefix + U
+#
+#    updates plugin(s)
+#
+#    prefix + alt + u
+#
+#    remove/uninstall plugins not on the plugin list
+#
+# List of plugins
+#
+
+ set -g @tpm_plugins '           \
+  tmux-plugins/tpm               \
+  tmux-plugins/tmux-sensible     \
+  tmux-plugins/tmux-resurrect    \
+  tmux-plugins/tmux-continuum    \
+  tmux-plugins/tmux-yank         \
+  christoomey/vim-tmux-navigator'
+
+
+ set -g @continuum-save-interval '15'
+ set -g status-right 'Continuum status: #{continuum_status}'
+ set -g @continuum-restore 'off'
+ set -g @continuum-boot 'off'
+
+bind C-l send-keys 'C-l'
+
+#}}}
+#-------- Testing Area {{{
+#------------------------------------------------------
+# dont use C-[ because it will double bind with Escape key; ^[ = escape
+
+# pipe pane to log file
+# https://gist.github.com/napcs/1147532
+# bind-key P pipe-pane -o "cat >>/tmp/#W-tmux.log" \; display-message "Toggled logging to /tmp/#W-tmux.log"
+
+# mouse wheel scrolling -- whole window not individual panes
+#set-option -g terminal-overrides 'xterm*:smcup@:rmcup@'
+
+# select panes (no prefix)
+# need to try: http://robots.thoughtbot.com/post/53022241323/seamlessly-navigate-vim-and-tmux-splits
+# C-l by deafult clears terminal screen
+#bind-key -n C-k select-pane -U
+#bind-key -n C-j select-pane -D
+
+# https://gist.github.com/snuggs/800936
+# bind o select-layout "active-only"
+# bind M-- select-layout "even-vertical"
+# bind M-| select-layout "even-horizontal"
+# bind M-r rotate-window
+
+
+# http://unix.stackexchange.com/a/70798
+# bind -t vi-copy y copy-pipe "xclip"
+
+
+
+# root session auto timeout
+# http://blog.killtheradio.net/technology/tmuxscreen-and-root-shells-a-new-trick-i-just-learned-tmout/
+
+#}}}
+     
+
+run '~/.tmux/plugins/tpm/tpm'

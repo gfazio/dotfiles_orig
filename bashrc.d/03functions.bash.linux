@@ -207,6 +207,7 @@ cfg-ranger() { $EDITOR ~/.config/ranger/rc.conf ;}
 cfg-ssh-client() { sudo $EDITOR /etc/ssh/ssh_config ;}
 cfg-ssh-daemon() { sudo $EDITOR /etc/ssh/sshd_config ;}
 cfg-sudoers() { sudo $EDITOR /etc/sudoers ;}
+cfg-termite() { $EDITOR ~/.config/termite/config ;}
 cfg-tmuxrc() { $EDITOR ~/.tmux.conf ;}
 cfg-tpb() { $EDITOR $HOME/bin/scripts/torrshellscripts-master/thepiratebay_se/tpb.sh ;}
 cfg-transmission-daemon() { $EDITOR ~/.config/transmission-daemon/settings.json ;}

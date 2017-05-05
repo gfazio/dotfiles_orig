@@ -42,9 +42,11 @@ Plugin 'honza/vim-snippets'
 Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'jnurmine/Zenburn'
 Plugin 'julienr/vim-cellmode'
-Plugin 'junegunn/seoul256.vim'
-Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plugin 'junegunn/goyo.vim'
 Plugin 'junegunn/fzf.vim'
+Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plugin 'junegunn/limelight.vim'
+Plugin 'junegunn/seoul256.vim'
 Plugin 'KabbAmine/zeavim.vim'
 Plugin 'kien/ctrlp.vim'
 Plugin 'majutsushi/tagbar'
@@ -73,8 +75,10 @@ Plugin 'vim-scripts/indentpython.vim'
 Plugin 'vim-scripts/pydoc.vim'
 Plugin 'vim-scripts/vim-R-plugin'
 Plugin 'vimwiki/vimwiki'
+Plugin 'whatyouhide/vim-gotham'
 Plugin 'wincent/command-t'
 Plugin 'WolfgangMehner/vim-plugins'
+Plugin 'xuhdev/vim-latex-live-preview'
 "
 " All Plugins must be added before the following line
 "
@@ -118,6 +122,7 @@ filetype on
             set background=dark
 	    set t_Co=256
             colorscheme wombat256i 
+            "colorscheme gotham
 
     endif
 
@@ -131,7 +136,7 @@ filetype on
 syntax on
 
 let mapleader=","
-let maplocalleader=" "
+let maplocalleader=","
 
 set autoindent "set autoindenting for programming
 set autoread
@@ -191,7 +196,7 @@ nnoremap <leader>] :tabnext<CR>
 nnoremap <Esc> :nohlsearch <CR><Esc>
 
 "cd to current working directory
-nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
+nnoremap <leader>cwd :cd %:p:h<CR>:pwd<CR>
 
 " edit vimrc file
 nnoremap <leader>v :edit $MYVIMRC<CR>
@@ -478,6 +483,34 @@ nnoremap <F7> :TagbarToggle<CR>
 "
 " =================================
 "
+" Goyo Settings ---- {{{
+"
+function! s:goyo_enter()
+silent !tmux set status off
+silent !tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z
+set noshowmode
+set noshowcmd
+set scrolloff=999
+Limelight
+endfunction
+
+function! s:goyo_leave()
+silent !tmux set status on
+silent !tmux list-panes -F '\#F' | grep -q Z && tmux
+resize-pane -Z
+set showmode
+set showcmd
+set scrolloff=5
+Limelight!
+endfunction
+
+autocmd! User GoyoEnter nested call <SID>goyo_enter()
+autocmd! User GoyoLeave nested call <SID>goyo_leave()
+"
+" }}}
+"
+" =================================
+"
 "Some Python settings:------------------- {{{
 
 augroup filetype_py
@@ -602,18 +635,27 @@ augroup END
 "
 " Latex Settings ----- {{{ 
 "
+augroup filetype_tex
+	autocmd!
+	autocmd FileType tex setlocal iskeyword+=: 
 " IMPORTANT: grep will sometimes skip displaying the file name if you
 " search in a singe file. This will confuse Latex-Suite. Set your grep
 " program to always generate a file-name.
 
-set grepprg=grep\ -nH\ $*
+	set grepprg=grep\ -nH\ $*
 
 " OPTIONAL: Starting with Vim 7, the filetype of empty .tex files 
 " defaults to 'plaintex' instead of 'tex', which results in vim-latex 
 " not being loaded. The following changes the default filetype back 
 " to 'tex':
 
-let g:tex_flavor='latex'
+	let g:tex_flavor='latex'
+"
+"To use live preview we set the viewer.
+
+	let g:livepreview_previewer = 'mupdf'
+
+augroup END
 "
 " }}}
 "

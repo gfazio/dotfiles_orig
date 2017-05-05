@@ -1,0 +1,52 @@
+# Copyright 2012 Cirrus Minor. All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without modification, are
+# permitted provided that the following conditions are met:
+#
+#    1. Redistributions of source code must retain the above copyright notice, this list of
+#       conditions and the following disclaimer.
+#    2. Redistributions in binary form must reproduce the above copyright notice, this list
+#	      of conditions and the following disclaimer in the documentation and/or other materials
+#        provided with the distribution.
+#
+# THIS SOFTWARE IS PROVIDED BY ARCHEYDEVIL ''AS IS'' AND ANY EXPRESS OR IMPLIED
+#	WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
+# FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL ARCHEYDEVIL OR
+# CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+# CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+# SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+# ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+# NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+# ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+#
+# The views and conclusions contained in the software and documentation are those of the
+# authors and should not be interpreted as representing official policies, either expressed
+# or implied, of Cirrus Minor.
+
+################
+## .tmux.conf ##
+bind / command-prompt -p "man: " "split-window 'exec man %%'"
+
+# generalized startup stuff
+set -g default-command zsh
+set -g default-terminal screen-256color
+#setw -g aggressive-resize on
+#setw -g monitor-activity on
+set -g automatic-rename on
+#set-window-option -g utf8 
+set -g set-remain-on-exit on
+set -g visual-activity on
+set -u set-remain-on-exit on
+# mouse
+set -g mouse-select-pane on
+set -g mouse-resize-pane on
+set -g mouse-select-window on
+
+# Statusbar properties
+set -g display-time 3000
+set -g status-bg default
+set -g status-fg cyan
+set -g window-status-current-fg yellow
+
+#set-option set-titles on
+set -s escape-time 0

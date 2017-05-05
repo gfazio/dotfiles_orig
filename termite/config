@@ -1,0 +1,324 @@
+[options]
+scroll_on_output = false
+scroll_on_keystroke = true
+audible_bell = false
+mouse_autohide = false
+allow_bold = true
+dynamic_title = true
+urgent_on_bell = true
+clickable_url = true
+font = Monospace 9
+scrollback_lines = 10000
+search_wrap = true
+#icon_name = terminal
+geometry = 960x720
+
+# "system", "on" or "off"
+cursor_blink = system
+
+# "block", "underline" or "ibeam"
+cursor_shape = block
+
+# $BROWSER is used by default if set, with xdg-open as a fallback
+browser = qutebrowser
+
+# set size hints for the window
+#size_hints = false
+
+# Hide links that are no longer valid in url select overlay mode
+filter_unmatched_urls = true
+
+# emit escape sequences for extra modified keys
+#modify_other_keys = false
+
+[colors]
+##cursor = #dcdccc
+##foreground = #dcdccc
+##foreground = #c5c8c6
+#foreground_bold = #ffffff
+#background = #3f3f3f
+
+## 20% background transparency (requires a compositor)
+#background = rgba(63, 63, 63, 0.8)
+
+## if unset, will reverse foreground and background
+#highlight = #2f2f2f
+##highlight = #d6d6d6
+
+## colors from color0 to color254 can be set
+##color0 = #3f3f3f
+##color1 = #705050
+##color2 = #60b48a
+##color3 = #dfaf8f
+##color4 = #506070
+##color5 = #dc8cc3
+##color6 = #8cd0d3
+##color7 = #dcdccc
+##color8 = #709080
+##color9 = #dca3a3
+##color10 = #c3bf9f
+##color11 = #f0dfaf
+##color12 = #94bff3
+##color13 = #ec93d3
+##color14 = #93e0e3
+##color15 = #ffffff
+
+#color0 = #1d1f21 #Black
+#color8 = #969896
+#color1 = #8B0000 #Red
+#color9 = #cc6666
+#color2 = #778900 #Blue
+#color10 = #00ff00
+#color3 = #daa520 #Yellow
+#color11 = #ffd700
+#color4 = #000080 #Blue
+#color12 = #008080
+#color5 = #8B008B #Magenta
+#color13 = #880000
+#color6 = #3b9c9c #Cyan
+#color14 = #4ee2ec
+#color14 = #4B0082
+#color7 = #929593 #Gray
+#color15 = #ecebec
+
+## special
+##foreground      = #a8a19f
+##foreground      = #00FF00
+#foreground      = #b58900
+##foreground      = #d6d6d6
+#foreground_bold = #a8a19f
+#cursor          = #a8a19f
+##background      = #1b1918
+#background = rgba(15, 17, 18, .8)
+
+## black
+#color0  = #1b1918
+#color8  = #766e6b
+
+## red
+#color1  = #f22c40
+#color9  = #f22c40
+
+## green
+#color2  = #5ab738
+#color10 = #5ab738
+
+## yellow
+#color3  = #d5911a
+#color11 = #d5911a
+
+## blue
+#color4  = #407ee7
+#color12 = #407ee7
+
+## magenta
+#color5  = #6666ea
+#color13 = #6666ea
+
+## cyan
+#color6  = #00ad9c
+#color14 = #00ad9c
+
+## white
+#color7  = #a8a19f
+#color15 = #f1efee
+
+###############################
+#[colors]    # Mat Wall https://www.mattwall.co.uk/2015/01/31/Improving-my-terminal-emulator.html
+
+## special
+#foreground      = #c0b18b
+#foreground_bold = #c0b18b
+#cursor          = #c0b18b
+##background      = #1f1f1f
+#background = rgba(31 ,31, 31, 0.85)
+
+## black
+#color0  = #4a3637
+#color8  = #4a3637
+
+## red 
+#color1  = #d17b49
+#color9  = #d17b49
+
+## green
+#color2  = #7b8748
+#color10 = #7b8748
+
+## yellow
+#color3  = #af865a
+#color11 = #af865a
+
+## blue
+#color4  = #535c5c
+#color12 = #535c5c
+
+## magenta
+#color5  = #775759
+#color13 = #775759
+
+## cyan
+#color6  = #6d715e
+#color14 = #6d715e
+
+## white
+#color7  = #c0b18b
+#color15 = #c0b18b
+################################
+## Molokai theme      https://gist.github.com/farseerfc/5772210
+
+#[colors]
+#background = rgba(15, 17, 18, .8)
+##background= #101010
+#foreground= #d0d0d0
+##foreground= #66ff66
+##highlight = #505050
+#cursor = #66ff66
+#color0= #101010
+#color1= #960050
+#color2= #66aa11
+#color3= #c47f2c
+#color4= #30309b
+#color5= #7e40a5
+#color6= #3579a8
+#color7= #9999aa
+#color8= #303030
+#color9= #ff0090
+#color10= #80ff00
+#color11= #ffba68
+#color12= #5f5fee
+#color13= #bb88dd
+#color14= #4eb4fa
+#color15= #d0d0d0
+#################################
+#### Twighlight (Dark) terminal.sexy
+###[colors]
+#background = rgba(15, 17, 18, .8)
+##background = rgba(31 ,31, 31, 0.85)
+
+### special
+#foreground      = #a7a7a7
+#foreground_bold = #a7a7a7
+#cursor          = #a7a7a7
+##background      = #1e1e1e
+
+## black
+#color0  = #1e1e1e
+#color8  = #5f5a60
+
+## red
+#color1  = #cf6a4c
+#color9  = #cf6a4c
+
+## green
+#color2  = #8f9d6a
+#color10 = #8f9d6a
+
+## yellow
+#color3  = #f9ee98
+#color11 = #f9ee98
+
+## blue
+#color4  = #7587a6
+#color12 = #7587a6
+
+## magenta
+#color5  = #9b859d
+#color13 = #9b859d
+
+## cyan
+#color6  = #afc4db
+#color14 = #afc4db
+
+## white
+#color7  = #a7a7a7
+#color15 = #ffffff
+
+###############################
+## Gotham color scheme
+
+#[colors]
+
+#foreground      = #98d1ce
+#foreground_bold = #98d1ce
+#cursor          = #98d1ce
+#background      = #0a0f14
+
+#color0  = #0a0f14
+#color8  = #10151b
+
+#color1  = #c33027
+#color9  = #d26939
+
+#color2  = #26a98b
+#color10 = #081f2d
+
+#color3  = #edb54b
+#color11 = #245361
+
+#color4  = #195465
+#color12 = #093748
+
+#color5  = #4e5165
+#color13 = #888ba5
+
+#color6  = #33859d
+#color14 = #599caa
+
+#color7  = #98d1ce
+#color15 = #d3ebe9
+###############################
+## Atelierdune.dark color scheme (terminal.sexy)
+[colors]
+
+# special
+foreground      = #a6a28c
+foreground_bold = #a6a28c
+cursor          = #a6a28c
+#background      = #20201d
+background = rgba(15, 17, 18, .8)
+
+# black
+color0  = #20201d
+color8  = #7d7a68
+
+# red
+color1  = #d73737
+color9  = #d73737
+
+# green
+color2  = #60ac39
+color10 = #60ac39
+
+# yellow
+color3  = #cfb017
+color11 = #cfb017
+
+# blue
+color4  = #6684e1
+color12 = #6684e1
+
+# magenta
+color5  = #b854d4
+color13 = #b854d4
+
+# cyan
+color6  = #1fad83
+color14 = #1fad83
+
+# white
+color7  = #a6a28c
+color15 = #fefbec
+
+###############################
+
+[hints]
+#font = Monospace 12
+#foreground = #dcdccc
+#background = #3f3f3f
+#active_foreground = #e68080
+#active_background = #3f3f3f
+#border_width = 0.5
+#roundness = 2.0
+
+# vim: ft=dosini cms=#%s
