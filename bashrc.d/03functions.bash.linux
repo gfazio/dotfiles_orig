@@ -92,7 +92,10 @@ prompt_bash() {
 #--- macfanctld--- {{{
 #
 macf(){
-   sudo /usr/sbin/macfanctld }
+   sudo /usr/sbin/macfanctld; 
+   sudo /usr/sbin/thermald;
+   sudo systemctl start tlp; 
+   sudo tlp start ; }
 # --- }}}
 ############################################################
 #--- compile neomutt--- {{{
@@ -255,6 +258,8 @@ bbcr4x(){/home/vgg/bin/get_iplayer --stream --type=liveradio "BBC Radio 4 Extra"
 bbcr5(){/home/vgg/bin/get_iplayer --stream --type=liveradio "BBC Radio 5 live" --player="/usr/bin/mplayer -"&}
 bbcr5x(){/home/vgg/bin/get_iplayer --stream --type=liveradio "BBC 5 live Sports Extra" --player="/usr/bin/mplayer -"&}
 
+ewtn(){mpv http://ewtn.mpl.miisolutions.net:1935/ewtn-live-1/smil:dome.smil/playlist.m3u8 &}
+
 # }}}
 ###########################################################
 #------- Novacom {{{
@@ -275,7 +280,7 @@ tmx0() {
          tmux send-keys 'sasinit' 'Enter' ; 
          tmux new-window -n 'AstroPy-Dev' -c $ASTRO ; 
          tmux send-keys 'clear' 'Enter' ; 
-         tmux send-keys 'source activate astropy_dev' 'Enter' ; 
+         tmux send-keys 'source activate astropy_dev-py35' 'Enter' ; 
          tmux new-window -n 'webOS' -c $COMP ; 
          tmux send-keys 'clear' 'Enter' ; 
          tmux new-window -n 'Email' -c $HOME ;  
@@ -284,7 +289,7 @@ tmx0() {
          tmux send-keys 'newsbeuter' 'Enter' ;
          tmux select-pane -t 1 ;
          tmux new-window -n 'Torr' -c $HOME ; 
-         tmux send-keys 'source activate transmission' 'Enter' ; 
+         tmux send-keys 'source activate transmission-py27' 'Enter' ; 
          tmux send-keys 'tsm-daemon' 'Enter' ; 
          tmux send-keys 'tsm-ncurse' 'Enter' ; 
          tmux split-window -h -p 40 -t 1  ; 
@@ -479,7 +484,7 @@ calibre-server -p 57772 --daemonize --with-library "$CMX_MAGS"
 }
 cmx-bkv(){
 	if [  $# -lt 2 ]; then
-       echo -e "launch ebook-viewer with particular from a library" 
+       echo -e "launch ebook-viewer with a particular book from a library" 
        echo -e "\nUsage:\n$0 <library> <id>" 
        echo -e "\nExample:\n$0 \$cbcomic 16"
        return 1
@@ -636,6 +641,13 @@ SimpleHTTPserver() {
         python3 -m http.server "${1:-8000}"
     fi
 }
+#}}}
+###########################################################
+#-------- Bluetooth Headset {{{
+bt-up() { sudo systemctl start bluetooth; }
+bt-dn() { sudo systemctl stop bluetooth; }
+betron-on() { echo -e 'power on\n connect AD:CD:EE:FE:01:C0\n exit' | bluetoothctl ;}
+betron-off() { echo -e 'disconnect AD:CD:EE:FE:01:C0\n exit' | bluetoothctl ;}
 #}}}
 ###########################################################
 

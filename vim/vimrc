@@ -38,6 +38,7 @@ Plugin 'ervandew/ag'
 Plugin 'ervandew/screen'
 Plugin 'ervandew/supertab'
 Plugin 'flazz/vim-colorschemes'
+Plugin 'fidian/hexmode'
 Plugin 'honza/vim-snippets'
 Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'jnurmine/Zenburn'
@@ -71,6 +72,7 @@ Plugin 'Valloric/YouCompleteMe'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'vim-latex/vim-latex'
+Plugin 'vim-scripts/hexman.vim'
 Plugin 'vim-scripts/indentpython.vim'
 Plugin 'vim-scripts/pydoc.vim'
 Plugin 'vim-scripts/vim-R-plugin'
@@ -136,7 +138,7 @@ filetype on
 syntax on
 
 let mapleader=","
-let maplocalleader=","
+let maplocalleader=",,"
 
 set autoindent "set autoindenting for programming
 set autoread
@@ -483,6 +485,17 @@ nnoremap <F7> :TagbarToggle<CR>
 "
 " =================================
 "
+" Binary File Settings ---- {{{
+"
+" Hex read
+nmap <Leader>hr :%!xxd<CR> :set filetype=xxd<CR>
+" Hex write
+nmap <Leader>hw :%!xxd -r<CR> :set binary<CR> :set filetype=xxd<CR>
+"
+" }}}
+"
+" =================================
+"
 " Goyo Settings ---- {{{
 "
 function! s:goyo_enter()
@@ -593,7 +606,7 @@ autocmd FileType python map <LocalLeader>L  :call g:ScreenShellSend('!clear')<CR
 "
 " Using tslime2 to send python code to ipython
 " press vip to select current paragraph then press <C-c><C-c> and this sends
-" the code to ipthon. This also works sending current line and any selected text
+" the code to ipython. This also works sending current line and any selected text
 "
 " cellmode 
 "
@@ -603,6 +616,18 @@ let g:cellmode_tmux_panenumber=2
 "
 " Vimux
 "
+"
+""##
+""print("Hello, this is vim-cellmode in action")
+""##
+""import numpy as np
+""b=np.zeros(50,50)
+""print(b)
+""##
+""import pylab as pl
+""pl.plot(0,1)
+""##
+
 
 function! VimuxSlime()
     call VimuxSendText(@v)
@@ -610,10 +635,11 @@ function! VimuxSlime()
 endfunction
 
 "If text is selected  save it in the v buffer and send that buffer to tmux
-"vmap <LocalLeader>k \"vy :call VimuxSlime()<CR>
+vmap <LocalLeader>k \"vy :call VimuxSlime()<CR>
 
 "Select current paragraph and send that it to tmux
-"nmap <LocalLeader>x vip<LocalLeader>vs<CR>
+nmap <LocalLeader>x vip<LocalLeader>vs<CR>
+
 " Execute py tests
 "
 nnoremap <silent><leader>ptf <Esc>:Pytest file<CR>

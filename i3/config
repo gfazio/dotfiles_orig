@@ -360,7 +360,8 @@ bindsym $mod+F4 mode "$mode_system"
 #####################################################
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec --no-startup-id dmenu_run
+#bindsym $mod+d exec --no-startup-id dmenu_run
+bindsym $mod+d exec --no-startup-id j4-dmenu-desktop --dmenu="dmenu -i -fn 'DejaVu Sans-10' -l 20"
 
 # start rofi (alternative program launcher)
 bindsym $mod+Ctrl+space exec --no-startup-id $HOME/bin/scripts/rofi-scripts-collection/rofi-bangs.sh -font "System San Francisco Display 12"  
@@ -376,6 +377,7 @@ bindsym $mod+Ctrl+Return exec --no-startup-id guake
 
 bindsym $mod+e exec --no-startup-id $term -e "mutt -F ~/.muttrc"
 bindsym $mod+r exec --no-startup-id $term -e ranger
+bindsym $mod+Shift+b exec --no-startup-id /usr/bin/nm-applet
 bindsym $mod+Shift+w exec --no-startup-id /usr/local/bin/eclipse/eclipse 
 bindsym $mod+Shift+f exec --no-startup-id /usr/bin/firefox -no-remote -P default
 bindsym $mod+Shift+y exec --no-startup-id /usr/bin/firefox -no-remote -P Youtube
@@ -407,30 +409,28 @@ assign [class="^Gimp$"] $workspace9
 #####################################################
 # Set the background
 exec --no-startup-id feh --bg-scale /home/vgg/.config/wall.png 
-#exec --no-startup-id feh --bg-scale /home/vgg/Pictures/MeteorM31_hemmerich_960.jpg
-#exec --no-startup-id feh --bg-scale /home/vgg/Pictures/space-wallpaper-7-610x343.jpg 
 
 #
 #start  mpd so that ncmpcpp can access it when launched
 #
-exec --no-startup-id i3-msg ' exec --no-startup-id /usr/bin/mpd /home/vgg/.mpd/mpd.conf' 
+exec --no-startup-id i3-msg 'exec --no-startup-id /usr/bin/mpd /home/vgg/.mpd/mpd.conf' 
 
 # 
 # start the network applet
 #
-exec --no-startup-id /usr/bin/nm-applet
+#exec --no-startup-id /usr/bin/nm-applet
 # 
 # start the bluetooth applet
 #
 #exec --no-startup-id /usr/bin/blueman-applet
-#
+
 #start window effects
 #
 exec compton -f
 #
 # start up some applications in their respective workspaces
 #
-exec --no-startup-id i3-msg 'workspace $workspace5  ;  exec --no-startup-id /usr/bin/firefox  -no-remote -P default'
+#exec --no-startup-id i3-msg 'workspace $workspace5  ;  exec --no-startup-id /usr/bin/firefox  -no-remote -P default'
 exec --no-startup-id i3-msg 'workspace $workspace10  ;  exec --no-startup-id /usr/bin/termite; workspace $workspace5'
 
 # }}}

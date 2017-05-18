@@ -10,9 +10,10 @@
 #
 ###########################################################
 
-export VMD="/MacOSX-Data"
+export VMD1="/MacOSX-Data1"
 export VMD2="/MacOSX-Data2"
 export VMD3="/MacOSX-Data3"
+export VMD4="/MacOSX-Data4"
 
 export XDG_CONFIG_HOME="${HOME}/.config"
 export EDITOR="vim"
@@ -26,7 +27,7 @@ find_alt() { for i;do which "$i" >/dev/null && { echo "$i"; return 0;};done;retu
 # set the default program
 # the first program in the array will be chosen as the default
 export OPENER=$(find_alt xdg-open exo-open gnome-open )
-export BROWSER=$(find_alt qutebrowser firefox $OPENER )
+export BROWSER=$(find_alt /home/vgg/anaconda3/bin/qutebrowser firefox $OPENER )
 export BROWSERCLI=$(find_alt w3m links lynx $OPENER )
 export COMICER=$(find_alt mcomix comix $OPENER )
 export EBOOKER=$(find_alt ebook-viewer $OPENER )
@@ -50,6 +51,13 @@ export IMAGEVIEWER=$(find_alt w3mimg feh ristretto display eog $OPENER )
 #
 ###########################################################
 export BASE_DIR="$HOME" 
+export U4_DIR="/user4" 
+export ASTRO="${U4_DIR}/Astro"
+export ASTROM="${VMD1}/Astro"
+export ASTROMSW="${ASTROM}/sw"
+export ASTROPY="${ASTROMSW}/AstroPy"
+export ASTROX="${ASTRO}/X-Ray"
+export ASTROMX="${ASTROM}/X-Ray"
 
 export PATH="${BASE_DIR}/anaconda3/bin:$PATH:${PATH}:${BASE_DIR}/bin:${BASE_DIR}/bin/scripts:${BASE_DIR}/bin/scripts/rofi-scripts-collection:/opt/local/bin:/usr/local/bin:/usr/bin/:/bin:/usr/local/sbin/:/usr/x86_64-suse-linux/bin:/usr/local/bin/eclipse:/opt/Palm/novacom/:/opt/PalmPDK/bin/:/opt/PalmSDK/Current/bin:${ASTRO}:${ASTROX}:${ASTROX}/ds9:${ASTROX}/XPA:${ASTROX}/wcstools-3.9.2/bin:${ASTROX}/nxsa-cl-aioclient-8.4:${BASE_DIR}/bin/geckodriver/target/release"
 
@@ -84,12 +92,6 @@ export HEADAS_VRSN="heasoft-6.20"
 export HEADAS_ARCH="x86_64-unknown-linux-gnu-libc2.22"
 export SAS_VRSN="xmmsas_20170112_1337"
 
-export ASTRO="${BASE_DIR}/Astro"
-export ASTROM="${VMD}/Astro"
-export ASTROMSW="${ASTROM}/sw"
-export ASTROPY="${ASTROMSW}/AstroPy"
-export ASTROX="${ASTRO}/X-Ray"
-export ASTROMX="${ASTROM}/X-Ray"
 export AWD="${ASTROX}/WorkingDir"
 export HEADAS="${ASTROX}/${HEADAS_VRSN}/${HEADAS_ARCH}"
 export SASDIR="${ASTROX}/XMM-SAS/SAS/${SAS_VRSN}"

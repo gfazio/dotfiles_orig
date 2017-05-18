@@ -246,18 +246,18 @@ bind-key C-f new-window -n fm -c $HOME \; \
 
 # torrent
 bind-key C-t new-window -n torr -c $HOME \; \
-	send-keys 'source activate transmission' 'Enter' \; \
+	send-keys 'source activate transmission-py27' 'Enter' \; \
 	send-keys 'tsm-daemon' 'Enter' \; \
 	send-keys 'tsm-ncurse' 'Enter' \; \
 	split-window -h -p 40 -t 1  \; \
 	send-keys 'clear' 'Enter' \; \
 	split-window -v -p 50 -t 1  \; \
 	send-keys 'mpsyt user hak5' 'Enter' \; \
+	select-pane -t 2
 	#send-keys 'mpsyt user FunkerTactical' 'Enter' \; \
 	#send-keys 'mpsyt user UCiIVDn5bUGZUJc_15qJPjUw' 'Enter' \; \
 	#send-keys 'mpsyt user UCi8e0iOVk1fEOogdfu4YgfA' 'Enter' \; \
 	# send-keys 'clear && figlet -c Movie Trailers && youtube-viewer -C -f -4 --results=6 -u UCi8e0iOVk1fEOogdfu4YgfA' 'Enter' \; \
-	select-pane -t 1
 
 # chat
 bind-key C-c new-window -n chat -c $HOME \; \
@@ -273,10 +273,6 @@ bind-key v new-window -n NCMPCPP -c $HOME \; \
 # stats
 bind-key C-y new-window -n stats -c $HOME \; \
 	send-keys 'htop' 'Enter' \; \
-	split-window -v -p 50 -t 1  \; \
-	send-keys 'clear && figlet Freespace' 'Enter' \; \
-	split-window -h -p 50 -t 1  \; \
-	send-keys 't lsp | less' 'Enter' \; \
 	split-window -h -p 50 -t 2  \; \
 	send-keys 'df' 'Enter' \; \
 	select-pane -t 2
