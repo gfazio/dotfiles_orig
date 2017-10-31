@@ -27,6 +27,21 @@ ip_show(){
 # --- }}}
 ###########################################################
 # ----------- VPNs {{{
+# create a new vpn connection and import an .ovpn file 
+#
+#
+#
+vpn-import(){
+#for FILE1 in ~/AirVPN-OVPN/*.ovpn ; do FILE2=`basename -s .ovpn $FILE1` ; nm-import-openvpn $FILE1 $FILE2; done
+	  FILE1="$1"
+          FILE2=`basename -s .ovpn $FILE1` ;
+	  nm-import-openvpn $FILE1 $FILE2 ; 
+	  sudo cp $FILE2 /etc/NetworkManager/system-connections/ ;
+	  sudo chmod 600 /etc/NetworkManager/system-connections/$FILE2  ;
+	  sudo nmcli con load /etc/NetworkManager/system-connections/$FILE2 ;
+}
+#
+#
 vpn_am-up(){
    nmcli con up id AirVPN_America_UDP-443 }
 vpn_am-dn(){
@@ -119,6 +134,14 @@ zsh_hist_fix(){
    }
 
 # --- }}}
+############################################################
+#--- KeepassX command line interface --- {{{
+#
+kpcli(){
+   perl /home/opensuse/vgg/bin/kpcli/kpcli.pl --kdb $HOME/Documents/20151120.kdbx
+   }
+
+# --- }}}
 ###########################################################
 #-------- Transmission CLI {{{
 # this is notes for video: http://www.youtube.com/watch?v=ee4XzWuapsE
@@ -161,6 +184,7 @@ tsm-ncurse() { transmission-remote-cli ;}
 #-------- Firefox profile{{{
 firefox_J() { /usr/bin/firefox -no-remote -P Jupyter > /dev/null 2>&1 &  }
 firefox_Y() { /usr/bin/firefox -no-remote -P Youtube &  }
+firefox_T() { /usr/bin/firefox -no-remote -P Torrent &  }
 # --- }}}
 ############################################################
 #-------- DVD playback{{{
@@ -241,24 +265,106 @@ rld-zshrc() { source ~/.zshrc ;}
 ###########################################################
 #------- IPlayer {{{
 
-get_iplayer-list(){ clear ; for FILE in `cat ToDownloadList`; do URI=$FILE; echo "Downloading $URI"; /home/vgg/bin/get_iplayer  --modes=flashhigh,hlshigh --url $URI; done}
-bbccbbc(){/home/vgg/bin/get_iplayer --stream --type=livetv "CBBC" --player="/usr/bin/mplayer -"&}
-bbccbbs(){/home/vgg/bin/get_iplayer --stream --type=livetv "CBeebies" --player="/usr/bin/mplayer -"&}
-bbcn(){/home/vgg/bin/get_iplayer --stream --type=livetv "BBC News" --player="/usr/bin/mplayer -"&}
-bbc1(){/home/vgg/bin/get_iplayer --stream --type=livetv "BBC One" --player="/usr/bin/mplayer -"&}
-bbc2(){/home/vgg/bin/get_iplayer --stream --type=livetv "BBC Two" --player="/usr/bin/mplayer -"&}
-bbc3(){/home/vgg/bin/get_iplayer --stream --type=livetv "BBC Three" --player="/usr/bin/mplayer -"&}
-bbc4(){/home/vgg/bin/get_iplayer --stream --type=livetv "BBC Four" --player="/usr/bin/mplayer -"&}
-bbcr1x(){/home/vgg/bin/get_iplayer --stream --type=liveradio "BBC 1xtra" --player="/usr/bin/mplayer -"&}
-bbcr1(){/home/vgg/bin/get_iplayer --stream --type=liveradio "BBC Radio 1" --player="/usr/bin/mplayer -"&}
-bbcr2(){/home/vgg/bin/get_iplayer --stream --type=liveradio "BBC Radio 2" --player="/usr/bin/mplayer -"&}
-bbcr3(){/home/vgg/bin/get_iplayer --stream --type=liveradio "BBC Radio 3" --player="/usr/bin/mplayer -"&}
-bbcr4(){/home/vgg/bin/get_iplayer --stream --type=liveradio "BBC Radio 4 FM" --player="/usr/bin/mplayer -"&}
-bbcr4x(){/home/vgg/bin/get_iplayer --stream --type=liveradio "BBC Radio 4 Extra" --player="/usr/bin/mplayer -"&}
-bbcr5(){/home/vgg/bin/get_iplayer --stream --type=liveradio "BBC Radio 5 live" --player="/usr/bin/mplayer -"&}
-bbcr5x(){/home/vgg/bin/get_iplayer --stream --type=liveradio "BBC 5 live Sports Extra" --player="/usr/bin/mplayer -"&}
+get_iplayer-list(){ clear ; for FILE in `cat ToDownloadList`; do URI=$FILE; echo "Downloading $URI"; /home/opensuse/vgg/bin/get_iplayer  --modes=flashhigh,hlshigh --url $URI; done}
+tvlist(){ clear;
+         
+echo "bbc1"
+echo "bbc2"
+echo "bbc3"
+echo "bbc4"
+echo "bbcn"
+echo "bbccbbc"
+echo "bbccbbs"
+echo "itv"
+echo "itv+1"
+echo "itv2"
+echo "itv2+1"
+echo "itv4"
+echo "itv4+1"
+echo "ch4"
+echo "ch4+1"
+echo "e4"
+echo "film4"
+echo "film4+1"
+echo "more4"
+echo "more4+1"
+echo "ch5"
+echo "ch5+1"
+echo "5star"
+echo "5star+1"
+echo "5usa"
+echo "5usa+1"
+echo "spike"
 
-ewtn(){mpv http://ewtn.mpl.miisolutions.net:1935/ewtn-live-1/smil:dome.smil/playlist.m3u8 &}
+echo "rai1"
+echo "rai2"
+echo "rai3"
+echo "rai4"
+echo "rai5"
+echo "rai-prem"
+echo "rai-movie"
+echo "rai-sport2"
+echo "rai-n24"
+echo "padrepio"
+
+echo "ewtn"
+}
+
+bbc1(){/home/opensuse/vgg/bin/get_iplayer --stream --type=livetv "BBC One" --player="/usr/bin/mplayer -" &> /dev/null &}
+bbc2(){/home/opensuse/vgg/bin/get_iplayer --stream --type=livetv "BBC Two" --player="/usr/bin/mplayer -" &> /dev/null &}
+bbc3(){/home/opensuse/vgg/bin/get_iplayer --stream --type=livetv "BBC Three" --player="/usr/bin/mplayer -" &> /dev/null &}
+bbc4(){/home/opensuse/vgg/bin/get_iplayer --stream --type=livetv "BBC Four" --player="/usr/bin/mplayer -" &> /dev/null &}
+bbcn(){/home/opensuse/vgg/bin/get_iplayer --stream --type=livetv "BBC News" --player="/usr/bin/mplayer -" &> /dev/null &}
+bbccbbc(){/home/opensuse/vgg/bin/get_iplayer --stream --type=livetv "CBBC" --player="/usr/bin/mplayer -" &> /dev/null &}
+bbccbbs(){/home/opensuse/vgg/bin/get_iplayer --stream --type=livetv "CBeebies" --player="/usr/bin/mplayer -" &> /dev/null &}
+
+bbcr1x(){/home/opensuse/vgg/bin/get_iplayer --stream --type=liveradio "BBC 1xtra" --player="/usr/bin/mplayer -" &> /dev/null &}
+bbcr1(){/home/opensuse/vgg/bin/get_iplayer --stream --type=liveradio "BBC Radio 1" --player="/usr/bin/mplayer -" &> /dev/null &}
+bbcr2(){/home/opensuse/vgg/bin/get_iplayer --stream --type=liveradio "BBC Radio 2" --player="/usr/bin/mplayer -" &> /dev/null &}
+bbcr3(){/home/opensuse/vgg/bin/get_iplayer --stream --type=liveradio "BBC Radio 3" --player="/usr/bin/mplayer -" &> /dev/null &}
+bbcr4(){/home/opensuse/vgg/bin/get_iplayer --stream --type=liveradio "BBC Radio 4 FM" --player="/usr/bin/mplayer -" &> /dev/null &}
+bbcr4x(){/home/opensuse/vgg/bin/get_iplayer --stream --type=liveradio "BBC Radio 4 Extra" --player="/usr/bin/mplayer -" &> /dev/null &}
+bbcr5(){/home/opensuse/vgg/bin/get_iplayer --stream --type=liveradio "BBC Radio 5 live" --player="/usr/bin/mplayer -" &> /dev/null &}
+bbcr5x(){/home/opensuse/vgg/bin/get_iplayer --stream --type=liveradio "BBC 5 live Sports Extra" --player="/usr/bin/mplayer -" &> /dev/null &}
+
+itv(){mpv http://46.249.60.210:15099/play/a00j &> /dev/null & }
+itv_plus1(){mpv http://46.249.60.210:15099/play/a00l &> /dev/null & }
+itv2(){mpv http://46.249.60.210:15099/play/a00o &> /dev/null & }
+itv2_plus1(){mpv http://46.249.60.210:15099/play/a01j &> /dev/null & }
+itv4(){mpv http://46.249.60.210:15099/play/a00p &> /dev/null & }
+itv4_plus1(){mpv http://46.249.60.210:15099/play/a00r &> /dev/null & }
+
+ch4(){mpv http://195.189.203.18:8080/play/a01b &> /dev/null & }
+ch4_plus1(){mpv http://195.189.203.18:8080/play/a01e &> /dev/null & }
+e4(){mpv http://46.249.60.210:15099/play/a00h &> /dev/null & }
+film4(){mpv http://195.189.203.18:8080/play/a01c &> /dev/null & }
+film4_plus1(){mpv http://195.189.203.18:8080/play/a01d &> /dev/null & }
+more4(){mpv http://46.249.60.210:15099/play/a00f &> /dev/null & }
+more4_plus1(){mpv http://195.189.203.18:8080/play/a01g &> /dev/null & }
+
+ch5(){mpv http://46.249.60.210:15099/play/a01n &> /dev/null & }
+ch5_plus1(){mpv http://46.249.60.210:15099/play/a01t &> /dev/null & }
+5star(){mpv http://46.249.60.210:15099/play/a01q &> /dev/null & }
+5star_plus1(){mpv http://46.249.60.210:15099/play/a01s &> /dev/null & }
+5usa(){mpv http://46.249.60.210:15099/play/a01o &> /dev/null & }
+5usa_plus1(){mpv http://46.249.60.210:15099/play/a01p &> /dev/null & }
+
+spike(){mpv http://46.249.60.210:15099/play/a01u &> /dev/null & }
+
+rai1(){mpv http://144.2.100.111:8000/play/a00a &> /dev/null & }
+rai2(){mpv http://144.2.100.111:8000/play/a00b &> /dev/null & }
+rai3(){mpv http://144.2.100.111:8000/play/a00c &> /dev/null & }
+rai4(){mpv http://144.2.100.111:8000/play/a00d &> /dev/null &}
+rai5(){mpv http://144.2.100.111:8000/play/a00e &> /dev/null & }
+rai-prem(){mpv http://144.2.100.111:8000/play/a008 &> /dev/null &}
+rai-movie(){mpv http://144.2.100.111:8000/play/a009 &> /dev/null & }
+rai-sport2(){mpv http://144.2.100.111:8000/play/a007 &> /dev/null & }
+rai-n24(){mpv http://5.255.90.175:3001/play/a006 &> /dev/null & }
+padrepio(){mpv http://5.255.90.175:3000/play/a05l &> /dev/null & }
+
+ewtn(){mpv http://ewtnmmd.mmdlive.lldns.net/ewtnmmd/42a5a390e56f40d7a5ae90ccd36ce775/playlist.m3u8 &> /dev/null &}
+#ewtn(){mpv http://ewtn.mpl.miisolutions.net:1935/ewtn-live-1/smil:dome.smil/playlist.m3u8 &> /dev/null &}
+#ewtn(){mpv "http://bogtvhdlive-f.akamaihd.net/main_1_400@79148?v=2.9.4&fp=WIN%2016,0,0,257&r=DIQLE&g=YMULUMYIOWWK" &> /dev/null & }
 
 # }}}
 ###########################################################
@@ -2786,12 +2892,12 @@ wikimd()     { $EDITOR ~/vimwiki/index.md ;}
 ## tutorial video: http://www.youtube.com/watch?v=u1dQ81HT4AU
 ## https://github.com/gotbletu/shownotes/blob/master/rtmpdump_sniff_your_own_tutorial.txt
 ## http://pclosmag.com/html/Issues/201104/page19.html
-#sniff-begin() { sudo iptables -t nat -A OUTPUT -p tcp --dport 1935 -m owner \! --uid-owner root -j REDIRECT ;}
-#sniff-capture-rtmpsrv() { rtmpsrv ;}
-#sniff-capture-rtmpsuck() { rtmpsuck ;}
-#sniff-end() { sudo iptables -t nat -D OUTPUT -p tcp --dport 1935 -m owner \! --uid-owner root -j REDIRECT ;}
-#tsniff-begin() { sudo tcpdump -ieth0 -nn -A | grep -e"rtmp" -e"connect" -e"play" > /tmp/tcpoutput.txt ;}
-#tsniff-less() { less /tmp/tcpoutput.txt ;}
+sniff-begin() { sudo iptables -t nat -A OUTPUT -p tcp --dport 1935 -m owner \! --uid-owner root -j REDIRECT ;}
+sniff-capture-rtmpsrv() { rtmpsrv ;}
+sniff-capture-rtmpsuck() { rtmpsuck ;}
+sniff-end() { sudo iptables -t nat -D OUTPUT -p tcp --dport 1935 -m owner \! --uid-owner root -j REDIRECT ;}
+tsniff-begin() { sudo tcpdump -ieth0 -nn -A | grep -e"rtmp" -e"connect" -e"play" > /tmp/tcpoutput.txt ;}
+tsniff-less() { less /tmp/tcpoutput.txt ;}
 ##}}}
 ###########################################################
 #

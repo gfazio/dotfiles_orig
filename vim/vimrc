@@ -34,11 +34,11 @@ Plugin 'cburroughs/pep8.py'
 Plugin 'chriskempson/tomorrow-theme'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'davidhalter/jedi-vim'
-Plugin 'ervandew/ag'
+Plugin 'dbeniamine/vim-mail'
+"Plugin 'ervandew/ag'
 Plugin 'ervandew/screen'
 Plugin 'ervandew/supertab'
 Plugin 'flazz/vim-colorschemes'
-Plugin 'fidian/hexmode'
 Plugin 'honza/vim-snippets'
 Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'jnurmine/Zenburn'
@@ -51,9 +51,11 @@ Plugin 'junegunn/seoul256.vim'
 Plugin 'KabbAmine/zeavim.vim'
 Plugin 'kien/ctrlp.vim'
 Plugin 'majutsushi/tagbar'
+Plugin 'mileszs/ack.vim'
 Plugin 'nelstrom/vim-markdown-preview'
 Plugin 'nvie/vim-flake8'
 Plugin 'pangloss/vim-javascript'
+Plugin 'PotatoesMaster/i3-vim-syntax'
 Plugin 'Raimondi/delimitMate'
 Plugin 'rkulla/pydiction'
 Plugin 'scrooloose/nerdtree'
@@ -72,9 +74,9 @@ Plugin 'Valloric/YouCompleteMe'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'vim-latex/vim-latex'
-Plugin 'vim-scripts/hexman.vim'
 Plugin 'vim-scripts/indentpython.vim'
 Plugin 'vim-scripts/pydoc.vim'
+Plugin 'vim-scripts/taglist.vim'
 Plugin 'vim-scripts/vim-R-plugin'
 Plugin 'vimwiki/vimwiki'
 Plugin 'whatyouhide/vim-gotham'
@@ -251,8 +253,7 @@ map <silent><Leader><S-p> :set paste<CR>O<Esc>"*]p:set nopaste<CR>"
 " Ranger File Browser in Vim  ----- {{{
 " http://www.everythingcli.org/use-ranger-as-a-file-explorer-in-vim/
 function! g:RangerExplorer()
-   exec "silent !ranger --choosefile=/tmp/vim_ranger_current_file " .
-   expand("%:p:h")
+   exec "silent !ranger --choosefile=/tmp/vim_ranger_current_file " . expand("%:p:h")
    if filereadable('/tmp/vim_ranger_current_file')
       exec 'edit ' . system('cat /tmp/vim_ranger_current_file')
       call system('rm /tmp/vim_ranger_current_file')
@@ -407,7 +408,16 @@ inoremap <expr> <PageUp>  pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
 let g:SuperTabDefaultCompletionType="context"
 
 "YouCompleteMe
+let g:ycm_confirm_extra_conf=0				"load ycm conf by default
+let g:ycm_global_ycm_extra_conf = "$HOME/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py"
+let g:ycm_complete_in_comments=1			"turn on completion in comments
+let g:ycm_collect_identifiers_from_tags_file=1		"turn on tag completion
+let g:ycm_min_num_of_chars_for_completion=1		"start completion from first character
+let g:ycm_cache_omnifunc=0				"dont cache completion items
+let g:ycm_seed_identifiers_with_syntax=1		"complete syntax keywords
 let g:ycm_autoclose_preview_window_after_completion=1
+"let g:ycm_key_list_select_completion=[]			"Dont use tab completion to cycle - leave this for UltiSnips 
+"let g:ycm_key_list_previous_completion=[]
 noremap <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 "
@@ -427,7 +437,7 @@ set completeopt=menuone,menu,longest,preview
 " Taglist variables
 "
 set tags+=./tags;/    
-set tags+=/home/vgg/Computing/Sandbox/tags    
+set tags+=$HOME/Computing/Sandbox/tags    
 "
 "can verify taglist is correct via 
 ": set verbose tags?" command
@@ -577,7 +587,7 @@ let g:jedi#goto_definitions_command = "<LocalLeader>GG"
 let g:jedi#documentation_command = "K"
 let g:jedi#usages_command = "<LocalLeader>n"
 let g:jedi#completions_command = "<C-Space>"
-let g:jedi#rename_command = "<LocalLeader>r"
+let g:jedi#rename_command = "<LocalLeader>R"
 let g:jedi#show_call_signatures  = 2
 "
 "

@@ -11,6 +11,12 @@
 
 [xdg mime](xdg-mime)
 
+[conky](conky)
+
+[Networking](Networking)
+
+
+
 
 
 

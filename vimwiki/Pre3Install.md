@@ -1,7 +1,7 @@
 
 # List of Programs/Apps to install on Pre3 #
 
-ipk backup Archive directory is at /home/vgg/macosxd/Computing/Palm/webos/BACKUPS/ipk-backups
+ipk backup Archive directory is at /home/opensuse/vgg/macosxd1/Computing/Palm/webos/BACKUPS/ipk-backups
 
 ## Home Screens ##
 

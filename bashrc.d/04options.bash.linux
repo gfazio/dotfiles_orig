@@ -43,11 +43,11 @@ echo
 ### Startup messages
 df -hl | grep 'sda14' | awk '{print "/home        :"$4"/"$2" free ("$5" used)"}'
 df -hl | grep 'sda13' | awk '{print "/            :"$4"/"$2" free ("$5" used)"}'
+df -hl | grep 'sda9'  | awk '{print "/user4       :"$4"/"$2" free ("$5" used)"}'
 df -hl | grep 'sda2'  | awk '{print "MacOSX-HD    :"$4"/"$2" free ("$5" used)"}'
 df -hl | grep 'sda4'  | awk '{print "MacOSX-Data1 :"$4"/"$2" free ("$5" used)"}'
 df -hl | grep 'sda11' | awk '{print "MacOSX-Data2 :"$4"/"$2" free ("$5" used)"}'
 df -hl | grep 'sda10' | awk '{print "MacOSX-Data3 :"$4"/"$2" free ("$5" used)"}'
-df -hl | grep 'sda9'  | awk '{print "MacOSX-Data4 :"$4"/"$2" free ("$5" used)"}'
 echo 
 w
 prompt_bash

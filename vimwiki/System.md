@@ -1,19 +1,21 @@
 ## System ##
 
-    Sounds & Ringtones
-    Screen & Lock
-    Accounts
-    Preferences
-    Location Services
-    Regional Settings
-    Clock Sync
-    Bluetooth
-    File Explorer
-    Wifi TP File Browser
-    Wifi
-    wIRC
-    wIRC
-    ScanCode
+   |----------------------|-----------------------------------------------|
+   | App Name             | ipk                                           |
+   |----------------------|-----------------------------------------------|
+   | Sounds & Ringtones   | -                                             |
+   | Screen & Lock        | -                                             |
+   | Accounts             | -                                             |
+   | Preferences          | -                                             |
+   | Location Services    | -                                             |
+   | Regional Settings    | -                                             |
+   | Clock Sync           | de.content754.clocksync_1.3.0_all.ipk         |
+   | Bluetooth            | -                                             |
+   | File Explorer        | de.pcworldsoftware.fileexpl_1.1.1_all.ipk     |
+   | Wifi TP File Browser | com.prenewbie.wifitpbrowser_0.1.5_all.ipk     |
+   | Wifi                 | -                                             |
+   | wIRC                 | org.webosinternals.catalog.wirc_0.4.6_all.ipk |
+   | ScanCode             | de.omoco.scancode_1.0.0_all.ipk               |
     Nerd Tools
     PreVPNc
     FreeTether Cleaner

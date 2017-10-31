@@ -79,7 +79,7 @@ set $mod Mod4
 floating_modifier $mod
 
 set $term termite
-set $browser /home/vgg/anaconda3/bin/qutebrowser
+set $browser $HOME/anaconda3/bin/qutebrowser
 #####################################################
 #
 # =================================
@@ -297,7 +297,7 @@ bar {
 }	
 #bar {
 	#font pango: System San Francisco Display, FontAwesome 10 
-	#status_command ~/.i3/bar/bumblebee-status -m battery nic sensors datetime amixer -p disk.path=/home/vgg datetime.format="%a, %b %d, %Y at %I:%M %p" nic.exclude="lo,virbr,docker,vboxnet,veth,eth1,vmnet1,vmnet8" -t solarized-powerline
+	#status_command ~/.i3/bar/bumblebee-status -m battery nic sensors datetime amixer -p disk.path=$HOME datetime.format="%a, %b %d, %Y at %I:%M %p" nic.exclude="lo,virbr,docker,vboxnet,veth,eth1,vmnet1,vmnet8" -t solarized-powerline
 	#position bottom
 
 	#colors {
@@ -330,7 +330,7 @@ bindsym $mod+F1 exec --no-startup-id xbacklight -dec 5
 bindsym $mod+F2 exec --no-startup-id xbacklight -inc 5 
 
 # Screen Lock/ Logout / Suspend / Reboot
-set $Locker ". /home/vgg/.i3/scripts/lock.sh $HOME/Pictures/Icons/lock.png" 
+set $Locker ". $HOME/.i3/scripts/lock.sh $HOME/Pictures/Icons/lock.png" 
 set $LockerSuspend "i3lock && sleep 1"
 
 set $mode_system System (l) lock, (e) logout, (s) suspend, (r) reboot, (Shift+s) shutdown
@@ -383,12 +383,12 @@ bindsym $mod+Shift+f exec --no-startup-id /usr/bin/firefox -no-remote -P default
 bindsym $mod+Shift+y exec --no-startup-id /usr/bin/firefox -no-remote -P Youtube
 bindsym $mod+Shift+i exec --no-startup-id /usr/bin/firefox -no-remote -P Jupyter
 bindsym $mod+Shift+t exec --no-startup-id /usr/bin/firefox -private-window -no-remote -P Torrent
-bindsym $mod+Shift+n exec --no-startup-id /usr/bin/firefox -private-window -no-remote -P Citrix
+bindsym $mod+Shift+n exec --no-startup-id /usr/bin/nm-applet
 bindsym $mod+w exec --no-startup-id $browser
 bindsym $mod+m exec --no-startup-id /usr/bin/mplayer 
 bindsym $mod+Shift+m exec --no-startup-id /usr/bin/mpv
 bindsym $mod+Shift+v exec --no-startup-id /usr/bin/vlc 
-bindsym $mod+grave exec --no-startup-id /home/vgg/bin/scripts/any_term_dropdown.sh
+bindsym $mod+grave exec --no-startup-id $term -e ncmpcpp
 
 # Assign Development IDE's to workspace 7
 assign [class="^Eclipse$"] $workspace7
@@ -408,17 +408,17 @@ assign [class="^Gimp$"] $workspace9
 #
 #####################################################
 # Set the background
-exec --no-startup-id feh --bg-scale /home/vgg/.config/wall.png 
+exec --no-startup-id feh --bg-scale $HOME/.config/wall.png 
 
 #
 #start  mpd so that ncmpcpp can access it when launched
 #
-exec --no-startup-id i3-msg 'exec --no-startup-id /usr/bin/mpd /home/vgg/.mpd/mpd.conf' 
+exec --no-startup-id i3-msg 'exec --no-startup-id /usr/bin/mpd $HOME/.mpd/mpd.conf' 
 
 # 
 # start the network applet
 #
-#exec --no-startup-id /usr/bin/nm-applet
+exec --no-startup-id /usr/bin/nm-applet
 # 
 # start the bluetooth applet
 #
@@ -431,7 +431,7 @@ exec compton -f
 # start up some applications in their respective workspaces
 #
 #exec --no-startup-id i3-msg 'workspace $workspace5  ;  exec --no-startup-id /usr/bin/firefox  -no-remote -P default'
-exec --no-startup-id i3-msg 'workspace $workspace10  ;  exec --no-startup-id /usr/bin/termite; workspace $workspace5'
+exec --no-startup-id i3-msg 'workspace $workspace10 ; exec --no-startup-id /usr/bin/termite -e tmux: ; workspace $workspace1;  exec --no-startup-id /usr/bin/termite; workspace $workspace2 ; exec --no-startup-id /usr/bin/termite -e ranger'
 
 # }}}
 #
@@ -467,7 +467,7 @@ exec --no-startup-id i3-msg 'workspace $workspace10  ;  exec --no-startup-id /us
 # $mod+z 		split v, layout stacking
 # $mod+space 		focus mode_toggle
 # $mod+Return 		exec --no-startup-id 
-# $mod+grave 		exec --no-startup-id /home/vgg/bin/scripts/any_term_dropdown.sh
+# $mod+grave 		exec --no-startup-id $HOME/bin/scripts/any_term_dropdown.sh
 # $mod+F11 		exec --no-startup-id amixer set Master 5%-
 # $mod+F12 		exec  --no-startup-id amixer set Master 5%+
 # $mod+F1 		exec --no-startup-id xbacklight -dec 5 
@@ -492,7 +492,7 @@ exec --no-startup-id i3-msg 'workspace $workspace10  ;  exec --no-startup-id /us
 # $mod+Shift+k 		move up
 # $mod+Shift+l 		move right
 # $mod+Shift+m 		exec --no-startup-id /usr/bin/mpv
-# $mod+Shift+n 		exec --no-startup-id /usr/bin/firefox -private-window -no-remote -P Citrix
+# $mod+Shift+n          exec --no-startup-id /usr/bin/nm-applet
 # $mod+Shift+q 		kill
 # $mod+Shift+r 		restart
 # $mod+Shift+t 		exec --no-startup-id /usr/bin/firefox -private-window -no-remote -P Torrent 
@@ -541,23 +541,23 @@ exec --no-startup-id i3-msg 'workspace $workspace10  ;  exec --no-startup-id /us
 #
 #####################################################
 
-#exec --no-startup-id i3-msg 'workspace $workspace2; append_layout /home/vgg/.i3/ws_2-generic.json; exec gnome-terminal --role="vim"; exec gnome-terminal --role="zypper"; exec gnome-terminal --role="mc" -e mc ; exec terminator --role="ncmpcpp" -e ncmpcpp; workspace $workspace1' 
-#exec --no-startup-id i3-msg 'workspace $workspace2; append_layout /home/vgg/.i3/ws_2-generic-t.json; exec --no-startup-id gnome-terminal --role="vim"; exec --no-startup-id gnome-terminal --role="zypper"; exec --no-startup-id terminator --role="ranger" -T "RANGER" -b -e ranger ; exec --no-startup-id terminator --role="ncmpcpp" -e tmux -T "NCMPCPP" -b ; workspace $workspace1' 
-#exec --no-startup-id i3-msg ' exec --no-startup-id /usr/bin/mpd /home/vgg/.mpd/mpd.conf; workspace $workspace2; append_layout /home/vgg/.i3/ws_2-generic-t.json; exec --no-startup-id gnome-terminal --role="vim"; exec --no-startup-id gnome-terminal --role="zypper"; exec --no-startup-id terminator --role="vifm" -T "VIFM" -b -e vifm ; exec --no-startup-id terminator --role="ncmpcpp" --layout="NCMPCPP" -T "NCMPCPP" -b ; workspace $workspace1' 
-#exec --no-startup-id i3-msg ' exec --no-startup-id /usr/bin/mpd /home/vgg/.mpd/mpd.conf; workspace $workspace2; append_layout /home/vgg/.i3/ws_2-generic-t.json; exec --no-startup-id terminator --role="vim"; exec --no-startup-id terminator --role="zypper"; exec --no-startup-id terminator --role="vifm" -T "VIFM" -b -e vifm ; exec --no-startup-id terminator --role="ncmpcpp" --layout="NCMPCPP" -T "NCMPCPP" -b ; workspace $workspace1' 
+#exec --no-startup-id i3-msg 'workspace $workspace2; append_layout $HOME/.i3/ws_2-generic.json; exec gnome-terminal --role="vim"; exec gnome-terminal --role="zypper"; exec gnome-terminal --role="mc" -e mc ; exec terminator --role="ncmpcpp" -e ncmpcpp; workspace $workspace1' 
+#exec --no-startup-id i3-msg 'workspace $workspace2; append_layout $HOME/.i3/ws_2-generic-t.json; exec --no-startup-id gnome-terminal --role="vim"; exec --no-startup-id gnome-terminal --role="zypper"; exec --no-startup-id terminator --role="ranger" -T "RANGER" -b -e ranger ; exec --no-startup-id terminator --role="ncmpcpp" -e tmux -T "NCMPCPP" -b ; workspace $workspace1' 
+#exec --no-startup-id i3-msg ' exec --no-startup-id /usr/bin/mpd $HOME/.mpd/mpd.conf; workspace $workspace2; append_layout $HOME/.i3/ws_2-generic-t.json; exec --no-startup-id gnome-terminal --role="vim"; exec --no-startup-id gnome-terminal --role="zypper"; exec --no-startup-id terminator --role="vifm" -T "VIFM" -b -e vifm ; exec --no-startup-id terminator --role="ncmpcpp" --layout="NCMPCPP" -T "NCMPCPP" -b ; workspace $workspace1' 
+#exec --no-startup-id i3-msg ' exec --no-startup-id /usr/bin/mpd $HOME/.mpd/mpd.conf; workspace $workspace2; append_layout $HOME/.i3/ws_2-generic-t.json; exec --no-startup-id terminator --role="vim"; exec --no-startup-id terminator --role="zypper"; exec --no-startup-id terminator --role="vifm" -T "VIFM" -b -e vifm ; exec --no-startup-id terminator --role="ncmpcpp" --layout="NCMPCPP" -T "NCMPCPP" -b ; workspace $workspace1' 
 #
 # Refresh layouts if one of the windows is killed
 #
 
-#bindsym $mod+Shift+x exec --no-startup-id workspace $2; focus parent; focus parent; focus parent; focus parent; focus parent; kill; append_layout /home/vgg/.i3/ws_2-generic-t.json; exec --no-startup-id gnome-terminal --role="vim"; exec --no-startup-id gnome-terminal --role="zypper"; exec --no-startup-id terminator --role="ranger" -T "RANGER" -b -e ranger ; exec --no-startup-id terminator --role="ncmpcpp" --layout="NCMPCPP" -T "NCMPCPP" -b 
+#bindsym $mod+Shift+x exec --no-startup-id workspace $2; focus parent; focus parent; focus parent; focus parent; focus parent; kill; append_layout $HOME/.i3/ws_2-generic-t.json; exec --no-startup-id gnome-terminal --role="vim"; exec --no-startup-id gnome-terminal --role="zypper"; exec --no-startup-id terminator --role="ranger" -T "RANGER" -b -e ranger ; exec --no-startup-id terminator --role="ncmpcpp" --layout="NCMPCPP" -T "NCMPCPP" -b 
 
-#bindsym $mod+Shift+x exec --no-startup-id workspace $workspace2; append_layout /home/vgg/.i3/ws_2-generic-t.json; exec --no-startup-id gnome-terminal --role="vim"; exec --no-startup-id gnome-terminal --role="zypper"; exec --no-startup-id terminator --role="vifm" -T "VIFM" -b -e vifm ; exec --no-startup-id terminator --role="ncmpcpp" --layout="NCMPCPP" -T "NCMPCPP" -b ; workspace $workspace1' 
+#bindsym $mod+Shift+x exec --no-startup-id workspace $workspace2; append_layout $HOME/.i3/ws_2-generic-t.json; exec --no-startup-id gnome-terminal --role="vim"; exec --no-startup-id gnome-terminal --role="zypper"; exec --no-startup-id terminator --role="vifm" -T "VIFM" -b -e vifm ; exec --no-startup-id terminator --role="ncmpcpp" --layout="NCMPCPP" -T "NCMPCPP" -b ; workspace $workspace1' 
 
-#bindsym $mod+Shift+x exec --no-startup-id workspace $workspace2; append_layout /home/vgg/.i3/ws_2-generic-t.json; exec --no-startup-id terminator --role="vim"; exec --no-startup-id terminator --role="zypper"; exec --no-startup-id terminator --role="vifm" -T "VIFM" -b -e vifm ; exec --no-startup-id terminator --role="ncmpcpp" --layout="NCMPCPP" -T "NCMPCPP" -b ; workspace $workspace1' 
+#bindsym $mod+Shift+x exec --no-startup-id workspace $workspace2; append_layout $HOME/.i3/ws_2-generic-t.json; exec --no-startup-id terminator --role="vim"; exec --no-startup-id terminator --role="zypper"; exec --no-startup-id terminator --role="vifm" -T "VIFM" -b -e vifm ; exec --no-startup-id terminator --role="ncmpcpp" --layout="NCMPCPP" -T "NCMPCPP" -b ; workspace $workspace1' 
 
-#bindsym $mod+Shift+x exec --no-startup-id workspace $2; focus parent; focus parent; focus parent; focus parent; focus parent; kill; append_layout /home/vgg/.i3/ws_2-generic.json; exec gnome-terminal --role="vim"; exec gnome-terminal --role="zypper"; exec gnome-terminal --role="mc" -e mc ; exec terminator --role="ncmpcpp" -e tmux
+#bindsym $mod+Shift+x exec --no-startup-id workspace $2; focus parent; focus parent; focus parent; focus parent; focus parent; kill; append_layout $HOME/.i3/ws_2-generic.json; exec gnome-terminal --role="vim"; exec gnome-terminal --role="zypper"; exec gnome-terminal --role="mc" -e mc ; exec terminator --role="ncmpcpp" -e tmux
 
-#bindsym $mod+Shift+x exec --no-startup-id workspace $2; focus parent; focus parent; focus parent; focus parent; focus parent; kill; append_layout /home/vgg/.i3/ws_2-generic.json; exec gnome-terminal --role="vim"; exec gnome-terminal --role="zypper"; exec gnome-terminal --role="mc" -e mc ; exec terminator --role="ncmpcpp" -e ncmpcpp
+#bindsym $mod+Shift+x exec --no-startup-id workspace $2; focus parent; focus parent; focus parent; focus parent; focus parent; kill; append_layout $HOME/.i3/ws_2-generic.json; exec gnome-terminal --role="vim"; exec gnome-terminal --role="zypper"; exec gnome-terminal --role="mc" -e mc ; exec terminator --role="ncmpcpp" -e ncmpcpp
 
 #####################################################
 #
@@ -569,3 +569,4 @@ exec --no-startup-id i3-msg 'workspace $workspace10  ;  exec --no-startup-id /us
 # 
 #
 #####################################################
+# vim:filetype=i3

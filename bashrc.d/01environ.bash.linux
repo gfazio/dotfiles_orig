@@ -27,15 +27,15 @@ find_alt() { for i;do which "$i" >/dev/null && { echo "$i"; return 0;};done;retu
 # set the default program
 # the first program in the array will be chosen as the default
 export OPENER=$(find_alt xdg-open exo-open gnome-open )
-export BROWSER=$(find_alt /home/vgg/anaconda3/bin/qutebrowser firefox $OPENER )
+export BROWSER=$(find_alt /home/opensuse/vgg/anaconda3/bin/qutebrowser firefox $OPENER )
 export BROWSERCLI=$(find_alt w3m links lynx $OPENER )
 export COMICER=$(find_alt mcomix comix $OPENER )
 export EBOOKER=$(find_alt ebook-viewer $OPENER )
 export EDITOR=$(find_alt vim emacs nano leafpad gedit $OPENER )
 export FILEMANAGER=$(find_alt ranger vifm thunar mc $OPENER )
-export MUSICER=$(find_alt mplayer mpv ncmpcmpp cvlc $OPENER )
+export MUSICER=$(find_alt mpv mplayer ncmpcmpp cvlc $OPENER )
 export PAGER=$(find_alt less more )
-export PLAYER=$(find_alt mplayer mpv cvlc $OPENER )
+export PLAYER=$(find_alt mpv mplayer cvlc $OPENER )
 export READER=$(find_alt mupdf okular evince $OPENER )
 export ROOTER=$(find_alt gksudo kdesudo )
 export IMAGEVIEWER=$(find_alt w3mimg feh ristretto display eog $OPENER )

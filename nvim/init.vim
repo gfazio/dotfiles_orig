@@ -380,7 +380,7 @@ set completeopt=menuone,menu,longest,preview
 " Taglist variables
 "
 set tags+=./tags;/    
-set tags+=/home/vgg/Computing/Sandbox/tags    
+set tags+=$HOME/Computing/Sandbox/tags    
 "
 "can verify taglist is correct via 
 ": set verbose tags?" command

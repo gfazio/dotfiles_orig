@@ -1,6 +1,10 @@
 ## WebOS ##
 
-    App Catalog
-    WebOSdev2010
-    Preware
+   |--------------|---------------------------------------------|
+   | App Name     | ipk                                         |
+   |--------------|---------------------------------------------|
+   | App Catalog  | -                                           |
+   | WebOSdev2010 | com.domianofblah.webosdev2010_1.0.1_all.ipk |
+   | Preware      | org.webosinternals.preware_1.9.14_arm.ipk   |
+   |--------------|---------------------------------------------|
 
